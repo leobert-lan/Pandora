@@ -1,0 +1,54 @@
+apply plugin: 'com.android.library'
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
+
+
+
+def MAVEN_LOCAL_PATH = uri('../../local_repo')
+def ARTIFACT_ID = 'pandora'
+def VERSION_NAME = '0.0.1'
+def GROUP_ID = 'osp.leobert.android'
+
+ext {
+    bintrayName = ARTIFACT_ID
+    artifact = ARTIFACT_ID
+    libraryName = ARTIFACT_ID
+    libraryDescription = 'pandora'
+    libraryVersion = VERSION_NAME
+    licenseName = 'MIT'
+    licenseUrl = 'https://github.com/leobert-lan/Pandora/blob/2b2f7dfe709f49ada3def69e2d68046eae65b7d5/LICENSE'
+    allLicenses = ["MIT"]
+}
+
+android {
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.androidTools
+
+    defaultConfig {
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation deps.support.v7.appcompat
+    implementation deps.support.v7.recyclerView
+    testImplementation deps.junit
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
+
+apply from:'../bintray_upload.gradle'

@@ -1,27 +1,102 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
-    
+    ext.versions = [
+            'minSdk'        : 14,
+            'targetSdk'     : 21,
+            'compileSdk'    : 27,
+            'kotlin'        : '1.2.30',
+            'supportLibrary': '27.0.2',
+            'androidPlugin' : '3.0.1',
+            'androidTools'  : '27.0.3',
+    ]
+
+    ext.deps = [
+            //plugins
+            android  : [
+                    'gradlePlugin': "com.android.tools.build:gradle:${versions.androidPlugin}",
+            ],
+
+            //google support
+            'support': [
+                    'compat'     : "com.android.support:support-compat:${versions.supportLibrary}",
+                    'design'     : "com.android.support:design:${versions.supportLibrary}",
+                    'v7'         : [
+                            'appcompat'   : "com.android.support:appcompat-v7:${versions.supportLibrary}",
+                            'recyclerView': "com.android.support:recyclerview-v7:${versions.supportLibrary}",
+                            'cardView'    : "com.android.support:cardview-v7:${versions.supportLibrary}",
+
+                    ],
+                    'v4'         : [
+                            'support_v4': "com.android.support:support-v4:${versions.supportLibrary}"
+                    ],
+                    'annotations': "com.android.support:support-annotations:${versions.supportLibrary}",
+
+                    'multidex'   : "com.android.support:multidex:1.0.1",
+                    'test'       : [
+                            'runner': 'com.android.support.test:runner:1.0.1',
+                            'rule'  : 'com.android.support.test:rules:1.0.1'
+                    ],
+            ],
+
+            //lint
+            'lint'   : [
+                    'core'  : "com.android.tools.lint:lint:${versions.androidTools}",
+                    'api'   : "com.android.tools.lint:lint-api:${versions.androidTools}",
+                    'checks': "com.android.tools.lint:lint-checks:${versions.androidTools}",
+                    'tests' : "com.android.tools.lint:lint-tests:${versions.androidTools}",
+            ],
+
+            'junit'  : 'junit:junit:4.12',
+            'guava'  : 'com.google.guava:guava:23.0',
+            'kotlin' : "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}",
+
+            publish  : [
+                    'jcenter': 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.2',
+                    'maven'  : 'com.github.dcendents:android-maven-gradle-plugin:1.5',
+            ],
+
+            gson     : 'com.google.code.gson:gson:2.8.2',
+
+            report : [
+                    'anno' : 'osp.leobert.android:ReportNotation:1.0.0',
+                    'compiler':'osp.leobert.android:report-anno-compiler:1.0.0'
+            ]
+    ]
+
+
+
     repositories {
-        google()
         jcenter()
+        maven { url "https://jitpack.io" }
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+        maven {
+            url 'https://dl.bintray.com/leobert-lan-oss/maven/'
+        }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.4'
-        
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath deps.android.gradlePlugin
+        classpath deps.publish.jcenter
+        classpath deps.publish.maven
+        classpath deps.kotlin
     }
 }
 
 allprojects {
     repositories {
-        google()
         jcenter()
+        maven {
+            url 'https://dl.bintray.com/leobert-lan-oss/maven/'
+        }
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+        maven {
+            url uri('../local_repo')
+            name 'local-repo'
+        }
     }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
 }
