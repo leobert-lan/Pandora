@@ -11,7 +11,7 @@ import java.util.List;
  * <p><b>Package:</b> osp.leobert.android.pandora </p>
  * <p><b>Project:</b> Pandora </p>
  * <p><b>Classname:</b> WrapperDataSet </p>
- * <p><b>Description:</b> TODO </p>
+ * <p><b>Description:</b> a wrapper contains any PandoraBoxAdapter </p>
  * Created by leobert on 2018/9/29.
  */
 public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {

@@ -10,7 +10,7 @@ import java.util.List;
  * <p><b>Package:</b> osp.leobert.android.pandora </p>
  * <p><b>Project:</b> Pandora </p>
  * <p><b>Classname:</b> RealDataSet </p>
- * <p><b>Description:</b> TODO </p>
+ * <p><b>Description:</b> one impl of PandoraBoxAdapter, using ArrayList to store data </p>
  * Created by leobert on 2018/9/29.
  */
 public class RealDataSet<T> extends PandoraBoxAdapter<T> {
@@ -99,9 +99,10 @@ public class RealDataSet<T> extends PandoraBoxAdapter<T> {
     }
 
     private boolean isParentInTransaction() {
-        if (parent != null)
-            return parent.inTransaction();
-        return false;
+//        if (parent != null)
+//            return parent.inTransaction();
+//        return false;
+        return parent != null && parent.inTransaction();
     }
 
     @Override
