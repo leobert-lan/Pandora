@@ -18,15 +18,41 @@ import osp.leobert.android.pandorasample.nds.DateVhMappingPool;
  * Created by leobert on 2018/10/10.
  */
 public abstract class DataSet {
-    public interface Data<D extends Data, V extends AbsViewHolder<? super D>> {
-        void setToViewHolder(V viewHolder);
+
+    public interface D<DATA, VH extends AbsViewHolder<? super DATA>> {
+        void setToViewHolder(VH viewHolder);
     }
+
+    public interface Data<DA extends D, V extends AbsViewHolder<? super DA>> extends D<DA, V> {
+
+    }
+
+//    private interface Type1VO extends D1<D1, AbsViewHolder<DataSet.D1>> {
+//        String getData();
+//    }
+//
+//    class A implements Type1VO {
+//
+//        @Override
+//        public String getData() {
+//            return null;
+//        }
+//
+//        @Override
+//        public void setToViewHolder(AbsViewHolder<D1> viewHolder) {
+//            viewHolder.setData(this);
+//        }
+//    }
+//
+//    public interface Data<D extends Data, V extends AbsViewHolder<? super D>>  {
+//        void setToViewHolder(V viewHolder);
+//    }
 
     private final DateVhMappingPool dateVhMappingPool = new DateVhMappingPool();
 
     public abstract int getCount();
 
-    public abstract DataSet.Data getItem(int position);
+    public abstract DataSet.D getItem(int position);
 
     private final List<WeakReference<DataObserver>> observersRef
             = new ArrayList<>();
@@ -54,13 +80,13 @@ public abstract class DataSet {
 
     public int getItemViewTypeV2(int pos) { //getItemViewType
         String key = getItem(pos).getClass().getName();
-        DataSet.Data data = getItem(pos);
+        DataSet.D  data = getItem(pos);
 
-        return dateVhMappingPool.getItemViewTypeV2(key,data);
+        return dateVhMappingPool.getItemViewTypeV2(key, data);
     }
 
     public AbsViewHolder createViewHolderV2(ViewGroup parent, int viewType) {
-        return dateVhMappingPool.createViewHolderV2(parent,viewType);
+        return dateVhMappingPool.createViewHolderV2(parent, viewType);
     }
 
     protected int getViewTypeCount() {
@@ -68,7 +94,7 @@ public abstract class DataSet {
     }
 
     public synchronized void registerDVRelation(@NonNull Class<?> dataClz, @NonNull ViewHolderCreator viewHolderCreator) {
-        dateVhMappingPool.registerDVRelation(dataClz,viewHolderCreator);
+        dateVhMappingPool.registerDVRelation(dataClz, viewHolderCreator);
     }
 
     public synchronized void registerDvRelation(DateVhMappingPool.DVRelation... dvRelations) {

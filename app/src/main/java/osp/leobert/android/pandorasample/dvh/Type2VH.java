@@ -44,7 +44,7 @@ public class Type2VH extends FooVH<Type2VO> {
         @Override
         public AbsViewHolder createViewHolder(ViewGroup parent) {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.app_vh_type2, null);
+                    .inflate(R.layout.app_vh_type2, null,false);
             return new Type2VH(view, itemInteract);
         }
     }

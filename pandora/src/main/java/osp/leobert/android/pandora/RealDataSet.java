@@ -1,5 +1,6 @@
 package osp.leobert.android.pandora;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
 import android.util.Pair;
@@ -34,7 +35,7 @@ public class RealDataSet<T> extends PandoraBoxAdapter<T> {
 
         @Override
         public int getNewListSize() {
-            return getOldListSize();
+            return data.size();
         }
 
         @Override
@@ -139,7 +140,7 @@ public class RealDataSet<T> extends PandoraBoxAdapter<T> {
         if (temp == null)
             return null;
 
-        return Pair.create(temp,index);
+        return Pair.create(temp, index);
     }
 
     @Override
@@ -169,7 +170,7 @@ public class RealDataSet<T> extends PandoraBoxAdapter<T> {
     @Override
     public void add(int pos, T item) {
         onBeforeChanged();
-        data.add(pos,item);
+        data.add(pos, item);
         onAfterChanged();
     }
 
@@ -217,7 +218,12 @@ public class RealDataSet<T> extends PandoraBoxAdapter<T> {
     }
 
     @Override
-    public void addSub(PandoraBoxAdapter<T> sub) throws IllegalStateException {
+    protected void hasAddToParent(@NonNull PandoraBoxAdapter<T> parent) {
+        this.parent = parent;
+    }
+
+    @Override
+    public void addChild(PandoraBoxAdapter<T> sub) throws IllegalStateException {
         throw new IllegalStateException("simpleDataSet is not allowed to add sub data set");
     }
 
@@ -229,13 +235,13 @@ public class RealDataSet<T> extends PandoraBoxAdapter<T> {
     @Override
     public void removeFromOriginalParent() {
         if (parent != null) {
-            parent.removeSub(this);
+            parent.removeChild(this);
             parent = null;
         }
     }
 
     @Override
-    public void removeSub(PandoraBoxAdapter<T> sub) {
+    public void removeChild(PandoraBoxAdapter<T> sub) {
         throw new IllegalStateException("simpleDataSet is not allowed to add sub data set, so no need to remove");
     }
 
@@ -255,8 +261,9 @@ public class RealDataSet<T> extends PandoraBoxAdapter<T> {
     }
 
     private void calcChangeAndNotify() {
-        DiffUtil.DiffResult result = DiffUtil.calculateDiff(diffCallback);
-        if (listUpdateCallback != null)
+        if (listUpdateCallback != null) {
+            DiffUtil.DiffResult result = DiffUtil.calculateDiff(diffCallback);
             result.dispatchUpdatesTo(listUpdateCallback);
+        }
     }
 }

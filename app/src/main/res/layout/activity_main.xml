@@ -11,8 +11,20 @@
         android:layout_height="wrap_content">
 
         <Button
+            android:id="@+id/b1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="add1" />
+        <Button
+            android:id="@+id/b2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="add2" />
+        <Button
+            android:id="@+id/b3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="add3" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

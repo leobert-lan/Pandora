@@ -16,10 +16,10 @@ import osp.leobert.android.pandorasample.ViewHolderCreator;
  * <p><b>Description:</b> TODO </p>
  * Created by leobert on 2018/10/11.
  */
-public class Type4VH extends FooVH<Type2VO> {
+public class Type4VH extends FooVH<Type4VO> {
     private final ItemInteract mItemInteract;
 
-    private Type2VO mData;
+    private Type4VO mData;
 
 
     public Type4VH(View itemView, ItemInteract mItemInteract) {
@@ -28,7 +28,7 @@ public class Type4VH extends FooVH<Type2VO> {
     }
 
     @Override
-    public void setData(Type2VO data) {
+    public void setData(Type4VO data) {
         mData = data;
         setText(data.getText());
     }
@@ -44,7 +44,7 @@ public class Type4VH extends FooVH<Type2VO> {
         @Override
         public AbsViewHolder createViewHolder(ViewGroup parent) {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.app_vh_type4, null);
+                    .inflate(R.layout.app_vh_type4, null,false);
             return new Type4VH(view, itemInteract);
         }
     }

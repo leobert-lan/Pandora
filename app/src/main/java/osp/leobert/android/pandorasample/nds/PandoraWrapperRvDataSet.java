@@ -10,7 +10,6 @@ import java.util.Collection;
 
 import osp.leobert.android.pandora.PandoraBoxAdapter;
 import osp.leobert.android.pandora.WrapperDataSet;
-import osp.leobert.android.pandorasample.AbsViewHolder;
 import osp.leobert.android.pandorasample.DataSet;
 
 /**
@@ -20,7 +19,7 @@ import osp.leobert.android.pandorasample.DataSet;
  * <p><b>Description:</b> TODO </p>
  * Created by leobert on 2018/10/11.
  */
-public class PandoraWrapperRvDataSet<T extends DataSet.Data<? super T ,? extends AbsViewHolder<? super T>>> extends DataSet {
+public class PandoraWrapperRvDataSet<T extends DataSet.D> extends DataSet {
     @NonNull
     private final WrapperDataSet<T> wrapperDataSet;
 
@@ -41,7 +40,7 @@ public class PandoraWrapperRvDataSet<T extends DataSet.Data<? super T ,? extends
     }
 
     @Override
-    public Data getItem(int position) {
+    public D getItem(int position) {
         return wrapperDataSet.getDataByIndex(position);
     }
 
@@ -57,8 +56,8 @@ public class PandoraWrapperRvDataSet<T extends DataSet.Data<? super T ,? extends
         wrapperDataSet.setGroupIndex(groupIndex);
     }
 
-    public <P extends PandoraBoxAdapter<T>> void  addSub(P sub) {
-        wrapperDataSet.addSub(sub);
+    public void addSub(PandoraBoxAdapter<T> sub) {
+        wrapperDataSet.addChild(sub);
     }
 
     public boolean hasBind2Parent() {
@@ -70,7 +69,7 @@ public class PandoraWrapperRvDataSet<T extends DataSet.Data<? super T ,? extends
     }
 
     public void removeSub(PandoraBoxAdapter<T> sub) {
-        wrapperDataSet.removeSub(sub);
+        wrapperDataSet.removeChild(sub);
     }
 
     @Nullable
@@ -123,10 +122,6 @@ public class PandoraWrapperRvDataSet<T extends DataSet.Data<? super T ,? extends
     @Nullable
     public Pair<PandoraBoxAdapter<T>, Integer> retrieveAdapterByDataIndex2(int index) {
         return wrapperDataSet.retrieveAdapterByDataIndex2(index);
-    }
-
-    public void setListUpdateCallback(ListUpdateCallback listUpdateCallback) {
-        wrapperDataSet.setListUpdateCallback(listUpdateCallback);
     }
 
     public String getAlias() {

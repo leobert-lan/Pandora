@@ -3,7 +3,6 @@ package osp.leobert.android.pandorasample.dvh;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import osp.leobert.android.pandorasample.AbsViewHolder;
 import osp.leobert.android.pandorasample.R;
@@ -17,7 +16,7 @@ import osp.leobert.android.pandorasample.ViewHolderCreator;
  * <p><b>Description:</b> TODO </p>
  * Created by leobert on 2018/10/11.
  */
-public class Type1VH extends AbsViewHolder<Type1VO> {
+public class Type1VH extends FooVH<Type1VO> {
     private final ItemInteract mItemInteract;
 
     private Type1VO mData;
@@ -31,7 +30,7 @@ public class Type1VH extends AbsViewHolder<Type1VO> {
     @Override
     public void setData(Type1VO data) {
         mData = data;
-
+        setText(data.getData());
     }
 
     public static final class Creator extends ViewHolderCreator {
@@ -45,7 +44,7 @@ public class Type1VH extends AbsViewHolder<Type1VO> {
         @Override
         public AbsViewHolder createViewHolder(ViewGroup parent) {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.app_vh_type1, parent);
+                    .inflate(R.layout.app_vh_type1, parent, false);
             return new Type1VH(view, itemInteract);
         }
     }

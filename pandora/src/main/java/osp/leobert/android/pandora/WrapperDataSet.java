@@ -1,6 +1,7 @@
 package osp.leobert.android.pandora;
 
 import android.support.annotation.CheckResult;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
 import android.util.Log;
@@ -32,7 +33,7 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
 
         @Override
         public int getNewListSize() {
-            return getOldListSize();
+            return getDataCount();
         }
 
         @Override
@@ -101,7 +102,12 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
     }
 
     @Override
-    public void addSub(PandoraBoxAdapter<T> sub) {
+    protected void hasAddToParent(@NonNull PandoraBoxAdapter<T> parent) {
+        this.parent = parent;
+    }
+
+    @Override
+    public void addChild(PandoraBoxAdapter<T> sub) {
         if (sub == null)
             return;
 
@@ -114,8 +120,8 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
 
         long count = getDataCount();
         sub.setStartIndex((int) count);
+        sub.hasAddToParent(this);
         subs.add(sub);
-
     }
 
 
@@ -127,13 +133,13 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
     @Override
     public void removeFromOriginalParent() {
         if (parent != null) {
-            parent.removeSub(this);
+            parent.removeChild(this);
             parent = null;
         }
     }
 
     @Override
-    public void removeSub(PandoraBoxAdapter<T> sub) {
+    public void removeChild(PandoraBoxAdapter<T> sub) {
         if (subs.contains(sub)) {
             onBeforeChanged();
             subs.remove(sub);
@@ -154,6 +160,7 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
     @Override
     @Nullable
     public final T getDataByIndex(int index) {
+        log(Log.DEBUG, "getDataByIndex" + index);
         if (startIndex <= index && startIndex + getDataCount() > index) {
             //find the sub
 
@@ -173,15 +180,19 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
 
                 if (index < adapter.getStartIndex()) {
                     end = mid - 1;
-                } else if (index > (adapter.getStartIndex() + adapter.getDataCount())) {
+                } else if (adapter.getDataCount() == 0 || index > (adapter.getStartIndex() + adapter.getDataCount())) {
                     start = mid + 1;
                 } else {
                     targetSub = adapter;
                     break;
                 }
             }
-            if (targetSub == null)
+            if (targetSub == null) {
+                log(Log.ERROR, "getDataByIndex" + index + ";no child find");
                 return null;
+            }
+
+            log(Log.DEBUG, "getDataByIndex" + index + targetSub.getAlias() + " - " + targetSub.toString());
 
             int resolvedIndex = index - targetSub.getStartIndex();
 
@@ -294,9 +305,10 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
     }
 
     private void calcChangeAndNotify() {
-        DiffUtil.DiffResult result = DiffUtil.calculateDiff(diffCallback);
-        if (listUpdateCallback != null)
+        if (listUpdateCallback != null) {
+            DiffUtil.DiffResult result = DiffUtil.calculateDiff(diffCallback);
             result.dispatchUpdatesTo(listUpdateCallback);
+        }
     }
 
     private void rebuildSubNodes() {
@@ -417,7 +429,7 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
 
                 if (index < adapter.getStartIndex()) {
                     end = mid - 1;
-                } else if (index > (adapter.getStartIndex() + adapter.getDataCount())) {
+                } else if (adapter.getDataCount() == 0 || index > (adapter.getStartIndex() + adapter.getDataCount())) {
                     start = mid + 1;
                 } else {
                     targetSub = adapter;

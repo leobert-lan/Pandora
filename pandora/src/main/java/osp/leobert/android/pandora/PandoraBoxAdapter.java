@@ -1,6 +1,7 @@
 package osp.leobert.android.pandora;
 
 import android.support.annotation.CheckResult;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.util.ListUpdateCallback;
 import android.util.Pair;
@@ -15,7 +16,7 @@ import android.util.Pair;
 public abstract class PandoraBoxAdapter<T> implements Node<PandoraBoxAdapter<T>>, DataAdapter<T> {
     protected ListUpdateCallback listUpdateCallback;
 
-    public void setListUpdateCallback(ListUpdateCallback listUpdateCallback) {
+    final void setListUpdateCallback(ListUpdateCallback listUpdateCallback) {
         this.listUpdateCallback = listUpdateCallback;
     }
 
@@ -32,6 +33,8 @@ public abstract class PandoraBoxAdapter<T> implements Node<PandoraBoxAdapter<T>>
     public abstract void endTransactionSilently();
 
     protected abstract void setGroupIndex(int groupIndex);
+
+    protected abstract void hasAddToParent(@NonNull PandoraBoxAdapter<T> parent);
 
     private String alias;
 

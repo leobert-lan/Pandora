@@ -19,7 +19,7 @@ import osp.leobert.android.pandorasample.DataSet;
  * <p><b>Description:</b> TODO </p>
  * Created by leobert on 2018/10/11.
  */
-public class PandoraRealRvDataSet<T extends DataSet.Data<? super T, ? extends AbsViewHolder<? super T>>> extends DataSet {
+public class PandoraRealRvDataSet<T extends DataSet.D> extends DataSet {
     @NonNull
     private final RealDataSet<T> realDataSet;
 
@@ -40,7 +40,7 @@ public class PandoraRealRvDataSet<T extends DataSet.Data<? super T, ? extends Ab
     }
 
     @Override
-    public Data getItem(int position) {
+    public D getItem(int position) {
         return realDataSet.getDataByIndex(position);
     }
 
@@ -107,16 +107,13 @@ public class PandoraRealRvDataSet<T extends DataSet.Data<? super T, ? extends Ab
     }
 
     public void removeSub(PandoraBoxAdapter<T> sub) {
-        realDataSet.removeSub(sub);
+        realDataSet.removeChild(sub);
     }
 
     public int getStartIndex() {
         return realDataSet.getStartIndex();
     }
 
-    public void setListUpdateCallback(ListUpdateCallback listUpdateCallback) {
-        realDataSet.setListUpdateCallback(listUpdateCallback);
-    }
 
     public String getAlias() {
         return realDataSet.getAlias();
