@@ -20,7 +20,7 @@ import osp.leobert.android.pandorasample.DataSet;
  * <p><b>Description:</b> TODO </p>
  * Created by leobert on 2018/10/11.
  */
-public class PandoraWrapperRvDataSet<T extends DataSet.Data<T ,? extends AbsViewHolder<T>>> extends DataSet {
+public class PandoraWrapperRvDataSet<T extends DataSet.Data<? super T ,? extends AbsViewHolder<? super T>>> extends DataSet {
     @NonNull
     private final WrapperDataSet<T> wrapperDataSet;
 
@@ -57,7 +57,7 @@ public class PandoraWrapperRvDataSet<T extends DataSet.Data<T ,? extends AbsView
         wrapperDataSet.setGroupIndex(groupIndex);
     }
 
-    public void addSub(PandoraBoxAdapter<T> sub) {
+    public <P extends PandoraBoxAdapter<T>> void  addSub(P sub) {
         wrapperDataSet.addSub(sub);
     }
 

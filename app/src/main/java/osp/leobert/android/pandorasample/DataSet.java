@@ -18,7 +18,7 @@ import osp.leobert.android.pandorasample.nds.DateVhMappingPool;
  * Created by leobert on 2018/10/10.
  */
 public abstract class DataSet {
-    public interface Data<D extends Data, V extends AbsViewHolder<D>> {
+    public interface Data<D extends Data, V extends AbsViewHolder<? super D>> {
         void setToViewHolder(V viewHolder);
     }
 
