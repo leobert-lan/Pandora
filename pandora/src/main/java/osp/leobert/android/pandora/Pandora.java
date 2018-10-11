@@ -15,4 +15,8 @@ public final class Pandora {
     public static <T> RealDataSet<T> real() {
         return new RealDataSet<>();
     }
+
+    public static <T> WrapperDataSet<T> wrapper() {
+        return new WrapperDataSet<>();
+    }
 }

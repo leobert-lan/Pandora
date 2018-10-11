@@ -3,6 +3,7 @@ package osp.leobert.android.pandora;
 import android.support.annotation.CheckResult;
 import android.support.annotation.Nullable;
 import android.support.v7.util.ListUpdateCallback;
+import android.util.Pair;
 
 /**
  * <p><b>Package:</b> osp.leobert.android.pandora </p>
@@ -45,6 +46,11 @@ public abstract class PandoraBoxAdapter<T> implements Node<PandoraBoxAdapter<T>>
     @Nullable
     @CheckResult
     public abstract PandoraBoxAdapter<T> retrieveAdapterByDataIndex(int index);
+
+    @Nullable
+    @CheckResult
+    public abstract Pair<PandoraBoxAdapter<T>,Integer> retrieveAdapterByDataIndex2(int index);
+
 
     public abstract int getStartIndex();
 
