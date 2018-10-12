@@ -180,7 +180,7 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
 
                 if (index < adapter.getStartIndex()) {
                     end = mid - 1;
-                } else if (adapter.getDataCount() == 0 || index > (adapter.getStartIndex() + adapter.getDataCount())) {
+                } else if (adapter.getDataCount() == 0 || index >= (adapter.getStartIndex() + adapter.getDataCount())) {
                     start = mid + 1;
                 } else {
                     targetSub = adapter;
@@ -429,7 +429,7 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
 
                 if (index < adapter.getStartIndex()) {
                     end = mid - 1;
-                } else if (adapter.getDataCount() == 0 || index > (adapter.getStartIndex() + adapter.getDataCount())) {
+                } else if (adapter.getDataCount() == 0 || index >= (adapter.getStartIndex() + adapter.getDataCount())) {
                     start = mid + 1;
                 } else {
                     targetSub = adapter;

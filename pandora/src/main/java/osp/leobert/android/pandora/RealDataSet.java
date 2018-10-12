@@ -150,14 +150,16 @@ public class RealDataSet<T> extends PandoraBoxAdapter<T> {
 
     @Override
     public T getDataByIndex(int index) {
-        if (index >= data.size())
+        if (index >= data.size() || index < 0)
             return null;
         return data.get(index);
     }
 
     @Override
     public void clearAllData() {
+        onBeforeChanged();
         data.clear();
+        onAfterChanged();
     }
 
     @Override
