@@ -13,6 +13,9 @@ import java.util.Collection;
 
 import osp.leobert.android.pandora.Pandora;
 import osp.leobert.android.pandora.WrapperDataSet;
+import osp.leobert.android.pandora.rv.DataSet;
+import osp.leobert.android.pandora.rv.PandoraRealRvDataSet;
+import osp.leobert.android.pandora.rv.PandoraWrapperRvDataSet;
 import osp.leobert.android.pandorasample.dvh.Type1VH;
 import osp.leobert.android.pandorasample.dvh.Type1VOImpl;
 import osp.leobert.android.pandorasample.dvh.Type2VH;
@@ -23,8 +26,6 @@ import osp.leobert.android.pandorasample.dvh.Type4VH;
 import osp.leobert.android.pandorasample.dvh.Type4VOImpl;
 import osp.leobert.android.pandorasample.dvh.Type5VH;
 import osp.leobert.android.pandorasample.dvh.Type5VOImpl;
-import osp.leobert.android.pandorasample.nds.PandoraRealRvDataSet;
-import osp.leobert.android.pandorasample.nds.PandoraWrapperRvDataSet;
 
 public class MainActivity extends AppCompatActivity {
 

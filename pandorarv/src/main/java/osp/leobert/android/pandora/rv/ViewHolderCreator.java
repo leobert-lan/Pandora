@@ -1,4 +1,4 @@
-package osp.leobert.android.pandorasample;
+package osp.leobert.android.pandora.rv;
 
 import android.support.annotation.LayoutRes;
 import android.view.LayoutInflater;
@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * <p><b>Package:</b> osp.leobert.android.pandorasample </p>
- * <p><b>Project:</b> Pandora </p>
+ * <p><b>Package:</b> osp.leobert.android.pandorarv </p>
+ * <p><b>Project:</b> Pandorarv </p>
  * <p><b>Classname:</b> ViewHolderCreator </p>
  * <p><b>Description:</b> TODO </p>
  * Created by leobert on 2018/10/10.

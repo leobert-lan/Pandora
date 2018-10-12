@@ -4,6 +4,7 @@ import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
 
@@ -92,6 +93,18 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
     }
 
     @Override
+    boolean isAliasConflict(@NonNull String alias) {
+        if (TextUtils.equals(alias, getAlias()))
+            return true;
+        for (PandoraBoxAdapter childAdapter : subs                                ) {
+            if (childAdapter == null) continue;
+            if (childAdapter.isAliasConflict(alias))
+                return true;
+        }
+        return false;
+    }
+
+    @Override
     public int getGroupIndex() {
         return groupIndex;
     }
@@ -102,7 +115,7 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
     }
 
     @Override
-    protected void hasAddToParent(@NonNull PandoraBoxAdapter<T> parent) {
+    protected void notifyHasAddToParent(@NonNull PandoraBoxAdapter<T> parent) {
         this.parent = parent;
     }
 
@@ -120,7 +133,7 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
 
         long count = getDataCount();
         sub.setStartIndex((int) count);
-        sub.hasAddToParent(this);
+        sub.notifyHasAddToParent(this);
         subs.add(sub);
     }
 

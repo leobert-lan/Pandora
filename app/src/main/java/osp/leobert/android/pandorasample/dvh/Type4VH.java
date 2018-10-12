@@ -4,9 +4,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import osp.leobert.android.pandorasample.AbsViewHolder;
+import osp.leobert.android.pandora.rv.AbsViewHolder;
 import osp.leobert.android.pandorasample.R;
-import osp.leobert.android.pandorasample.ViewHolderCreator;
+import osp.leobert.android.pandora.rv.ViewHolderCreator;
 
 
 /**

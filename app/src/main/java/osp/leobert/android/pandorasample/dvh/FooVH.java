@@ -3,7 +3,7 @@ package osp.leobert.android.pandorasample.dvh;
 import android.view.View;
 import android.widget.TextView;
 
-import osp.leobert.android.pandorasample.AbsViewHolder;
+import osp.leobert.android.pandora.rv.AbsViewHolder;
 import osp.leobert.android.pandorasample.R;
 
 /**

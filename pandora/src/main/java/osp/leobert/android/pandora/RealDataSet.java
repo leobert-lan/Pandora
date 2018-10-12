@@ -3,6 +3,7 @@ package osp.leobert.android.pandora;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
+import android.text.TextUtils;
 import android.util.Pair;
 
 import java.util.ArrayList;
@@ -220,7 +221,7 @@ public class RealDataSet<T> extends PandoraBoxAdapter<T> {
     }
 
     @Override
-    protected void hasAddToParent(@NonNull PandoraBoxAdapter<T> parent) {
+    protected void notifyHasAddToParent(@NonNull PandoraBoxAdapter<T> parent) {
         this.parent = parent;
     }
 
@@ -255,6 +256,11 @@ public class RealDataSet<T> extends PandoraBoxAdapter<T> {
     @Override
     protected void setStartIndex(int startIndex) {
         this.startIndex = startIndex;
+    }
+
+    @Override
+    boolean isAliasConflict(@NonNull String alias) {
+        return TextUtils.equals(alias,getAlias());
     }
 
     private void snapshot() {

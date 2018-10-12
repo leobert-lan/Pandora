@@ -1,8 +1,8 @@
-package osp.leobert.android.pandorasample.nds;
+package osp.leobert.android.pandora.rv;
 
 /**
- * <p><b>Package:</b> osp.leobert.android.pandorasample.nds </p>
- * <p><b>Project:</b> Pandora </p>
+ * <p><b>Package:</b> osp.leobert.android.pandorarv </p>
+ * <p><b>Project:</b> Pandorarv </p>
  * <p><b>Classname:</b> DataObserver </p>
  * <p><b>Description:</b> TODO </p>
  * Created by leobert on 2018/10/10.

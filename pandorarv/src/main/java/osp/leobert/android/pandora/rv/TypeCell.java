@@ -1,4 +1,4 @@
-package osp.leobert.android.pandorasample;
+package osp.leobert.android.pandora.rv;
 
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
@@ -6,11 +6,9 @@ import android.support.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import osp.leobert.android.pandorasample.nds.DateVhMappingPool;
-
 /**
- * <p><b>Package:</b> osp.leobert.android.pandorasample </p>
- * <p><b>Project:</b> Pandora </p>
+ * <p><b>Package:</b> osp.leobert.android.pandorarv </p>
+ * <p><b>Project:</b> Pandorarv </p>
  * <p><b>Classname:</b> TypeCell </p>
  * <p><b>Description:</b> TODO </p>
  * Created by leobert on 2018/10/10.

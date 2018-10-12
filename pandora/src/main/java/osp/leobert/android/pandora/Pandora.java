@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
  * <p><b>Package:</b> osp.leobert.android.pandora </p>
  * <p><b>Project:</b> Pandora </p>
  * <p><b>Classname:</b> Pandora </p>
- * <p><b>Description:</b> TODO </p>
+ * <p><b>Description:</b> Pandora </p>
  * Created by leobert on 2018/9/29.
  */
 public final class Pandora {
@@ -29,9 +29,15 @@ public final class Pandora {
         pandoraBoxAdapter.setListUpdateCallback(new ListUpdateCallbackImpl(recyclerViewAdapter));
     }
 
+    public static boolean checkAliasUnique(@NonNull PandoraBoxAdapter pandoraBoxAdapter,
+                                           @NonNull String alias) {
+        return !pandoraBoxAdapter.isAliasConflict(alias);
+    }
+
     private static final class ListUpdateCallbackImpl implements ListUpdateCallback {
 
-        private final @NonNull
+        @NonNull
+        private final
         RecyclerView.Adapter recyclerViewAdapter;
 
         public ListUpdateCallbackImpl(@NonNull RecyclerView.Adapter recyclerViewAdapter) {
@@ -40,11 +46,7 @@ public final class Pandora {
 
         @Override
         public void onInserted(int position, int count) {
-            try {
-                recyclerViewAdapter.notifyItemRangeInserted(position, count);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            recyclerViewAdapter.notifyItemRangeInserted(position, count);
         }
 
         @Override

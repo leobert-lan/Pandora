@@ -1,11 +1,12 @@
 package osp.leobert.android.pandorasample;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ViewGroup;
 
-import java.util.List;
-
-import osp.leobert.android.pandorasample.nds.DataObserver;
+import osp.leobert.android.pandora.rv.AbsViewHolder;
+import osp.leobert.android.pandora.rv.DataObserver;
+import osp.leobert.android.pandora.rv.DataSet;
 
 /**
  * <p><b>Package:</b> osp.leobert.android.pandorasample </p>
@@ -14,7 +15,7 @@ import osp.leobert.android.pandorasample.nds.DataObserver;
  * <p><b>Description:</b> TODO </p>
  * Created by leobert on 2018/10/11.
  */
-public class RvAdapter <D extends DataSet> extends RecyclerView.Adapter<AbsViewHolder>
+public class RvAdapter<D extends DataSet> extends RecyclerView.Adapter<AbsViewHolder>
         implements DataObserver {
 
     private final D dataSet;
@@ -36,6 +37,7 @@ public class RvAdapter <D extends DataSet> extends RecyclerView.Adapter<AbsViewH
     @Override
     @SuppressWarnings("unchecked")
     public void onBindViewHolder(AbsViewHolder holder, int position) {
+        Log.i("Pandora", "onBindViewHolder: " + position);
         try {
             dataSet.getItem(position).setToViewHolder(holder);
         } catch (Exception e) {
@@ -70,54 +72,5 @@ public class RvAdapter <D extends DataSet> extends RecyclerView.Adapter<AbsViewH
     @Override
     public void onDataSetChanged() {
         super.notifyDataSetChanged();
-    }
-
-    ///////////////////////////////////////////////////////////////////////////
-    // ignore follows
-    ///////////////////////////////////////////////////////////////////////////
-    @Override
-    public void onBindViewHolder(AbsViewHolder holder, int position, List<Object> payloads) {
-        super.onBindViewHolder(holder, position, payloads);
-    }
-
-    @Override
-    public void setHasStableIds(boolean hasStableIds) {
-        super.setHasStableIds(hasStableIds);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return super.getItemId(position);
-    }
-
-    @Override
-    public void onViewRecycled(AbsViewHolder holder) {
-        super.onViewRecycled(holder);
-    }
-
-    @Override
-    public boolean onFailedToRecycleView(AbsViewHolder holder) {
-        return super.onFailedToRecycleView(holder);
-    }
-
-
-    @Override
-    public void registerAdapterDataObserver(RecyclerView.AdapterDataObserver observer) {
-        super.registerAdapterDataObserver(observer);
-    }
-
-    @Override
-    public void unregisterAdapterDataObserver(RecyclerView.AdapterDataObserver observer) {
-        super.unregisterAdapterDataObserver(observer);
-    }
-
-    @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-    }
-
-    @Override
-    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
-        super.onDetachedFromRecyclerView(recyclerView);
     }
 }

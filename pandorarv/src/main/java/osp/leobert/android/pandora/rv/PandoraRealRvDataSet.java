@@ -1,20 +1,17 @@
-package osp.leobert.android.pandorasample.nds;
+package osp.leobert.android.pandora.rv;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.util.ListUpdateCallback;
 import android.util.Pair;
 
 import java.util.Collection;
 
 import osp.leobert.android.pandora.PandoraBoxAdapter;
 import osp.leobert.android.pandora.RealDataSet;
-import osp.leobert.android.pandorasample.AbsViewHolder;
-import osp.leobert.android.pandorasample.DataSet;
 
 /**
- * <p><b>Package:</b> osp.leobert.android.pandorasample.nds </p>
- * <p><b>Project:</b> Pandora </p>
+ * <p><b>Package:</b> osp.leobert.android.pandorarv </p>
+ * <p><b>Project:</b> Pandorarv </p>
  * <p><b>Classname:</b> PandoraRealRvDataSet </p>
  * <p><b>Description:</b> TODO </p>
  * Created by leobert on 2018/10/11.

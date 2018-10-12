@@ -1,1 +1,1 @@
-include ':app', ':pandora'
+include ':app', ':pandora', ':pandorarv'

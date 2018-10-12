@@ -1,17 +1,13 @@
-package osp.leobert.android.pandorasample.nds;
+package osp.leobert.android.pandora.rv;
 
 import android.support.annotation.NonNull;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
-import osp.leobert.android.pandorasample.AbsViewHolder;
-import osp.leobert.android.pandorasample.DataSet;
-import osp.leobert.android.pandorasample.TypeCell;
-import osp.leobert.android.pandorasample.ViewHolderCreator;
 
 /**
- * <p><b>Package:</b> osp.leobert.android.pandorasample.nds </p>
- * <p><b>Project:</b> Pandora </p>
+ * <p><b>Package:</b> osp.leobert.android.pandorarv </p>
+ * <p><b>Project:</b> Pandorarv </p>
  * <p><b>Classname:</b> DateVhMappingPool </p>
  * <p><b>Description:</b> TODO </p>
  * Created by leobert on 2018/10/10.
@@ -21,15 +17,15 @@ public class DateVhMappingPool {
     private int maxSize = 5;
 
     public synchronized void registerDVRelation(@NonNull Class<?> dataClz, @NonNull ViewHolderCreator viewHolderCreator) {
-        this.registerDVRelation(new DateVhMappingPool.DataVhRelation<>(dataClz, viewHolderCreator));
+        this.registerDVRelation(new DataVhRelation<>(dataClz, viewHolderCreator));
     }
 
-    public synchronized void registerDvRelation(DateVhMappingPool.DVRelation... dvRelations) {
-        for (DateVhMappingPool.DVRelation dvRelation : dvRelations)
+    public synchronized void registerDvRelation(DVRelation... dvRelations) {
+        for (DVRelation dvRelation : dvRelations)
             registerDVRelation(dvRelation);
     }
 
-    public synchronized void registerDVRelation(DateVhMappingPool.DVRelation<?> dvRelation) {
+    public synchronized void registerDVRelation(DVRelation<?> dvRelation) {
         synchronized (DataSet.class) {
             int n = dvRelation.one2N();
 

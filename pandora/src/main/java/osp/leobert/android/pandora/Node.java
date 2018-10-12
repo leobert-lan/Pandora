@@ -18,7 +18,7 @@ public interface Node<T> {
     /**
      * @param sub sub node to be bind
      */
-      void addChild(T sub);
+    void addChild(T sub);
 
     /**
      * @return true if it has been bind to one parent node
