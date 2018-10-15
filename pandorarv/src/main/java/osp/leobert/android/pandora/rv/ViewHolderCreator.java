@@ -26,6 +26,7 @@
 package osp.leobert.android.pandora.rv;
 
 import android.support.annotation.LayoutRes;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,63 +37,72 @@ import java.lang.reflect.InvocationTargetException;
  * <p><b>Package:</b> osp.leobert.android.pandorarv </p>
  * <p><b>Project:</b> Pandorarv </p>
  * <p><b>Classname:</b> ViewHolderCreator </p>
- * <p><b>Description:</b> TODO </p>
+ * <p><b>Description:</b> creator to create view holders</p>
  * Created by leobert on 2018/10/10.
  */
 public abstract class ViewHolderCreator {
 
     public abstract AbsViewHolder createViewHolder(ViewGroup parent);
 
+    /**
+     * just lazy. But in much real cases, we don't need it.
+     * @param <T> ViewHolder Type to be created,the 'View' itemView should be the first params in the constructor
+     */
     public static class LazyCreator<T extends AbsViewHolder> extends ViewHolderCreator {
-
-        //        private final int viewType;
         @LayoutRes
         private final int layoutRes;
 
         private Class<T> target;
-        private Object[] targetParams;
-        private Class[] paramsType;
 
-        public LazyCreator(int layoutRes, Class<T> target) {
-            this(layoutRes,target,null);
+        private Pair<Class,Object>[] ext;
+
+        /**
+         * @param layoutRes layout xml res to be used to create the ViewHolder
+         * @param target ViewHolder Type to be created
+         */
+        public LazyCreator(@LayoutRes int layoutRes, Class<T> target) {
+            this(layoutRes, target, (Pair<Class, Object>[]) null);
         }
 
-        public LazyCreator(/*int viewType,*/ int layoutRes, Class<T> clz,
-                                             Class[] paramType/*itemview的不需要*/,
-                                             Object... targetParams/*itemview不需要*/) {
-//            this.viewType = viewType;
+        /**
+         * @param layoutRes layout xml res to be used to create the ViewHolder
+         * @param target ViewHolder Type to be created
+         * @param exts extended params used to create the Target ViewHolder. every one should in original order.
+         */
+        @SafeVarargs
+        public LazyCreator(@LayoutRes int layoutRes, Class<T> target, Pair<Class,Object>... exts) {
             this.layoutRes = layoutRes;
-            this.target = clz;
-            this.paramsType = paramType;
-            this.targetParams = targetParams;
+            this.target = target;
+            this.ext = exts;
         }
+
 
         @Override
         public AbsViewHolder createViewHolder(ViewGroup parent) {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(layoutRes, null, false);
+                    .inflate(layoutRes, parent, false);
 
             try {
                 AbsViewHolder ret = null;
                 Class[] pt;
-                if (paramsType == null) {
+                if (ext == null) {
                     pt = new Class[]{View.class};
                 } else {
-                    pt = new Class[1 + paramsType.length];
+                    pt = new Class[1 + ext.length];
                     pt[0] = View.class;
-                    for (int i = 0; i < paramsType.length; i++) {
-                        pt[i + 1] = paramsType[i];
+                    for (int i = 0; i < ext.length; i++) {
+                        pt[i + 1] = ext[i].first;
                     }
                 }
 
                 Object[] pa;
-                if (targetParams == null) {
+                if (ext == null) {
                     pa = new Object[]{view};
                 } else {
-                    pa = new Object[1 + targetParams.length];
+                    pa = new Object[1 + ext.length];
                     pa[0] = view;
-                    for (int i = 0; i < targetParams.length; i++) {
-                        pa[i + 1] = targetParams[i];
+                    for (int i = 0; i < ext.length; i++) {
+                        pa[i + 1] = ext[i].second;
                     }
                 }
 
@@ -109,8 +119,6 @@ public abstract class ViewHolderCreator {
                 e.printStackTrace();
             }
             throw new RuntimeException("参数，参数类型，构造器对不上");
-
-//            return null;
         }
     }
 }

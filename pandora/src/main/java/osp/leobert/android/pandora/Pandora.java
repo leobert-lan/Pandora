@@ -59,13 +59,16 @@ public final class Pandora {
         return !pandoraBoxAdapter.isAliasConflict(alias);
     }
 
+    /**
+     * specific impl of ListUpdateCallback for RecyclerView.Adapter
+     */
     private static final class ListUpdateCallbackImpl implements ListUpdateCallback {
 
         @NonNull
         private final
         RecyclerView.Adapter recyclerViewAdapter;
 
-        public ListUpdateCallbackImpl(@NonNull RecyclerView.Adapter recyclerViewAdapter) {
+        ListUpdateCallbackImpl(@NonNull RecyclerView.Adapter recyclerViewAdapter) {
             this.recyclerViewAdapter = recyclerViewAdapter;
         }
 

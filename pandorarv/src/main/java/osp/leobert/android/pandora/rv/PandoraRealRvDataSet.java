@@ -39,7 +39,7 @@ import osp.leobert.android.pandora.RealDataSet;
  * <p><b>Package:</b> osp.leobert.android.pandorarv </p>
  * <p><b>Project:</b> Pandorarv </p>
  * <p><b>Classname:</b> PandoraRealRvDataSet </p>
- * <p><b>Description:</b> TODO </p>
+ * <p><b>Description:</b> a data set can support 'Multi-Type' and 'Pandora Real Box' </p>
  * Created by leobert on 2018/10/11.
  */
 public class PandoraRealRvDataSet<T extends DataSet.D> extends DataSet {

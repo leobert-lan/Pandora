@@ -34,7 +34,7 @@ import android.view.ViewGroup;
  * <p><b>Package:</b> osp.leobert.android.pandorarv </p>
  * <p><b>Project:</b> Pandorarv </p>
  * <p><b>Classname:</b> DateVhMappingPool </p>
- * <p><b>Description:</b> TODO </p>
+ * <p><b>Description:</b> a pool to restore and fetch the relationship between VO and VH </p>
  * Created by leobert on 2018/10/10.
  */
 public class DateVhMappingPool {
@@ -51,6 +51,8 @@ public class DateVhMappingPool {
     }
 
     public synchronized void registerDVRelation(DVRelation<?> dvRelation) {
+        if (dvRelation == null)
+            return;
         synchronized (DataSet.class) {
             int n = dvRelation.one2N();
 
@@ -106,11 +108,11 @@ public class DateVhMappingPool {
         ViewHolderCreator getVhCreator(@NonNull String subTypeToken);
     }
 
-    public static class DataVhRelation<T> implements DVRelation<T> {
+    private static class DataVhRelation<T> implements DVRelation<T> {
         private Class<T> dataClz;
         private ViewHolderCreator vhCreator;
 
-        protected DataVhRelation(@NonNull Class<T> dataClz, ViewHolderCreator vhCreator) {
+        DataVhRelation(@NonNull Class<T> dataClz, ViewHolderCreator vhCreator) {
             this.dataClz = dataClz;
             this.vhCreator = vhCreator;
         }

@@ -66,7 +66,8 @@ public class RvAdapter<D extends DataSet> extends RecyclerView.Adapter<AbsViewHo
     public void onBindViewHolder(AbsViewHolder holder, int position) {
         Log.i("Pandora", "onBindViewHolder: " + position);
         try {
-            dataSet.getItem(position).setToViewHolder(holder);
+            DataSet.helpSetToViewHolder(dataSet.getItem(position),holder);
+//            dataSet.getItem(position).setToViewHolder(holder);
         } catch (Exception e) {
             e.printStackTrace();
         }

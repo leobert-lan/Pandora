@@ -35,10 +35,10 @@ import java.util.List;
  * <p><b>Package:</b> osp.leobert.android.pandorarv </p>
  * <p><b>Project:</b> Pandorarv </p>
  * <p><b>Classname:</b> TypeCell </p>
- * <p><b>Description:</b> TODO </p>
+ * <p><b>Description:</b> model for a type of item used in RecyclerView </p>
  * Created by leobert on 2018/10/10.
  */
-public final class TypeCell<T> {
+/*public*/ final class TypeCell<T> {
     @IntRange(from = 0)
     private final int index;
 
@@ -58,7 +58,7 @@ public final class TypeCell<T> {
         return clz.equals(dvRelation.getDataClz().getName());
     }
 
-    public TypeCell(@IntRange(from = 0) int index, @NonNull DateVhMappingPool.DVRelation<T> dvRelation) {
+    TypeCell(@IntRange(from = 0) int index, @NonNull DateVhMappingPool.DVRelation<T> dvRelation) {
         this.index = index;
         this.dvRelation = dvRelation;
         subTypeTokens = new ArrayList<>();

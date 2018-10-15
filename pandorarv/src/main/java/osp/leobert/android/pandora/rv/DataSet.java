@@ -26,6 +26,7 @@
 package osp.leobert.android.pandora.rv;
 
 import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import java.lang.ref.WeakReference;
@@ -36,28 +37,57 @@ import java.util.List;
  * <p><b>Package:</b> osp.leobert.android.pandorarv </p>
  * <p><b>Project:</b> Pandorarv </p>
  * <p><b>Classname:</b> DataSet </p>
- * <p><b>Description:</b> TODO </p>
+ * <p><b>Description:</b> a data set supply for {@linkplain android.support.v7.widget.RecyclerView.Adapter}
+ * supporting 'Multi-Type'</p>
  * Created by leobert on 2018/10/10.
  */
 public abstract class DataSet {
 
+    public static <DATA, VH extends AbsViewHolder<? super DATA>>
+    void helpSetToViewHolder(D<DATA, VH> data, VH viewHolder) {
+        data.setToViewHolder(viewHolder);
+    }
+
     /**
-     *
-     * @param <DATA>
-     * @param <VH>
+     * @param <DATA> if this VO (View Object) is only use in 'single-type', you can declare the VO type. Otherwise,
+     *               just declare as Data
+     * @param <VH>   the VH type, de-generic with the VO thus you can access the API in VO
      */
-    public interface D<DATA, VH extends AbsViewHolder<? super DATA>> {
+    protected interface D<DATA, VH extends AbsViewHolder<? super DATA>> {
+        /**
+         * invoke this in adapter, {@link android.support.v7.widget.RecyclerView.Adapter#onBindViewHolder(RecyclerView.ViewHolder, int)}
+         * <em>it's important to do type check</em>
+         * remember call {@linkplain AbsViewHolder#setData(Object)} to set data to viewHolder.
+         *
+         * @param viewHolder view holder to be bind this this data
+         */
         void setToViewHolder(VH viewHolder);
     }
 
+    /**
+     * Because we don't supply a Super Class of data, and we used sth like ? extends D {@linkplain D}
+     * in the library, thus we must have something used when de-generic in the "Multi-Type" case
+     * use in the generic
+     *
+     * @param <DA> if this VO (View Object) is only use in 'single-type', you can declare the VO type. Otherwise,
+     *             just declare as Data
+     * @param <V>  the VH type, de-generic with the VO thus you can access the API in VO
+     */
     public interface Data<DA extends D, V extends AbsViewHolder<? super DA>> extends D<DA, V> {
 
     }
 
     private final DateVhMappingPool dateVhMappingPool = new DateVhMappingPool();
 
+    /**
+     * @return the count of data in the data set
+     */
     public abstract int getCount();
 
+    /**
+     * @param position target position to fetch data
+     * @return data
+     */
     public abstract D getItem(int position);
 
     private final List<WeakReference<DataObserver>> observersRef

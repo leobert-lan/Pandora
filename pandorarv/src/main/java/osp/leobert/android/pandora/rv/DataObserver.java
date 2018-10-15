@@ -36,7 +36,7 @@ public interface DataObserver {
     /**
      * invoked when data changed.
      *
-     * <em>now it will be invoked when a </em>
+     * <em>now it only be invoked when a manual notify called </em> {@linkplain DataSet#notifyChanged()}
      */
     void onDataSetChanged();
 }

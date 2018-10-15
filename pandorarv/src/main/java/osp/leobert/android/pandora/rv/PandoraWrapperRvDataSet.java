@@ -40,7 +40,7 @@ import osp.leobert.android.pandora.WrapperDataSet;
  * <p><b>Package:</b> osp.leobert.android.pandorarv </p>
  * <p><b>Project:</b> Pandorarv </p>
  * <p><b>Classname:</b> PandoraWrapperRvDataSet </p>
- * <p><b>Description:</b> TODO </p>
+ * <p><b>Description:</b> a data set can support 'Multi-Type' and 'Pandora Wrapper Box' </p>
  * Created by leobert on 2018/10/11.
  */
 public class PandoraWrapperRvDataSet<T extends DataSet.D> extends DataSet {
