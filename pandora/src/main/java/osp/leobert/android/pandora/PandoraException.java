@@ -35,4 +35,23 @@ package osp.leobert.android.pandora;
 public final class PandoraException extends Exception {
     private static final long serialVersionUID = 1L;
 
+    public PandoraException() {
+    }
+
+    public PandoraException(String message) {
+        super(message);
+    }
+
+    public PandoraException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public PandoraException(Throwable cause) {
+        super(cause);
+    }
+
+    public static PandoraException aliasConflict(String alias) {
+        return new PandoraException("alias want to set is conflicted:"+alias);
+    }
+
 }

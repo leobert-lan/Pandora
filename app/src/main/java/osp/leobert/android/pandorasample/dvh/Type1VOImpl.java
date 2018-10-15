@@ -44,7 +44,7 @@ public class Type1VOImpl implements Type1VO {
 
     @Override
     public String getData() {
-        return toString();
+        return s;
     }
 
     @Override

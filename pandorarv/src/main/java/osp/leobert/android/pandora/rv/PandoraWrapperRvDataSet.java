@@ -33,6 +33,7 @@ import android.util.Pair;
 import java.util.Collection;
 
 import osp.leobert.android.pandora.PandoraBoxAdapter;
+import osp.leobert.android.pandora.PandoraException;
 import osp.leobert.android.pandora.WrapperDataSet;
 
 /**
@@ -152,6 +153,10 @@ public class PandoraWrapperRvDataSet<T extends DataSet.D> extends DataSet {
     }
 
     public void setAlias(String alias) {
-        wrapperDataSet.setAlias(alias);
+        try {
+            wrapperDataSet.setAlias(alias);
+        } catch (PandoraException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -32,6 +32,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -53,7 +55,7 @@ import osp.leobert.android.pandorasample.dvh.Type4VOImpl;
 import osp.leobert.android.pandorasample.dvh.Type5VH;
 import osp.leobert.android.pandorasample.dvh.Type5VOImpl;
 
-public class MainActivity extends AppCompatActivity {
+public class DataChangeTestActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
 
@@ -61,9 +63,10 @@ public class MainActivity extends AppCompatActivity {
 
     PandoraRealRvDataSet<DataSet.Data> dataSetSection1;
     PandoraRealRvDataSet<DataSet.Data> dataSetSection2;
-    PandoraRealRvDataSet<DataSet.Data> dataSetSection3;
+    //    PandoraRealRvDataSet<DataSet.Data> dataSetSection3;
     RvAdapter<PandoraWrapperRvDataSet<DataSet.Data>> adapter;
 
+    private int index = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,24 +87,30 @@ public class MainActivity extends AppCompatActivity {
         decoration.setDrawable(getResources().getDrawable(R.color.colorAccent));
         recyclerView.addItemDecoration(decoration);
 
-        findViewById(R.id.b1).setOnClickListener(new View.OnClickListener() {
+        Button b1 = findViewById(R.id.b1);
+        b1.setText("sec1添加数据");
+        b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addSection1();
             }
         });
 
-        findViewById(R.id.b2).setOnClickListener(new View.OnClickListener() {
+        Button b2 = findViewById(R.id.b2);
+        b2.setText("sec2添加数据");
+        b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addSection2();
             }
         });
 
-        findViewById(R.id.b3).setOnClickListener(new View.OnClickListener() {
+        Button b3 = findViewById(R.id.b3);
+        b3.setText("sec2删减操作");
+        b3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addSection3();
+                removeSection2();
             }
         });
 
@@ -115,16 +124,23 @@ public class MainActivity extends AppCompatActivity {
         dataSetSection1.setAlias("sec1");
         dataSetSection2 = new PandoraRealRvDataSet<>(Pandora.<DataSet.Data>real());
         dataSetSection2.setAlias("sec2");
-        dataSetSection3 = new PandoraRealRvDataSet<>(Pandora.<DataSet.Data>real());
-        dataSetSection3.setAlias("sec3");
         dataSet.addSub(dataSetSection1.getRealDataSet());
         dataSet.addSub(dataSetSection2.getRealDataSet());
-        dataSet.addSub(dataSetSection3.getRealDataSet());
 
         dataSet.registerDVRelation(Type1VOImpl.class, new Type1VH.Creator(new Type1VH.ItemInteract() {
             @Override
             public void foo(int pos, Type1VO data) {
-                dataSet.removeAtPos(pos);
+                int t = pos % 3;
+                if (t == 0) {
+                    Toast.makeText(DataChangeTestActivity.this, "删除本身", Toast.LENGTH_SHORT).show();
+                    dataSet.removeAtPos(pos);
+                } else if (t == 1) {
+                    Toast.makeText(DataChangeTestActivity.this, "删除前一个", Toast.LENGTH_SHORT).show();
+                    dataSet.removeAtPos(pos - 1);
+                } else if (t == 2) {
+                    Toast.makeText(DataChangeTestActivity.this, "删除后一个", Toast.LENGTH_SHORT).show();
+                    dataSet.removeAtPos(pos + 1);
+                }
             }
         }));
 
@@ -136,35 +152,36 @@ public class MainActivity extends AppCompatActivity {
 
     private void addSection1() {
         Collection<DataSet.Data> collection = new ArrayList<>();
-        collection.add(new Type1VOImpl("section1[5423]" + TimeUtil.getCurrentTimeInString()));
-        collection.add(new Type5VOImpl(2));
-        collection.add(new Type4VOImpl(3));
-        collection.add(new Type2VOImpl(4));
-        collection.add(new Type3VOImpl(5));
-
+        collection.add(new Type1VOImpl("s1-" + generateIndex()));
         dataSetSection1.addAll(collection);
+    }
+
+    private String generateIndex() {
+        String ret = String.valueOf(index);
+        index++;
+        return ret;
     }
 
     private void addSection2() {
         Collection<DataSet.Data> collection = new ArrayList<>();
-        collection.add(new Type1VOImpl("section2[53422]" + TimeUtil.getCurrentTimeInString()));
-        collection.add(new Type5VOImpl(2));
-        collection.add(new Type3VOImpl(3));
-        collection.add(new Type4VOImpl(4));
-        collection.add(new Type2VOImpl(5));
-        collection.add(new Type2VOImpl(6));
-
+        collection.add(new Type1VOImpl("s2-" + generateIndex()));
+        collection.add(new Type1VOImpl("s2-" + generateIndex()));
         dataSetSection2.addAll(collection);
+
+        if (!dataSetSection2.hasBind2Parent()) {
+            dataSet.startTransaction();
+            dataSet.addSub(dataSetSection2.getRealDataSet());
+            dataSet.endTransaction();
+        }
     }
 
-    private void addSection3() {
-        Collection<DataSet.Data> collection = new ArrayList<>();
-        collection.add(new Type1VOImpl("section3[5455]" + TimeUtil.getCurrentTimeInString()));
-        collection.add(new Type5VOImpl(2));
-        collection.add(new Type4VOImpl(3));
-        collection.add(new Type5VOImpl(4));
-        collection.add(new Type5VOImpl(5));
-
-        dataSetSection3.addAll(collection);
+    private void removeSection2() {
+        if (index % 2 == 0) {
+            Toast.makeText(this, "直接移除数据集", Toast.LENGTH_SHORT).show();
+            dataSet.removeSub(dataSetSection2.getRealDataSet());
+        } else {
+            Toast.makeText(this, "移除sec2所有数据", Toast.LENGTH_SHORT).show();
+            dataSetSection2.clearAllData();
+        }
     }
 }

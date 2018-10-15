@@ -32,6 +32,7 @@ import android.util.Pair;
 import java.util.Collection;
 
 import osp.leobert.android.pandora.PandoraBoxAdapter;
+import osp.leobert.android.pandora.PandoraException;
 import osp.leobert.android.pandora.RealDataSet;
 
 /**
@@ -142,6 +143,10 @@ public class PandoraRealRvDataSet<T extends DataSet.D> extends DataSet {
     }
 
     public void setAlias(String alias) {
-        realDataSet.setAlias(alias);
+        try {
+            realDataSet.setAlias(alias);
+        } catch (PandoraException e) {
+            e.printStackTrace();
+        }
     }
 }

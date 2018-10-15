@@ -87,9 +87,18 @@ public abstract class PandoraBoxAdapter<T> implements Node<PandoraBoxAdapter<T>>
 
     /**
      * notify this data set that it has been add to one Parent data set.
+     *
      * @param parent the parent wrapper data set holds this one
      */
     protected abstract void notifyHasAddToParent(@NonNull PandoraBoxAdapter<T> parent);
+
+    /**
+     * notify this data set that it has been removed from parent.
+     */
+    protected abstract void notifyHasRemoveFromParent();
+
+    @Nullable
+    protected abstract PandoraBoxAdapter<T> getParent();
 
     private String alias;
 
@@ -97,7 +106,21 @@ public abstract class PandoraBoxAdapter<T> implements Node<PandoraBoxAdapter<T>>
         return alias;
     }
 
-    public void setAlias(String alias) {
+    /**
+     * set alias to this adapter ,<em>attention, if one tree or node merged to this as sub-node, none check will be taken!</em>
+     * @param alias alias want to set to this node
+     * @throws PandoraException throws if alias conflict with any node in this tree
+     */
+    public final void setAlias(@NonNull String alias) throws PandoraException {
+        PandoraBoxAdapter checkRoot = this;
+        while (checkRoot.hasBind2Parent()) {
+            PandoraBoxAdapter tmp = checkRoot.getParent();
+            if (tmp == null) break;
+            checkRoot = tmp;
+        }
+        if (!Pandora.checkAliasUnique(checkRoot, alias)) {
+            throw PandoraException.aliasConflict(alias);
+        }
         this.alias = alias;
     }
 
@@ -107,7 +130,7 @@ public abstract class PandoraBoxAdapter<T> implements Node<PandoraBoxAdapter<T>>
 
     @Nullable
     @CheckResult
-    public abstract Pair<PandoraBoxAdapter<T>,Integer> retrieveAdapterByDataIndex2(int index);
+    public abstract Pair<PandoraBoxAdapter<T>, Integer> retrieveAdapterByDataIndex2(int index);
 
     public abstract int getStartIndex();
 

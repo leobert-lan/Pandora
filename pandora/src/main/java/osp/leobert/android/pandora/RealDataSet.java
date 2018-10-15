@@ -251,6 +251,17 @@ public class RealDataSet<T> extends PandoraBoxAdapter<T> {
     }
 
     @Override
+    protected void notifyHasRemoveFromParent() {
+        parent = null;
+    }
+
+    @Nullable
+    @Override
+    protected PandoraBoxAdapter<T> getParent() {
+        return parent;
+    }
+
+    @Override
     public void addChild(PandoraBoxAdapter<T> sub) throws IllegalStateException {
         throw new IllegalStateException("simpleDataSet is not allowed to add sub data set");
     }
@@ -285,7 +296,7 @@ public class RealDataSet<T> extends PandoraBoxAdapter<T> {
 
     @Override
     boolean isAliasConflict(@NonNull String alias) {
-        return TextUtils.equals(alias,getAlias());
+        return TextUtils.equals(alias, getAlias());
     }
 
     private void snapshot() {

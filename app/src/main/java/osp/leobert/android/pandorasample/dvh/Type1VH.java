@@ -47,9 +47,17 @@ public class Type1VH extends FooVH<Type1VO> {
     private Type1VO mData;
 
 
-    public Type1VH(View itemView, ItemInteract mItemInteract) {
+    public Type1VH(View itemView, ItemInteract itemInteract) {
         super(itemView);
-        this.mItemInteract = mItemInteract;
+        this.mItemInteract = itemInteract;
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mItemInteract != null) {
+                    mItemInteract.foo(getAdapterPosition(), mData);
+                }
+            }
+        });
     }
 
     @Override
@@ -75,8 +83,6 @@ public class Type1VH extends FooVH<Type1VO> {
     }
 
     public interface ItemInteract {
-        void foo();
+        void foo(int pos, Type1VO data);
     }
-
-
 }

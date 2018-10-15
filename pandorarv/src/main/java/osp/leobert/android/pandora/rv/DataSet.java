@@ -41,6 +41,11 @@ import java.util.List;
  */
 public abstract class DataSet {
 
+    /**
+     *
+     * @param <DATA>
+     * @param <VH>
+     */
     public interface D<DATA, VH extends AbsViewHolder<? super DATA>> {
         void setToViewHolder(VH viewHolder);
     }

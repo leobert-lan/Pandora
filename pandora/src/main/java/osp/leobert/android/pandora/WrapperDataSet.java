@@ -145,6 +145,24 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
     }
 
     @Override
+    protected void notifyHasRemoveFromParent() {
+        parent = null;
+    }
+
+    @Nullable
+    @Override
+    protected PandoraBoxAdapter<T> getParent() {
+        return parent;
+    }
+
+    /**
+     * Attention:
+     * <p>
+     * <li> alias check won't be started!</li>
+     * <li> data change will not be apply to listener in the method</li>
+     * @param sub sub node to be bind
+     */
+    @Override
     public void addChild(PandoraBoxAdapter<T> sub) {
         if (sub == null)
             return;
@@ -181,6 +199,7 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
         if (subs.contains(sub)) {
             onBeforeChanged();
             subs.remove(sub);
+            sub.notifyHasRemoveFromParent(); // make sure
             onAfterChanged();
         }
     }
@@ -311,7 +330,7 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
             if (target == null)
                 log(Log.ERROR, "bug,cannot find target adapter");
             else {
-                target.first.remove(target.second);
+                target.first.removeAtPos(target.second);
             }
         }
         endTransaction();
