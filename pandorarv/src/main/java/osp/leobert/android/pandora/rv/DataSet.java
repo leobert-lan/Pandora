@@ -97,23 +97,6 @@ public abstract class DataSet {
         observersRef.add(new WeakReference<>(dataObserver));
     }
 
-    public void notifyChanged() {
-        for (int i = 0; i < observersRef.size(); i++) {
-            WeakReference<DataObserver> reference = observersRef.get(i);
-            if (reference == null) {
-                observersRef.remove(i);
-                i--;
-                continue;
-            }
-            if (reference.get() == null) {
-                observersRef.remove(i);
-                i--;
-                continue;
-            }
-            reference.get().onDataSetChanged();
-        }
-    }
-
     public int getItemViewTypeV2(int pos) { //getItemViewType
         String key = getItem(pos).getClass().getName();
         D data = getItem(pos);
@@ -141,4 +124,178 @@ public abstract class DataSet {
         dateVhMappingPool.registerDvRelation(dvRelation);
     }
 
+
+    ///////////////////////////////////////////////////////////////////////////
+    // notify change
+    ///////////////////////////////////////////////////////////////////////////
+
+    public void notifyChanged() {
+        for (int i = 0; i < observersRef.size(); i++) {
+            WeakReference<DataObserver> reference = observersRef.get(i);
+            if (reference == null) {
+                observersRef.remove(i);
+                i--;
+                continue;
+            }
+            if (reference.get() == null) {
+                observersRef.remove(i);
+                i--;
+                continue;
+            }
+            reference.get().onDataSetChanged();
+        }
+    }
+
+    public void notifyItemChanged(int position) {
+        for (int i = 0; i < observersRef.size(); i++) {
+            WeakReference<DataObserver> reference = observersRef.get(i);
+            if (reference == null) {
+                observersRef.remove(i);
+                i--;
+                continue;
+            }
+            if (reference.get() == null) {
+                observersRef.remove(i);
+                i--;
+                continue;
+            }
+            reference.get().notifyItemChanged(position);
+        }
+    }
+
+    public void notifyItemChanged(int position, Object payload) {
+        for (int i = 0; i < observersRef.size(); i++) {
+            WeakReference<DataObserver> reference = observersRef.get(i);
+            if (reference == null) {
+                observersRef.remove(i);
+                i--;
+                continue;
+            }
+            if (reference.get() == null) {
+                observersRef.remove(i);
+                i--;
+                continue;
+            }
+            reference.get().notifyItemChanged(position, payload);
+        }
+    }
+
+    public void notifyItemRangeChanged(int positionStart, int itemCount) {
+        for (int i = 0; i < observersRef.size(); i++) {
+            WeakReference<DataObserver> reference = observersRef.get(i);
+            if (reference == null) {
+                observersRef.remove(i);
+                i--;
+                continue;
+            }
+            if (reference.get() == null) {
+                observersRef.remove(i);
+                i--;
+                continue;
+            }
+            reference.get().notifyItemRangeChanged(positionStart, itemCount);
+        }
+    }
+
+    public void notifyItemRangeChanged(int positionStart, int itemCount, Object payload) {
+        for (int i = 0; i < observersRef.size(); i++) {
+            WeakReference<DataObserver> reference = observersRef.get(i);
+            if (reference == null) {
+                observersRef.remove(i);
+                i--;
+                continue;
+            }
+            if (reference.get() == null) {
+                observersRef.remove(i);
+                i--;
+                continue;
+            }
+            reference.get().notifyItemRangeChanged(positionStart, itemCount, payload);
+        }
+    }
+
+    public void notifyItemInserted(int position) {
+        for (int i = 0; i < observersRef.size(); i++) {
+            WeakReference<DataObserver> reference = observersRef.get(i);
+            if (reference == null) {
+                observersRef.remove(i);
+                i--;
+                continue;
+            }
+            if (reference.get() == null) {
+                observersRef.remove(i);
+                i--;
+                continue;
+            }
+            reference.get().notifyItemInserted(position);
+        }
+    }
+
+    public void notifyItemMoved(int fromPosition, int toPosition) {
+        for (int i = 0; i < observersRef.size(); i++) {
+            WeakReference<DataObserver> reference = observersRef.get(i);
+            if (reference == null) {
+                observersRef.remove(i);
+                i--;
+                continue;
+            }
+            if (reference.get() == null) {
+                observersRef.remove(i);
+                i--;
+                continue;
+            }
+            reference.get().notifyItemMoved(fromPosition, toPosition);
+        }
+    }
+
+    public void notifyItemRangeInserted(int positionStart, int itemCount) {
+        for (int i = 0; i < observersRef.size(); i++) {
+            WeakReference<DataObserver> reference = observersRef.get(i);
+            if (reference == null) {
+                observersRef.remove(i);
+                i--;
+                continue;
+            }
+            if (reference.get() == null) {
+                observersRef.remove(i);
+                i--;
+                continue;
+            }
+            reference.get().notifyItemRangeInserted(positionStart, itemCount);
+        }
+    }
+
+    public void notifyItemRemoved(int position) {
+        for (int i = 0; i < observersRef.size(); i++) {
+            WeakReference<DataObserver> reference = observersRef.get(i);
+            if (reference == null) {
+                observersRef.remove(i);
+                i--;
+                continue;
+            }
+            if (reference.get() == null) {
+                observersRef.remove(i);
+                i--;
+                continue;
+            }
+            reference.get().notifyItemRemoved(position);
+        }
+    }
+
+    public void notifyItemRangeRemoved(int positionStart, int itemCount) {
+        for (int i = 0; i < observersRef.size(); i++) {
+            WeakReference<DataObserver> reference = observersRef.get(i);
+            if (reference == null) {
+                observersRef.remove(i);
+                i--;
+                continue;
+            }
+            if (reference.get() == null) {
+                observersRef.remove(i);
+                i--;
+                continue;
+            }
+            reference.get().notifyItemRangeRemoved(positionStart, itemCount);
+        }
+    }
 }
