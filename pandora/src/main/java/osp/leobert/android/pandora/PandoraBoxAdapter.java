@@ -124,6 +124,10 @@ public abstract class PandoraBoxAdapter<T> implements Node<PandoraBoxAdapter<T>>
         this.alias = alias;
     }
 
+    /**
+     * @param index the index must has been resolved offset
+     * @return target adapter
+     */
     @Nullable
     @CheckResult
     public abstract PandoraBoxAdapter<T> retrieveAdapterByDataIndex(int index);

@@ -32,7 +32,7 @@ targetCompatibility = "1.7"
 
 def MAVEN_LOCAL_PATH = uri('../../local_repo')
 def ARTIFACT_ID = 'pandorarv'
-def VERSION_NAME = '0.0.1'
+def VERSION_NAME = '0.0.2'
 def GROUP_ID = 'osp.leobert.android'
 
 ext {
@@ -72,7 +72,7 @@ dependencies {
     implementation deps.support.v7.appcompat
     implementation deps.support.v7.recyclerView
 
-    compileOnly 'osp.leobert.android:pandora:0.0.1'
+    compileOnly 'osp.leobert.android:pandora:0.0.2'
 
 //    testImplementation deps.junit
 //    androidTestImplementation 'com.android.support.test:runner:1.0.2'

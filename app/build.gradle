@@ -52,9 +52,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
 //    implementation project(":pandora")
-    implementation 'osp.leobert.android:pandora:0.0.1'
+    implementation 'osp.leobert.android:pandora:0.0.2'
 //    implementation project(":pandorarv")
-    implementation 'osp.leobert.android:pandorarv:0.0.1'
+    implementation 'osp.leobert.android:pandorarv:0.0.2'
 
     implementation deps.support.v7.recyclerView
 }

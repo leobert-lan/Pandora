@@ -501,7 +501,7 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
 
             int resolvedIndex = index - targetSub.getStartIndex();
 
-            return Pair.create(targetSub.retrieveAdapterByDataIndex(resolvedIndex), resolvedIndex);
+            return targetSub.retrieveAdapterByDataIndex2(resolvedIndex);
         }
         return null;
     }

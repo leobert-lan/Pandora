@@ -154,7 +154,7 @@ public class RealDataSet<T> extends PandoraBoxAdapter<T> {
     @Override
     @Nullable
     public PandoraBoxAdapter<T> retrieveAdapterByDataIndex(int index) {
-        if (index >= startIndex && index < (startIndex + getDataCount()))
+        if (0 <= index && index < getDataCount())
             return this;
         return null;
     }
