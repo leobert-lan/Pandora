@@ -121,7 +121,7 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
     boolean isAliasConflict(@NonNull String alias) {
         if (TextUtils.equals(alias, getAlias()))
             return true;
-        for (PandoraBoxAdapter childAdapter : subs                                ) {
+        for (PandoraBoxAdapter childAdapter : subs) {
             if (childAdapter == null) continue;
             if (childAdapter.isAliasConflict(alias))
                 return true;
@@ -157,9 +157,11 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
 
     /**
      * Attention:
-     * <p>
+     * <ul>
      * <li> alias check won't be started!</li>
      * <li> data change will not be apply to listener in the method</li>
+     * </ul>
+     *
      * @param sub sub node to be bind
      */
     @Override

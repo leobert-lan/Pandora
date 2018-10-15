@@ -70,7 +70,7 @@ public abstract class PandoraBoxAdapter<T> implements Node<PandoraBoxAdapter<T>>
 
     /**
      * to end the transaction after a serious of changes apply to the data set, and the changes will
-     * dispatched to the {@link android.support.v7.widget.RecyclerView.Adapter}. if you just want change
+     * dispatched to the RecyclerView.Adapter. if you just want change
      * the data set but ignore display the changes immediately, see {@link #endTransactionSilently()}
      */
     public abstract void endTransaction();

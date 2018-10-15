@@ -71,9 +71,10 @@ dependencies {
 
     implementation deps.support.v7.appcompat
     implementation deps.support.v7.recyclerView
-    testImplementation deps.junit
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+//    testImplementation deps.junit
+//    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+//    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
 
 apply from:'../bintray_upload.gradle'
+apply from:'../maven_upload.gradle'

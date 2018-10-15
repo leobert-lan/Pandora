@@ -57,7 +57,7 @@ public interface Node<T> {
     void removeFromOriginalParent();
 
     /**
-     * @param sub
+     * @param sub child node to be removed
      */
     void removeChild(T sub);
 }

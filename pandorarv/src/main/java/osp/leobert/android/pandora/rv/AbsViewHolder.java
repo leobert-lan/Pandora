@@ -42,7 +42,7 @@ public abstract class AbsViewHolder<T> extends RecyclerView.ViewHolder {
     }
 
     /**
-     * invoked in {@linkplain RecyclerView.Adapter#onBindViewHolder(RecyclerView.ViewHolder, int)}
+     * invoked in RecyclerView.Adapter#onBindViewHolder(RecyclerView.ViewHolder, int)
      * @param data data set to this ViewHolder
      */
     public abstract void setData(T data);

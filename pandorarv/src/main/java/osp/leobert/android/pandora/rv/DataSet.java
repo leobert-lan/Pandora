@@ -26,7 +26,6 @@
 package osp.leobert.android.pandora.rv;
 
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import java.lang.ref.WeakReference;
@@ -37,7 +36,7 @@ import java.util.List;
  * <p><b>Package:</b> osp.leobert.android.pandorarv </p>
  * <p><b>Project:</b> Pandorarv </p>
  * <p><b>Classname:</b> DataSet </p>
- * <p><b>Description:</b> a data set supply for {@linkplain android.support.v7.widget.RecyclerView.Adapter}
+ * <p><b>Description:</b> a data set supply for android.support.v7.widget.RecyclerView.Adapter
  * supporting 'Multi-Type'</p>
  * Created by leobert on 2018/10/10.
  */
@@ -55,7 +54,7 @@ public abstract class DataSet {
      */
     protected interface D<DATA, VH extends AbsViewHolder<? super DATA>> {
         /**
-         * invoke this in adapter, {@link android.support.v7.widget.RecyclerView.Adapter#onBindViewHolder(RecyclerView.ViewHolder, int)}
+         * invoke this in adapter,  android.support.v7.widget.RecyclerView.Adapter#onBindViewHolder(RecyclerView.ViewHolder, int)
          * <em>it's important to do type check</em>
          * remember call {@linkplain AbsViewHolder#setData(Object)} to set data to viewHolder.
          *
