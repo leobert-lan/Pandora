@@ -26,6 +26,7 @@
 package osp.leobert.android.pandora.rv;
 
 import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import java.lang.ref.WeakReference;
@@ -42,7 +43,7 @@ import java.util.List;
  */
 public abstract class DataSet {
 
-    public static <DATA, VH extends AbsViewHolder<? super DATA>>
+    public static <DATA, VH extends IViewHolder<? super DATA>>
     void helpSetToViewHolder(D<DATA, VH> data, VH viewHolder) {
         data.setToViewHolder(viewHolder);
     }
@@ -52,11 +53,11 @@ public abstract class DataSet {
      *               just declare as Data
      * @param <VH>   the VH type, de-generic with the VO thus you can access the API in VO
      */
-    protected interface D<DATA, VH extends AbsViewHolder<? super DATA>> {
+    protected interface D<DATA, VH extends IViewHolder<? super DATA>> {
         /**
          * invoke this in adapter,  android.support.v7.widget.RecyclerView.Adapter#onBindViewHolder(RecyclerView.ViewHolder, int)
          * <em>it's important to do type check</em>
-         * remember call {@linkplain AbsViewHolder#setData(Object)} to set data to viewHolder.
+         * remember call {@linkplain IViewHolder#setData(Object)} to set data to viewHolder.
          *
          * @param viewHolder view holder to be bind this this data
          */
@@ -72,7 +73,7 @@ public abstract class DataSet {
      *             just declare as Data
      * @param <V>  the VH type, de-generic with the VO thus you can access the API in VO
      */
-    public interface Data<DA extends D, V extends AbsViewHolder<? super DA>> extends D<DA, V> {
+    public interface Data<DA extends D, V extends IViewHolder<? super DA>> extends D<DA, V> {
 
     }
 
@@ -103,8 +104,8 @@ public abstract class DataSet {
         return dateVhMappingPool.getItemViewTypeV2(key, data);
     }
 
-    public AbsViewHolder createViewHolderV2(ViewGroup parent, int viewType) {
-        return dateVhMappingPool.createViewHolderV2(parent, viewType);
+    public RecyclerView.ViewHolder createViewHolderV2(ViewGroup parent, int viewType) {
+        return dateVhMappingPool.createViewHolderV2(parent, viewType).asViewHolder();
     }
 
     protected int getViewTypeCount() {

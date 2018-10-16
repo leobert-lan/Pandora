@@ -42,13 +42,13 @@ import java.lang.reflect.InvocationTargetException;
  */
 public abstract class ViewHolderCreator {
 
-    public abstract AbsViewHolder createViewHolder(ViewGroup parent);
+    public abstract IViewHolder createViewHolder(ViewGroup parent);
 
     /**
      * just lazy. But in much real cases, we don't need it.
      * @param <T> ViewHolder Type to be created,the 'View' itemView should be the first params in the constructor
      */
-    public static class LazyCreator<T extends AbsViewHolder> extends ViewHolderCreator {
+    public static class LazyCreator<T extends IViewHolder> extends ViewHolderCreator {
         @LayoutRes
         private final int layoutRes;
 
@@ -78,12 +78,12 @@ public abstract class ViewHolderCreator {
 
 
         @Override
-        public AbsViewHolder createViewHolder(ViewGroup parent) {
+        public IViewHolder createViewHolder(ViewGroup parent) {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(layoutRes, parent, false);
 
             try {
-                AbsViewHolder ret = null;
+                IViewHolder ret = null;
                 Class[] pt;
                 if (ext == null) {
                     pt = new Class[]{View.class};

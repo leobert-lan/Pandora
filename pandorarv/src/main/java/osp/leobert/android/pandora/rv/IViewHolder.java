@@ -25,37 +25,65 @@
 
 package osp.leobert.android.pandora.rv;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 /**
  * <p><b>Package:</b> osp.leobert.android.pandorarv </p>
  * <p><b>Project:</b> Pandorarv </p>
  * <p><b>Classname:</b> AbsViewHolder </p>
  * <p><b>Description:</b> abstract view holder </p>
+ * considering the original project may have some library using a base RecyclerView.Adapter. We change
+ * the class AbsViewHolder to interface IViewHolder to improve compatibility with original project.
+ * <p>
+ * now, you can declare a abstract class like AbsViewHolder extend the BaseViewHolder in your project
+ * and implement this interface. And I will post a blog to guide how to create a custom plugin of as-IDE
+ * for fast create VO and VH.
+ * <p>
+ * The AbsViewHolder may like following:
+ * <pre>
+ * public abstract class AbsViewHolder&lt;T&gt; extends BaseViewHolder implements IViewHolder&lt;T&gt; {
+ *      //the constructor lies on your BaseViewHolder
+ *      public AbsViewHolder(View itemView) {
+ *          super(itemView);
+ *      }
+ *      <code>@Override</code>
+ *      public final RecyclerView.ViewHolder asViewHolder() {
+ *      return this;
+ *      }
+ *      //@Override
+ *      //public void setData(T data) {
+ *      //  let it abstract
+ *      //}
+ *      <code>@Override</code>
+ *      public void onViewAttachedToWindow(){
+ *
+ *      }
+ *      <code>@Override</code>
+ *      public void onViewDetachedFromWindow(){
+ *
+ *      }
+ * }
+ * </pre>
+ * <p>
  * Created by leobert on 2018/10/10.
  */
-public abstract class AbsViewHolder<T> extends RecyclerView.ViewHolder {
-    public AbsViewHolder(View itemView) {
-        super(itemView);
-    }
+
+public interface IViewHolder<T> /*extends RecyclerView.ViewHolder*/ {
+
+    RecyclerView.ViewHolder asViewHolder();
 
     /**
      * invoked in RecyclerView.Adapter#onBindViewHolder(RecyclerView.ViewHolder, int)
+     *
      * @param data data set to this ViewHolder
      */
-    public abstract void setData(T data);
+    void setData(T data);
 
-    protected Context getContext() {
+    /*protected Context getContext() {
         return itemView.getContext();
-    }
+    }*/
 
-    public void onViewAttachedToWindow() {
+    void onViewAttachedToWindow();
 
-    }
-
-    public void onViewDetachedFromWindow() {
-
-    }
+    void onViewDetachedFromWindow();
 }

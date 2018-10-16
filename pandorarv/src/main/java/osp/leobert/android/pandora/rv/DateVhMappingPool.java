@@ -89,7 +89,7 @@ public class DateVhMappingPool {
         return ret;
     }
 
-    public AbsViewHolder createViewHolderV2(ViewGroup parent, int viewType) { // createViewHolder(ViewGroup parent, int viewType)
+    public IViewHolder createViewHolderV2(ViewGroup parent, int viewType) { // createViewHolder(ViewGroup parent, int viewType)
         int index = viewType / maxSize;
         int subIndex = viewType % maxSize;
         return viewTypeCache.get(index).getVhCreator(subIndex).createViewHolder(parent);
