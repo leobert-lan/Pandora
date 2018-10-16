@@ -26,7 +26,7 @@
 package osp.leobert.android.pandorasample.dvh;
 
 
-import osp.leobert.android.pandora.rv.AbsViewHolder;
+
 import osp.leobert.android.pandora.rv.DataSet;
 
 /**

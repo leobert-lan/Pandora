@@ -29,7 +29,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import osp.leobert.android.pandora.rv.AbsViewHolder;
+
 import osp.leobert.android.pandora.rv.ViewHolderCreator;
 import osp.leobert.android.pandorasample.R;
 

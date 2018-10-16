@@ -29,9 +29,10 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ViewGroup;
 
-import osp.leobert.android.pandora.rv.AbsViewHolder;
+
 import osp.leobert.android.pandora.rv.DataObserver;
 import osp.leobert.android.pandora.rv.DataSet;
+import osp.leobert.android.pandorasample.dvh.AbsViewHolder;
 
 /**
  * <p><b>Package:</b> osp.leobert.android.pandorasample </p>
@@ -58,7 +59,7 @@ public class RvAdapter<D extends DataSet> extends RecyclerView.Adapter<AbsViewHo
 
     @Override
     public AbsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return dataSet.createViewHolderV2(parent, viewType);
+        return (AbsViewHolder) dataSet.createViewHolderV2(parent, viewType);
     }
 
     @Override
