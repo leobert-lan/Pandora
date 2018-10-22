@@ -27,6 +27,7 @@ package osp.leobert.android.pandorasample.dvh;
 
 
 import osp.leobert.android.pandora.rv.DataSet;
+import osp.leobert.android.pandorasample.Utils;
 
 /**
  * <p><b>Package:</b> osp.leobert.android.pandorasample.dvh </p>
@@ -36,7 +37,7 @@ import osp.leobert.android.pandora.rv.DataSet;
  * Created by leobert on 2018/10/11.
  */
 public class Type1VOImpl implements Type1VO {
-    private final String s;
+    private String s;
 
     public Type1VOImpl(String s) {
         this.s = s;
@@ -45,6 +46,11 @@ public class Type1VOImpl implements Type1VO {
     @Override
     public String getData() {
         return s;
+    }
+
+    @Override
+    public void resetData(String data) {
+        this.s = data;
     }
 
     @Override
@@ -57,5 +63,18 @@ public class Type1VOImpl implements Type1VO {
         return "Type1VOImpl{" +
                 "s='" + s + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Type1VOImpl type1VO = (Type1VOImpl) o;
+        return Utils.equals(s, type1VO.s);
+    }
+
+    @Override
+    public int hashCode() {
+        return Utils.hash(s);
     }
 }

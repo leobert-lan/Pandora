@@ -66,7 +66,8 @@ public class MenuActivity extends AppCompatActivity {
 
     List<Foo> cases = Arrays.asList(
             new Foo("\r多样式\r", MainActivity.class),
-            new Foo("\r数据测试\r", DataChangeTestActivity.class)
+            new Foo("\r数据测试\r", DataChangeTestActivity.class),
+            new Foo("\r数据测试2-属性变化\r", DataPropertyChangeTestActivity.class)
     );
 
 
@@ -74,8 +75,6 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.e("lmsg", "test");
-
         recyclerView = findViewById(R.id.rv);
         initDataSet();
 

@@ -30,6 +30,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
 import android.text.TextUtils;
 import android.util.Pair;
+import android.util.SparseIntArray;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -45,6 +46,8 @@ import java.util.List;
 public class RealDataSet<T> extends PandoraBoxAdapter<T> {
 
     private final List<T> oldList = new ArrayList<>();
+    private final SparseIntArray oldDataItemHash = new SparseIntArray();
+
     private final List<T> data = new ArrayList<>();
     private boolean useTransaction = false;
     private int groupIndex;// = NO_GROUP_INDEX;
@@ -73,10 +76,7 @@ public class RealDataSet<T> extends PandoraBoxAdapter<T> {
 
             T old = oldList.get(oldItemPosition);
             T now = getDataByIndex(newItemPosition);
-            if (old == null)
-                return now == null;
-            else
-                return old.equals(now);
+            return Pandora.equals(old,now);
         }
 
         @Override
@@ -88,10 +88,9 @@ public class RealDataSet<T> extends PandoraBoxAdapter<T> {
 
             T old = oldList.get(oldItemPosition);
             T now = getDataByIndex(newItemPosition);
-            if (old == null)
-                return now == null;
-            else
-                return old.equals(now);
+            boolean itemSame = Pandora.equals(old, now);
+
+            return itemSame && (oldDataItemHash.get(oldItemPosition) == Pandora.hash(now));
         }
     };
 
@@ -302,6 +301,11 @@ public class RealDataSet<T> extends PandoraBoxAdapter<T> {
     private void snapshot() {
         oldList.clear();
         oldList.addAll(data);
+        oldDataItemHash.clear();
+        for (int i = 0; i < oldList.size(); i++) {
+            T item = oldList.get(i);
+            oldDataItemHash.put(i, Pandora.hash(item));
+        }
     }
 
     private void calcChangeAndNotify() {

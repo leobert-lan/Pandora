@@ -43,6 +43,7 @@
 
         </activity>
         <activity android:name=".DataChangeTestActivity" />
+        <activity android:name=".DataPropertyChangeTestActivity" />
     </application>
 
 </manifest>

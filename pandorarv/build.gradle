@@ -72,11 +72,9 @@ dependencies {
     implementation deps.support.v7.appcompat
     implementation deps.support.v7.recyclerView
 
-    compileOnly 'osp.leobert.android:pandora:0.0.2'
+    compileOnly project(":pandora")
+//    compileOnly 'osp.leobert.android:pandora:0.0.2'
 
-//    testImplementation deps.junit
-//    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-//    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
 
 apply from:'../bintray_upload.gradle'

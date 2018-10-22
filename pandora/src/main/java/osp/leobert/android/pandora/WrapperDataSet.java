@@ -32,6 +32,7 @@ import android.support.v7.util.DiffUtil;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
+import android.util.SparseIntArray;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -50,6 +51,8 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
     }
 
     private final List<T> oldList = new ArrayList<>();
+    private final SparseIntArray oldDataItemHash = new SparseIntArray();
+
     private boolean useTransaction = false;
     private final DiffUtil.Callback diffCallback = new DiffUtil.Callback() {
         @Override
@@ -69,8 +72,7 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
 
             T old = oldList.get(oldItemPosition);
             T now = getDataByIndex(newItemPosition);
-            if (old == null) return now == null;
-            else return old.equals(now);
+            return Pandora.equals(old, now);
         }
 
         @Override
@@ -82,10 +84,9 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
 
             T old = oldList.get(oldItemPosition);
             T now = getDataByIndex(newItemPosition);
-            if (old == null)
-                return now == null;
-            else
-                return old.equals(now);
+            boolean itemSame = Pandora.equals(old, now);
+
+            return itemSame && (oldDataItemHash.get(oldItemPosition) == Pandora.hash(now));
         }
     };
 
@@ -386,9 +387,12 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
 
     private void snapshot() {
         oldList.clear();
+        oldDataItemHash.clear();
         long count = getDataCount();
         for (int i = 0; i < count; i++) {
-            oldList.add(i, getDataByIndex(i));
+            T data = getDataByIndex(i);
+            oldList.add(i, data);
+            oldDataItemHash.put(i, Pandora.hash(data));
         }
     }
 

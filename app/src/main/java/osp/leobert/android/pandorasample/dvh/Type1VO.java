@@ -38,4 +38,6 @@ import osp.leobert.android.pandora.rv.DataSet;
  */
 public interface Type1VO extends DataSet.Data<DataSet.Data, AbsViewHolder<DataSet.Data>> {
     String getData();
+
+    void resetData(String data);
 }

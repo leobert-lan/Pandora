@@ -29,6 +29,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.util.ListUpdateCallback;
 import android.support.v7.widget.RecyclerView;
 
+import java.util.Arrays;
+
 /**
  * <p><b>Package:</b> osp.leobert.android.pandora </p>
  * <p><b>Project:</b> Pandora </p>
@@ -57,6 +59,14 @@ public final class Pandora {
     public static boolean checkAliasUnique(@NonNull PandoraBoxAdapter pandoraBoxAdapter,
                                            @NonNull String alias) {
         return !pandoraBoxAdapter.isAliasConflict(alias);
+    }
+
+    static boolean equals(Object a, Object b) {
+        return (a == b) || (a != null && a.equals(b));
+    }
+
+    static int hash(Object... values) {
+        return Arrays.hashCode(values);
     }
 
     /**
