@@ -44,6 +44,7 @@
         </activity>
         <activity android:name=".DataChangeTestActivity" />
         <activity android:name=".DataPropertyChangeTestActivity" />
+        <activity android:name=".CompositeOpsInWrapTestActivity" />
     </application>
 
 </manifest>

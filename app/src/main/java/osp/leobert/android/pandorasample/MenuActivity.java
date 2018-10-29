@@ -32,7 +32,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -67,7 +66,9 @@ public class MenuActivity extends AppCompatActivity {
     List<Foo> cases = Arrays.asList(
             new Foo("\r多样式\r", MainActivity.class),
             new Foo("\r数据测试\r", DataChangeTestActivity.class),
-            new Foo("\r数据测试2-属性变化\r", DataPropertyChangeTestActivity.class)
+            new Foo("\r数据测试2-属性变化\r", DataPropertyChangeTestActivity.class),
+            new Foo("\rWrap数据集中的组合操作测试\r", CompositeOpsInWrapTestActivity.class)
+
     );
 
 
