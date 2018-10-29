@@ -8,4 +8,4 @@ Pandora is a library to build flexible dataset.
 
 *有点小忙，逐步更新文档，recyclerview多样式的辅助插件会独立项目*
 
-(插件项目Pandora-Plugin地址)[https://github.com/leobert-lan/Pandora-Plugin]
+[插件项目Pandora-Plugin地址](https://github.com/leobert-lan/Pandora-Plugin)
