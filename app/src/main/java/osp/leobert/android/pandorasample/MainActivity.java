@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import osp.leobert.android.pandora.Pandora;
+import osp.leobert.android.pandora.RealDataSet;
 import osp.leobert.android.pandora.WrapperDataSet;
 import osp.leobert.android.pandora.rv.DataSet;
 import osp.leobert.android.pandora.rv.PandoraRealRvDataSet;
@@ -64,12 +65,13 @@ public class MainActivity extends AppCompatActivity {
     PandoraRealRvDataSet<DataSet.Data> dataSetSection3;
     RvAdapter<PandoraWrapperRvDataSet<DataSet.Data>> adapter;
 
+    RealDataSet<DataSet.Data> dataSet1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.e("lmsg", "test");
 
         recyclerView = findViewById(R.id.rv);
         initDataSet();
@@ -111,12 +113,19 @@ public class MainActivity extends AppCompatActivity {
         WrapperDataSet<DataSet.Data> wrapperDataSet = Pandora.wrapper();
         dataSet = new PandoraWrapperRvDataSet<>(wrapperDataSet);
 
+//        dataSet.retrieveAdapterByDataIndex2(1)
+
         dataSetSection1 = new PandoraRealRvDataSet<>(Pandora.<DataSet.Data>real());
         dataSetSection1.setAlias("sec1");
         dataSetSection2 = new PandoraRealRvDataSet<>(Pandora.<DataSet.Data>real());
         dataSetSection2.setAlias("sec2");
         dataSetSection3 = new PandoraRealRvDataSet<>(Pandora.<DataSet.Data>real());
         dataSetSection3.setAlias("sec3");
+
+        dataSet1 = Pandora.real();
+        dataSet.addSub(dataSet1);
+
+
         dataSet.addSub(dataSetSection1.getRealDataSet());
         dataSet.addSub(dataSetSection2.getRealDataSet());
         dataSet.addSub(dataSetSection3.getRealDataSet());
