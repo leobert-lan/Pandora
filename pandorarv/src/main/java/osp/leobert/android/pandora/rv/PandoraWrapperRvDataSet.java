@@ -159,4 +159,13 @@ public class PandoraWrapperRvDataSet<T extends DataSet.D> extends DataSet {
             e.printStackTrace();
         }
     }
+
+    @Nullable
+    public PandoraBoxAdapter<T> getChild(int index) {
+        return wrapperDataSet.getChild(index);
+    }
+
+    public void clearAllChildren() {
+        wrapperDataSet.clearAllChildren();
+    }
 }

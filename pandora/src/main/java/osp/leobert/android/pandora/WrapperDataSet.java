@@ -207,6 +207,13 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
         }
     }
 
+    @Nullable
+    public PandoraBoxAdapter<T> getChild(int index) {
+        if (index + 1 > subs.size() || 0 > index)
+            return null;
+        return subs.get(index);
+    }
+
     @Override
     public final int getDataCount() {
         int ret = 0;
@@ -269,6 +276,17 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
             sub.clearAllData();
         }
         endTransaction();
+    }
+
+    public void clearAllChildren() {
+        if (!subs.isEmpty()) {
+            onBeforeChanged();
+            while (!subs.isEmpty()) {
+                PandoraBoxAdapter<T> sub = subs.remove(0);
+                sub.notifyHasRemoveFromParent(); // make sure
+            }
+            onAfterChanged();
+        }
     }
 
     @Override
