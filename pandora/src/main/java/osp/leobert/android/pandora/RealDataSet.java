@@ -34,7 +34,10 @@ import android.util.SparseIntArray;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+
+import osp.leobert.android.pandora.visitor.TypeVisitor;
 
 /**
  * <p><b>Package:</b> osp.leobert.android.pandora </p>
@@ -341,5 +344,19 @@ public class RealDataSet<T> extends PandoraBoxAdapter<T> {
             DiffUtil.DiffResult result = DiffUtil.calculateDiff(diffCallback);
             result.dispatchUpdatesTo(listUpdateCallback);
         }
+    }
+
+    @NonNull
+    @Override
+    public Iterator<T> iterator() {
+        return data.iterator();
+    }
+
+    public void accept(int pos, @NonNull TypeVisitor typeVisitor) {
+        if (pos < 0 || pos >= getDataCount()) {
+            typeVisitor.onMissed();
+        }
+
+        typeVisitor.visit(getDataByIndex(pos));
     }
 }

@@ -38,7 +38,8 @@ import android.util.Pair;
  * <p><b>Description:</b> PandoraBoxAdapter </p>
  * Created by leobert on 2018/9/29.
  */
-public abstract class PandoraBoxAdapter<T> implements Node<PandoraBoxAdapter<T>>, DataAdapter<T> {
+public abstract class PandoraBoxAdapter<T> implements Node<PandoraBoxAdapter<T>>,
+        DataAdapter<T>,Iterable<T> {
     protected ListUpdateCallback listUpdateCallback;
 
     /**

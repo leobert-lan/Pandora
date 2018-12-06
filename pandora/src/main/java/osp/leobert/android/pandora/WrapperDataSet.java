@@ -39,6 +39,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import osp.leobert.android.pandora.visitor.TypeVisitor;
+
 /**
  * <p><b>Package:</b> osp.leobert.android.pandora </p>
  * <p><b>Project:</b> Pandora </p>
@@ -575,5 +577,25 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
         if (index == -1)
             return -1;
         return getStartIndex() + index;
+    }
+
+    /**
+     * <em>Attention:Caution with method!It will apply all data change then use loop
+     * to create a snapshot list.And any changes e.g. remove() will make none positive effects</em>
+     */
+    @NonNull
+    @Override
+    public Iterator<T> iterator() {
+        endTransaction();
+        snapshot();
+        return oldList.iterator();
+    }
+
+    public void accept(int pos, @NonNull TypeVisitor typeVisitor) {
+        if (pos < 0 || pos >= getDataCount()) {
+            typeVisitor.onMissed();
+        }
+
+        typeVisitor.visit(getDataByIndex(pos));
     }
 }
