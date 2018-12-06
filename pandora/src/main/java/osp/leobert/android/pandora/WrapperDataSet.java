@@ -36,6 +36,7 @@ import android.util.SparseIntArray;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -214,6 +215,20 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
         return subs.get(index);
     }
 
+    @Nullable
+    public PandoraBoxAdapter<T> findByAlias(@NonNull String targetAlias) {
+        if (targetAlias == null) return null;
+        if (TextUtils.equals(getAlias(), targetAlias))
+            return this;
+
+        Iterator<PandoraBoxAdapter<T>> iterator = subs.iterator();
+        PandoraBoxAdapter<T> ret = null;
+        while (iterator.hasNext() && ret == null) {
+            ret = iterator.next().findByAlias(targetAlias);
+        }
+        return ret;
+    }
+
     @Override
     public final int getDataCount() {
         int ret = 0;
@@ -355,6 +370,23 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
             }
         }
         endTransaction();
+    }
+
+    @Override
+    public boolean replaceAtPosIfExist(int position, T item) throws PandoraException {
+        if (getDataCount() > position + 1 || position < 0)
+            return false;
+        Pair<PandoraBoxAdapter<T>, Integer> tmp = retrieveAdapterByDataIndex2(position);
+        if (tmp == null)
+            return false;
+        if (tmp.first == null || tmp.second == null)
+            return false;
+        try {
+            return tmp.first.replaceAtPosIfExist(tmp.second, item);
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+            throw new PandoraException(e);
+        }
     }
 
     @Override
@@ -526,5 +558,22 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
             return targetSub.retrieveAdapterByDataIndex2(resolvedIndex);
         }
         return null;
+    }
+
+    @Override
+    public int indexOf(T item) {
+        Iterator<PandoraBoxAdapter<T>> iterator = subs.iterator();
+        int index = -1;
+        while (iterator.hasNext()) {
+            PandoraBoxAdapter<T> sub = iterator.next();
+            int i = sub.indexOf(item);
+            if (i >= 0) {
+                index = sub.getStartIndex() + i;
+                break;
+            }
+        }
+        if (index == -1)
+            return -1;
+        return getStartIndex() + index;
     }
 }

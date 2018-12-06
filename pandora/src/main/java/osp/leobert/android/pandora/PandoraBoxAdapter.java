@@ -108,6 +108,7 @@ public abstract class PandoraBoxAdapter<T> implements Node<PandoraBoxAdapter<T>>
 
     /**
      * set alias to this adapter ,<em>attention, if one tree or node merged to this as sub-node, none check will be taken!</em>
+     *
      * @param alias alias want to set to this node
      * @throws PandoraException throws if alias conflict with any node in this tree
      */
@@ -141,4 +142,7 @@ public abstract class PandoraBoxAdapter<T> implements Node<PandoraBoxAdapter<T>>
     protected abstract void setStartIndex(int startIndex);
 
     abstract boolean isAliasConflict(@NonNull String alias);
+
+    public abstract PandoraBoxAdapter<T> findByAlias(@NonNull final String targetAlias);
+
 }

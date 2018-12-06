@@ -70,6 +70,12 @@ public final class Pandora {
         target.setData(tmp);
     }
 
+    public static <T> void addAll(@NonNull PandoraBoxAdapter<T> target, @NonNull Collection<? extends T> want) {
+        List<T> tmp = new ArrayList<>();
+        tmp.addAll(want);
+        target.addAll(tmp);
+    }
+
     static boolean equals(Object a, Object b) {
         return (a == b) || (a != null && a.equals(b));
     }

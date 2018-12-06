@@ -76,7 +76,7 @@ public class RealDataSet<T> extends PandoraBoxAdapter<T> {
 
             T old = oldList.get(oldItemPosition);
             T now = getDataByIndex(newItemPosition);
-            return Pandora.equals(old,now);
+            return Pandora.equals(old, now);
         }
 
         @Override
@@ -224,6 +224,16 @@ public class RealDataSet<T> extends PandoraBoxAdapter<T> {
     }
 
     @Override
+    public boolean replaceAtPosIfExist(int position, T item) {
+        if (getDataCount() > position + 1 || position < 0)
+            return false;
+        onBeforeChanged();
+        data.set(position, item);
+        onAfterChanged();
+        return true;
+    }
+
+    @Override
     public void setData(Collection<T> collection) {
         onBeforeChanged();
         this.data.clear();
@@ -231,6 +241,16 @@ public class RealDataSet<T> extends PandoraBoxAdapter<T> {
             this.data.addAll(collection);
         }
         onAfterChanged();
+    }
+
+    @Override
+    public int indexOf(T item) {
+        try {
+            return data.indexOf(item);
+        } catch (ClassCastException | NullPointerException e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 
 
@@ -296,6 +316,14 @@ public class RealDataSet<T> extends PandoraBoxAdapter<T> {
     @Override
     boolean isAliasConflict(@NonNull String alias) {
         return TextUtils.equals(alias, getAlias());
+    }
+
+    @Override
+    public PandoraBoxAdapter<T> findByAlias(@NonNull String targetAlias) {
+        if (targetAlias == null) return null;
+        if (TextUtils.equals(getAlias(), targetAlias))
+            return this;
+        return null;
     }
 
     private void snapshot() {

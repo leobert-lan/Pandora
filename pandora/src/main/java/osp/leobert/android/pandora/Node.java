@@ -42,6 +42,7 @@ public interface Node<T> {
 
     /**
      * add a child node
+     *
      * @param sub sub node to be bind
      */
     void addChild(T sub);

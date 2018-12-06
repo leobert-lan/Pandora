@@ -25,6 +25,8 @@
 
 package osp.leobert.android.pandora;
 
+import android.support.annotation.IntRange;
+
 import java.util.Collection;
 
 /**
@@ -51,5 +53,10 @@ public interface DataAdapter<T> {
 
     void removeAtPos(int position);
 
+    boolean replaceAtPosIfExist(int position, T item) throws PandoraException;
+
     void setData(Collection<T> collection);
+
+    @IntRange(from = -1)
+    int indexOf(T item);
 }
