@@ -29,6 +29,8 @@ import android.support.annotation.NonNull;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
+import osp.leobert.android.pandora.Logger;
+
 
 /**
  * <p><b>Package:</b> osp.leobert.android.pandorarv </p>
@@ -38,8 +40,26 @@ import android.view.ViewGroup;
  * Created by leobert on 2018/10/10.
  */
 public class DateVhMappingPool {
-    private SparseArray<TypeCell> viewTypeCache = new SparseArray<>();
+    private final SparseArray<TypeCell> viewTypeCache = new SparseArray<>();
     private int maxSize = 5;
+
+    public synchronized void removeDVRelation(@NonNull Class<?> dataClz) {
+        synchronized (viewTypeCache) {
+            for (int i = 0; i < viewTypeCache.size(); i++) {
+                try {
+                    TypeCell typeCell = viewTypeCache.valueAt(i);
+                    if (typeCell.workFor(dataClz.getName())) {
+                        int key = viewTypeCache.keyAt(i);
+                        viewTypeCache.remove(key);
+                        i--;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Logger.e(Logger.TAG, "DateVhMappingPool removeDVRelation error", e);
+                }
+            }
+        }
+    }
 
     public synchronized void registerDVRelation(@NonNull Class<?> dataClz, @NonNull ViewHolderCreator viewHolderCreator) {
         this.registerDVRelation(new DataVhRelation<>(dataClz, viewHolderCreator));
@@ -53,7 +73,7 @@ public class DateVhMappingPool {
     public synchronized void registerDVRelation(DVRelation<?> dvRelation) {
         if (dvRelation == null)
             return;
-        synchronized (DataSet.class) {
+        synchronized (viewTypeCache) {
             int n = dvRelation.one2N();
 
             while (n > maxSize) {
@@ -71,14 +91,16 @@ public class DateVhMappingPool {
     }
 
     @SuppressWarnings("unchecked")
-    public <T> int getItemViewTypeV2(String key,T data) { //getItemViewType
+    public <T> int getItemViewTypeV2(String key, T data) { //getItemViewType
         for (int i = 0; i < viewTypeCache.size(); i++) {//折半查找可能效率更高一点
             if (viewTypeCache.get(i).workFor(key)) {
                 int viewType = viewTypeCache.get(i).getItemViewType(data);
                 return viewType;
             }
         }
-        throw new RuntimeException("have you register for:" + key);
+        RuntimeException e = new RuntimeException("have you register for:" + key);
+        Logger.e(Logger.TAG, "missing type register", e);
+        throw e;
     }
 
     public int getViewTypeCount() {//getViewTypeCount

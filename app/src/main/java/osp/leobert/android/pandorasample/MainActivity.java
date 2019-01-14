@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.rv);
         initDataSet();
 
-        adapter = new RvAdapter<>(dataSet);
+        adapter = new RvAdapter<>(dataSet,getClass().getSimpleName());
         Pandora.bind2RecyclerViewAdapter(dataSet.getDataSet(), adapter);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -130,12 +130,16 @@ public class MainActivity extends AppCompatActivity {
         dataSet.addSub(dataSetSection2.getRealDataSet());
         dataSet.addSub(dataSetSection3.getRealDataSet());
 
+        dataSet.removeDVRelation(Type1VOImpl.class);
+
         dataSet.registerDVRelation(Type1VOImpl.class, new Type1VH.Creator(new Type1VH.ItemInteract() {
             @Override
             public void foo(int pos, Type1VO data) {
                 dataSet.removeAtPos(pos);
             }
         }));
+
+//        dataSet.removeDVRelation(Type1VOImpl.class); //验证下log
 
         dataSet.registerDVRelation(Type2VOImpl.class, new Type2VH.Creator(null));
         dataSet.registerDVRelation(Type3VOImpl.class, new Type3VH.Creator(null));

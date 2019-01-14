@@ -29,7 +29,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ViewGroup;
 
-
+import osp.leobert.android.pandora.Logger;
+import osp.leobert.android.pandora.PandoraException;
 import osp.leobert.android.pandora.rv.DataObserver;
 import osp.leobert.android.pandora.rv.DataSet;
 import osp.leobert.android.pandorasample.dvh.AbsViewHolder;
@@ -47,6 +48,7 @@ public class RvAdapter<D extends DataSet> extends RecyclerView.Adapter<AbsViewHo
         implements DataObserver {
 
     private final D dataSet;
+    private String tag;
 
     protected D dataSet() {
         return dataSet;
@@ -57,9 +59,20 @@ public class RvAdapter<D extends DataSet> extends RecyclerView.Adapter<AbsViewHo
         dataSet.addDataObserver(this);
     }
 
+    public RvAdapter(D dataSet, String tag) {
+        this.dataSet = dataSet;
+        this.tag = tag;
+    }
+
     @Override
     public AbsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return (AbsViewHolder) dataSet.createViewHolderV2(parent, viewType);
+        try {
+            return (AbsViewHolder) dataSet.createViewHolderV2(parent, viewType);
+        } catch (PandoraException e) {
+            e.printStackTrace();
+            Logger.e(Logger.TAG, tag, e);
+            return null;
+        }
     }
 
     @Override
@@ -67,7 +80,7 @@ public class RvAdapter<D extends DataSet> extends RecyclerView.Adapter<AbsViewHo
     public void onBindViewHolder(AbsViewHolder holder, int position) {
         Log.i("Pandora", "onBindViewHolder: " + position);
         try {
-            DataSet.helpSetToViewHolder(dataSet.getItem(position),holder);
+            DataSet.helpSetToViewHolder(dataSet.getItem(position), holder);
 //            dataSet.getItem(position).setToViewHolder(holder);
         } catch (Exception e) {
             e.printStackTrace();
@@ -82,7 +95,13 @@ public class RvAdapter<D extends DataSet> extends RecyclerView.Adapter<AbsViewHo
 
     @Override
     public int getItemViewType(int position) {
-        return dataSet.getItemViewTypeV2(position);
+        try {
+            return dataSet.getItemViewTypeV2(position);
+        } catch (PandoraException e) {
+            e.printStackTrace();
+            Logger.e(Logger.TAG, tag, e);
+            return -1;
+        }
     }
 
     @Override

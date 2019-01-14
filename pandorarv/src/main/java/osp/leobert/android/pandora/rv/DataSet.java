@@ -33,6 +33,8 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+import osp.leobert.android.pandora.PandoraException;
+
 /**
  * <p><b>Package:</b> osp.leobert.android.pandorarv </p>
  * <p><b>Project:</b> Pandorarv </p>
@@ -97,15 +99,24 @@ public abstract class DataSet {
         observersRef.add(new WeakReference<>(dataObserver));
     }
 
-    public int getItemViewTypeV2(int pos) { //getItemViewType
+    public int getItemViewTypeV2(int pos) throws PandoraException { //getItemViewType
         String key = getItem(pos).getClass().getName();
         D data = getItem(pos);
-
-        return dateVhMappingPool.getItemViewTypeV2(key, data);
+        try {
+            return dateVhMappingPool.getItemViewTypeV2(key, data);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new PandoraException(e);
+        }
     }
 
-    public RecyclerView.ViewHolder createViewHolderV2(ViewGroup parent, int viewType) {
-        return dateVhMappingPool.createViewHolderV2(parent, viewType).asViewHolder();
+    public RecyclerView.ViewHolder createViewHolderV2(ViewGroup parent, int viewType) throws PandoraException {
+        try {
+            return dateVhMappingPool.createViewHolderV2(parent, viewType).asViewHolder();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new PandoraException(e);
+        }
     }
 
     protected int getViewTypeCount() {
@@ -124,6 +135,9 @@ public abstract class DataSet {
         dateVhMappingPool.registerDvRelation(dvRelation);
     }
 
+    public synchronized void removeDVRelation(@NonNull Class<?> dataClz) {
+        dateVhMappingPool.removeDVRelation(dataClz);
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // notify change

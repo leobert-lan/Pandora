@@ -45,7 +45,7 @@ import java.util.List;
     @IntRange(from = 1)
     private int maxSize;
 
-    public void updateMaxSize(@IntRange(from = 1) int maxSize) {
+    void updateMaxSize(@IntRange(from = 1) int maxSize) {
         this.maxSize = maxSize;
     }
 
@@ -54,7 +54,7 @@ import java.util.List;
 
     private final List<String> subTypeTokens;
 
-    public boolean workFor(@NonNull String clz) {
+    boolean workFor(@NonNull String clz) {
         return clz.equals(dvRelation.getDataClz().getName());
     }
 
@@ -64,11 +64,11 @@ import java.util.List;
         subTypeTokens = new ArrayList<>();
     }
 
-    public int getSubTypeCount() {
+    int getSubTypeCount() {
         return dvRelation.one2N();
     }
 
-    public int getItemViewType(T data) {
+    int getItemViewType(T data) {
 //            dvRelation.getDataClz().equals(data.getClass()) 暂不做校验
         String token = dvRelation.subTypeToken(data);
         if (!subTypeTokens.contains(token)) {
@@ -78,7 +78,7 @@ import java.util.List;
         return this.index * maxSize + index;
     }
 
-    public ViewHolderCreator getVhCreator(int subTypeIndex) {
+    ViewHolderCreator getVhCreator(int subTypeIndex) {
         String subTypeToken = subTypeTokens.get(subTypeIndex);
         return dvRelation.getVhCreator(subTypeToken);
     }
