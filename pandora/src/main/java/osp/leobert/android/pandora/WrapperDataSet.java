@@ -243,16 +243,19 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
 
     @Override
     @Nullable
-    public final T getDataByIndex(int index) {
-        log(Log.DEBUG, "getDataByIndex" + index);
-        if (startIndex <= index && startIndex + getDataCount() > index) {
+    public final T getDataByIndex(int indexResolved/*must be resolved pos*/) {
+        int realIndex = indexResolved + startIndex;
+        log(Log.DEBUG, "getDataByResolvedIndex" + indexResolved + "   ; real index:" + realIndex);
+        if (0 <= indexResolved && getDataCount() > indexResolved) {
             //find the sub
 
             PandoraBoxAdapter<T> targetSub = null;
 
             int mid = subs.size() / 2;
             PandoraBoxAdapter<T> sub = subs.get(mid);
-            if (index >= sub.getStartIndex() && index < (sub.getStartIndex() + sub.getDataCount())) {
+
+
+            if (realIndex >= sub.getStartIndex() && realIndex < (sub.getStartIndex() + sub.getDataCount())) {
                 targetSub = sub;
             }
 
@@ -262,9 +265,9 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
                 mid = (end - start) / 2 + start;
                 PandoraBoxAdapter<T> adapter = subs.get(mid);
 
-                if (index < adapter.getStartIndex()) {
+                if (realIndex < adapter.getStartIndex()) {
                     end = mid - 1;
-                } else if (adapter.getDataCount() == 0 || index >= (adapter.getStartIndex() + adapter.getDataCount())) {
+                } else if (adapter.getDataCount() == 0 || realIndex >= (adapter.getStartIndex() + adapter.getDataCount())) {
                     start = mid + 1;
                 } else {
                     targetSub = adapter;
@@ -272,13 +275,13 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
                 }
             }
             if (targetSub == null) {
-                log(Log.ERROR, "getDataByIndex" + index + ";no child find");
+                log(Log.ERROR, "getDataByRealIndex" + realIndex + ";no child find");
                 return null;
             }
 
-            log(Log.DEBUG, "getDataByIndex" + index + targetSub.getAlias() + " - " + targetSub.toString());
+            log(Log.DEBUG, "getDataByIndex" + realIndex + targetSub.getAlias() + " - " + targetSub.toString());
 
-            int resolvedIndex = index - targetSub.getStartIndex();
+            int resolvedIndex = realIndex - targetSub.getStartIndex();
 
             return targetSub.getDataByIndex(resolvedIndex);
         }
@@ -304,6 +307,10 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
             }
             onAfterChanged();
         }
+    }
+
+    public int getChildCount() {
+        return subs.size();
     }
 
     @Override
@@ -423,7 +430,8 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
         }
     }
 
-    private void rebuildSubNodes() {
+    @Override
+    protected void rebuildSubNodes() {
         int subCounts = subs.size();
         int offset = 0;
         for (int i = 0; i < subCounts; i++) {
@@ -431,7 +439,8 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
             if (sub == null) continue;
 
             sub.setGroupIndex(i);
-            sub.setStartIndex(offset);
+            sub.setStartIndex(getStartIndex() + offset);
+            sub.rebuildSubNodes();
             offset += sub.getDataCount();
         }
     }
@@ -524,15 +533,16 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
 
     @Nullable
     @Override
-    public Pair<PandoraBoxAdapter<T>, Integer> retrieveAdapterByDataIndex2(int index) {
-        if (startIndex <= index && startIndex + getDataCount() > index) {
+    public Pair<PandoraBoxAdapter<T>, Integer> retrieveAdapterByDataIndex2(int index/*must be resolved pos*/) {
+        int realIndex = getStartIndex() + index;
+        if (startIndex <= realIndex && startIndex + getDataCount() > realIndex) {
             //find the sub
 
             PandoraBoxAdapter<T> targetSub = null;
 
             int mid = subs.size() / 2;
             PandoraBoxAdapter<T> sub = subs.get(mid);
-            if (index >= sub.getStartIndex() && index < (sub.getStartIndex() + sub.getDataCount())) {
+            if (realIndex >= sub.getStartIndex() && realIndex < (sub.getStartIndex() + sub.getDataCount())) {
                 targetSub = sub;
             }
 
@@ -542,9 +552,9 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
                 mid = (end - start) / 2 + start;
                 PandoraBoxAdapter<T> adapter = subs.get(mid);
 
-                if (index < adapter.getStartIndex()) {
+                if (realIndex < adapter.getStartIndex()) {
                     end = mid - 1;
-                } else if (adapter.getDataCount() == 0 || index >= (adapter.getStartIndex() + adapter.getDataCount())) {
+                } else if (adapter.getDataCount() == 0 || realIndex >= (adapter.getStartIndex() + adapter.getDataCount())) {
                     start = mid + 1;
                 } else {
                     targetSub = adapter;
@@ -555,7 +565,7 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
             if (targetSub == null)
                 return null;
 
-            int resolvedIndex = index - targetSub.getStartIndex();
+            int resolvedIndex = realIndex - targetSub.getStartIndex();
 
             return targetSub.retrieveAdapterByDataIndex2(resolvedIndex);
         }

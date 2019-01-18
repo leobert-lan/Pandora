@@ -57,6 +57,7 @@ import osp.leobert.android.pandorasample.dvh.Type5VOImpl;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
+    private RecyclerView recyclerView2;
 
     PandoraWrapperRvDataSet<DataSet.Data> dataSet;
 
@@ -68,23 +69,33 @@ public class MainActivity extends AppCompatActivity {
     RealDataSet<DataSet.Data> dataSet1;
 
 
+    RvAdapter<PandoraRealRvDataSet<DataSet.Data>> adapter2;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main2);
 
         recyclerView = findViewById(R.id.rv);
+        recyclerView2 = findViewById(R.id.rv2);
         initDataSet();
 
         adapter = new RvAdapter<>(dataSet,getClass().getSimpleName());
+        adapter2 = new RvAdapter<>(dataSetSection1,getClass().getSimpleName());
+
         Pandora.bind2RecyclerViewAdapter(dataSet.getDataSet(), adapter);
+        Pandora.bind2RecyclerViewAdapter(dataSetSection1.getRealDataSet(),adapter2);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+        recyclerView2.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView2.setAdapter(adapter2);
 
         DividerItemDecoration decoration = new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
         decoration.setDrawable(getResources().getDrawable(R.color.colorAccent));
         recyclerView.addItemDecoration(decoration);
+        recyclerView2.addItemDecoration(decoration);
 
         findViewById(R.id.b1).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,6 +149,18 @@ public class MainActivity extends AppCompatActivity {
                 dataSet.removeAtPos(pos);
             }
         }));
+
+        dataSetSection1.registerDVRelation(Type1VOImpl.class, new Type1VH.Creator(new Type1VH.ItemInteract() {
+            @Override
+            public void foo(int pos, Type1VO data) {
+                dataSetSection1.removeAtPos(pos);
+            }
+        }));
+        dataSetSection1.registerDVRelation(Type2VOImpl.class, new Type2VH.Creator(null));
+        dataSetSection1.registerDVRelation(Type3VOImpl.class, new Type3VH.Creator(null));
+        dataSetSection1.registerDVRelation(Type4VOImpl.class, new Type4VH.Creator(null));
+        dataSetSection1.registerDVRelation(Type5VOImpl.class, new Type5VH.Creator(null));
+
 
 //        dataSet.removeDVRelation(Type1VOImpl.class); //验证下log
 

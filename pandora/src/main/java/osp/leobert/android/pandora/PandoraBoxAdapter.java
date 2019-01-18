@@ -59,6 +59,8 @@ public abstract class PandoraBoxAdapter<T> implements Node<PandoraBoxAdapter<T>>
      */
     protected abstract void onAfterChanged();
 
+    protected abstract void rebuildSubNodes();
+
     /**
      * @return true if this data set adapter or it's parent wrapper is in transaction
      */

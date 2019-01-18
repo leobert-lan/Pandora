@@ -125,6 +125,11 @@ public class RealDataSet<T> extends PandoraBoxAdapter<T> {
     }
 
     @Override
+    protected void rebuildSubNodes() {
+//        ignore
+    }
+
+    @Override
     protected boolean inTransaction() {
         return useTransaction || isParentInTransaction();
     }
