@@ -23,7 +23,7 @@
  *
  */
 
-package osp.leobert.android.pandorasample;
+package osp.leobert.android.pandorasample.cases;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -43,6 +43,8 @@ import osp.leobert.android.pandora.WrapperDataSet;
 import osp.leobert.android.pandora.rv.DataSet;
 import osp.leobert.android.pandora.rv.PandoraRealRvDataSet;
 import osp.leobert.android.pandora.rv.PandoraWrapperRvDataSet;
+import osp.leobert.android.pandorasample.R;
+import osp.leobert.android.pandorasample.RvAdapter;
 import osp.leobert.android.pandorasample.dvh.Type1VH;
 import osp.leobert.android.pandorasample.dvh.Type1VO;
 import osp.leobert.android.pandorasample.dvh.Type1VOImpl;

@@ -34,8 +34,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".MenuActivity">
+        <activity android:name=".cases.MultiTypeTestActivity"></activity>
+        <activity android:name=".menu.MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -43,9 +43,10 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".DataChangeTestActivity" />
-        <activity android:name=".DataPropertyChangeTestActivity" />
-        <activity android:name=".CompositeOpsInWrapTestActivity" />
+        <activity android:name=".cases.DataChangeTestActivity" />
+        <activity android:name=".cases.DataPropertyChangeTestActivity" />
+        <activity android:name=".cases.CompositeOpsInWrapTestActivity" />
+        <activity android:name=".kt.TestKtActivity" />
     </application>
 
 </manifest>

@@ -69,7 +69,7 @@ public class Type5VH extends FooVH<Type5VO> {
         @Override
         public AbsViewHolder createViewHolder(ViewGroup parent) {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.app_vh_type5, null, false);
+                    .inflate(R.layout.app_vh_type5, parent, false);
             return new Type5VH(view, itemInteract);
         }
     }

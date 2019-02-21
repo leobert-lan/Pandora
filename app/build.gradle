@@ -24,6 +24,8 @@
  */
 
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 27
@@ -57,4 +59,7 @@ dependencies {
 //    implementation 'osp.leobert.android:pandorarv:0.0.2'
 
     implementation deps.support.v7.recyclerView
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation project(':pandorarv_kt')
 }

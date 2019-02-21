@@ -23,14 +23,13 @@
  *
  */
 
-package osp.leobert.android.pandorasample;
+package osp.leobert.android.pandorasample.cases;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -43,19 +42,17 @@ import osp.leobert.android.pandora.WrapperDataSet;
 import osp.leobert.android.pandora.rv.DataSet;
 import osp.leobert.android.pandora.rv.PandoraRealRvDataSet;
 import osp.leobert.android.pandora.rv.PandoraWrapperRvDataSet;
+import osp.leobert.android.pandora.visitor.TypeVisitor;
+import osp.leobert.android.pandorasample.R;
+import osp.leobert.android.pandorasample.RvAdapter;
 import osp.leobert.android.pandorasample.dvh.Type1VH;
 import osp.leobert.android.pandorasample.dvh.Type1VO;
 import osp.leobert.android.pandorasample.dvh.Type1VOImpl;
-import osp.leobert.android.pandorasample.dvh.Type2VH;
-import osp.leobert.android.pandorasample.dvh.Type2VOImpl;
-import osp.leobert.android.pandorasample.dvh.Type3VH;
-import osp.leobert.android.pandorasample.dvh.Type3VOImpl;
-import osp.leobert.android.pandorasample.dvh.Type4VH;
-import osp.leobert.android.pandorasample.dvh.Type4VOImpl;
-import osp.leobert.android.pandorasample.dvh.Type5VH;
-import osp.leobert.android.pandorasample.dvh.Type5VOImpl;
 
-public class DataChangeTestActivity extends AppCompatActivity {
+/**
+ * 属性变化测试
+ */
+public class DataPropertyChangeTestActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
 
@@ -63,7 +60,6 @@ public class DataChangeTestActivity extends AppCompatActivity {
 
     PandoraRealRvDataSet<DataSet.Data> dataSetSection1;
     PandoraRealRvDataSet<DataSet.Data> dataSetSection2;
-    //    PandoraRealRvDataSet<DataSet.Data> dataSetSection3;
     RvAdapter<PandoraWrapperRvDataSet<DataSet.Data>> adapter;
 
     private int index = 0;
@@ -72,7 +68,6 @@ public class DataChangeTestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.e("lmsg", "test");
 
         recyclerView = findViewById(R.id.rv);
         initDataSet();
@@ -106,11 +101,11 @@ public class DataChangeTestActivity extends AppCompatActivity {
         });
 
         Button b3 = findViewById(R.id.b3);
-        b3.setText("sec2删减操作");
+        b3.setText("随机修改属性");
         b3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                removeSection2();
+                changeProperty();
             }
         });
 
@@ -130,24 +125,16 @@ public class DataChangeTestActivity extends AppCompatActivity {
         dataSet.registerDVRelation(Type1VOImpl.class, new Type1VH.Creator(new Type1VH.ItemInteract() {
             @Override
             public void foo(int pos, Type1VO data) {
-                int t = pos % 3;
-                if (t == 0) {
-                    Toast.makeText(DataChangeTestActivity.this, "删除本身", Toast.LENGTH_SHORT).show();
-                    dataSet.removeAtPos(pos);
-                } else if (t == 1) {
-                    Toast.makeText(DataChangeTestActivity.this, "删除前一个", Toast.LENGTH_SHORT).show();
-                    dataSet.removeAtPos(pos - 1);
-                } else if (t == 2) {
-                    Toast.makeText(DataChangeTestActivity.this, "删除后一个", Toast.LENGTH_SHORT).show();
-                    dataSet.removeAtPos(pos + 1);
-                }
+                dataSet.startTransaction();
+                data.resetData("reset - " + data.getData());
+                dataSet.endTransaction(); //test
             }
         }));
 
-        dataSet.registerDVRelation(Type2VOImpl.class, new Type2VH.Creator(null));
-        dataSet.registerDVRelation(Type3VOImpl.class, new Type3VH.Creator(null));
-        dataSet.registerDVRelation(Type4VOImpl.class, new Type4VH.Creator(null));
-        dataSet.registerDVRelation(Type5VOImpl.class, new Type5VH.Creator(null));
+//        dataSet.registerDVRelation(Type2VOImpl.class, new Type2VH.Creator(null));
+//        dataSet.registerDVRelation(Type3VOImpl.class, new Type3VH.Creator(null));
+//        dataSet.registerDVRelation(Type4VOImpl.class, new Type4VH.Creator(null));
+//        dataSet.registerDVRelation(Type5VOImpl.class, new Type5VH.Creator(null));
     }
 
     private void addSection1() {
@@ -175,13 +162,28 @@ public class DataChangeTestActivity extends AppCompatActivity {
         }
     }
 
-    private void removeSection2() {
-        if (index % 2 == 0) {
-            Toast.makeText(this, "直接移除数据集", Toast.LENGTH_SHORT).show();
-            dataSet.removeSub(dataSetSection2.getRealDataSet());
-        } else {
-            Toast.makeText(this, "移除sec2所有数据", Toast.LENGTH_SHORT).show();
-            dataSetSection2.clearAllData();
-        }
+    private void changeProperty() {
+        final long ts = System.currentTimeMillis();
+        int count = dataSet.getCount();
+        final int target = (int) (ts % count);
+
+        //normal sample:
+//        DataSet.Data data = dataSet.getDataByIndex(target);
+//        if (data instanceof Type1VO) {
+//            dataSet.startTransaction();
+//            ((Type1VO) data).resetData("random change " + target + "  " + ts);
+//            dataSet.endTransaction();
+//        }
+
+        dataSet.getDataSet().accept(target, new TypeVisitor<Type1VO>(Type1VO.class) {
+
+            @Override
+            public void onHit(Type1VO element) {
+                dataSet.startTransaction();
+                Toast.makeText(DataPropertyChangeTestActivity.this, "修改position：" + target, Toast.LENGTH_SHORT).show();
+                element.resetData("random change " + target + "  " + ts);
+                dataSet.endTransaction();
+            }
+        });
     }
 }

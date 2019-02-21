@@ -23,15 +23,17 @@
  *
  */
 
-package osp.leobert.android.pandorasample;
+package osp.leobert.android.pandorasample.cases;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -40,8 +42,14 @@ import osp.leobert.android.pandora.Pandora;
 import osp.leobert.android.pandora.RealDataSet;
 import osp.leobert.android.pandora.WrapperDataSet;
 import osp.leobert.android.pandora.rv.DataSet;
+import osp.leobert.android.pandora.rv.DateVhMappingPool;
 import osp.leobert.android.pandora.rv.PandoraRealRvDataSet;
 import osp.leobert.android.pandora.rv.PandoraWrapperRvDataSet;
+import osp.leobert.android.pandora.rv.ViewHolderCreator;
+import osp.leobert.android.pandorasample.R;
+import osp.leobert.android.pandorasample.RvAdapter;
+import osp.leobert.android.pandorasample.TimeUtil;
+import osp.leobert.android.pandorasample.dvh.AbsViewHolder;
 import osp.leobert.android.pandorasample.dvh.Type1VH;
 import osp.leobert.android.pandorasample.dvh.Type1VO;
 import osp.leobert.android.pandorasample.dvh.Type1VOImpl;
@@ -53,8 +61,40 @@ import osp.leobert.android.pandorasample.dvh.Type4VH;
 import osp.leobert.android.pandorasample.dvh.Type4VOImpl;
 import osp.leobert.android.pandorasample.dvh.Type5VH;
 import osp.leobert.android.pandorasample.dvh.Type5VOImpl;
+import osp.leobert.android.pandorasample.menu.MenuVH2;
+import osp.leobert.android.pandorasample.menu.MenuVO2;
+import osp.leobert.android.pandorasample.menu.SectionVH2;
 
-public class MainActivity extends AppCompatActivity {
+/**
+ * 多数据类型测试
+ */
+public class MultiTypeTestActivity extends AppCompatActivity {
+
+    private static final class SectionHeader implements MenuVO2 {
+        private final String name;
+        @Level
+        private final int level;
+
+        public SectionHeader(@Level int level, String name) {
+            this.level = level;
+            this.name = name;
+        }
+
+        @Override
+        public int level() {
+            return level;
+        }
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public void setToViewHolder(AbsViewHolder<DataSet.Data> viewHolder) {
+            viewHolder.setData(this);
+        }
+    }
 
     private RecyclerView recyclerView;
     private RecyclerView recyclerView2;
@@ -81,11 +121,11 @@ public class MainActivity extends AppCompatActivity {
         recyclerView2 = findViewById(R.id.rv2);
         initDataSet();
 
-        adapter = new RvAdapter<>(dataSet,getClass().getSimpleName());
-        adapter2 = new RvAdapter<>(dataSetSection1,getClass().getSimpleName());
+        adapter = new RvAdapter<>(dataSet, getClass().getSimpleName());
+        adapter2 = new RvAdapter<>(dataSetSection1, getClass().getSimpleName());
 
         Pandora.bind2RecyclerViewAdapter(dataSet.getDataSet(), adapter);
-        Pandora.bind2RecyclerViewAdapter(dataSetSection1.getRealDataSet(),adapter2);
+        Pandora.bind2RecyclerViewAdapter(dataSetSection1.getRealDataSet(), adapter2);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
@@ -97,24 +137,30 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(decoration);
         recyclerView2.addItemDecoration(decoration);
 
-        findViewById(R.id.b1).setOnClickListener(new View.OnClickListener() {
+        Button btn1 = findViewById(R.id.b1);
+        btn1.setText("向Section1\r\n中添加");
+        btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addSection1();
+                addDataIntoSection1();
             }
         });
 
-        findViewById(R.id.b2).setOnClickListener(new View.OnClickListener() {
+        Button btn2 = findViewById(R.id.b2);
+        btn2.setText("向Section2\r\n中添加");
+        btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addSection2();
+                addDataIntoSection2();
             }
         });
 
-        findViewById(R.id.b3).setOnClickListener(new View.OnClickListener() {
+        Button btn3 = findViewById(R.id.b3);
+        btn3.setText("向Section3\r\n中添加");
+        btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addSection3();
+                addDataIntoSection3();
             }
         });
 
@@ -149,6 +195,45 @@ public class MainActivity extends AppCompatActivity {
                 dataSet.removeAtPos(pos);
             }
         }));
+//        dataSet.registerDVRelation(SectionHeader.class, new MenuVH2.Creator(null));
+
+        dataSet.registerDVRelation(new DateVhMappingPool.DVRelation<SectionHeader>() {
+            private static final String type_l1 = "type_l1";
+            private static final String type_l2 = "type_l2";
+
+            @Override
+            public Class<SectionHeader> getDataClz() {
+                return SectionHeader.class;
+            }
+
+            @Override
+            public int one2N() {
+                return 2;
+            }
+
+            @Override
+            public String subTypeToken(@NonNull SectionHeader data) {
+                if (data.level() == MenuVO2.Level.l1)
+                    return type_l1;
+                return type_l2;
+            }
+
+            @Override
+            public ViewHolderCreator getVhCreator(@NonNull String subTypeToken) {
+                //对于差异不大的，仅仅对View进行一定的调整，例如修改背景、间距等等，可以定义多个Creator，反射得到View的时候做处理
+                //对于差距比较大的，或者本身就是对应到多个ViewHolder的，如下
+                if (type_l1.equals(subTypeToken)) {
+                    return new SectionVH2.Creator(new SectionVH2.ItemInteract() {
+                        @Override
+                        public void onSectionItemClicked(int pos, MenuVO2 data) {
+                            Toast.makeText(MultiTypeTestActivity.this, "onSectionItemClicked,pos:" + pos + "," + data.getName(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                return new MenuVH2.Creator(null);
+            }
+        });
+
 
         dataSetSection1.registerDVRelation(Type1VOImpl.class, new Type1VH.Creator(new Type1VH.ItemInteract() {
             @Override
@@ -156,6 +241,9 @@ public class MainActivity extends AppCompatActivity {
                 dataSetSection1.removeAtPos(pos);
             }
         }));
+        //此处体现了同样的基础数据，在不同使用场景下体现出区别，对比左右两个列表
+        dataSetSection1.registerDVRelation(SectionHeader.class, new MenuVH2.Creator(null));
+
         dataSetSection1.registerDVRelation(Type2VOImpl.class, new Type2VH.Creator(null));
         dataSetSection1.registerDVRelation(Type3VOImpl.class, new Type3VH.Creator(null));
         dataSetSection1.registerDVRelation(Type4VOImpl.class, new Type4VH.Creator(null));
@@ -168,11 +256,26 @@ public class MainActivity extends AppCompatActivity {
         dataSet.registerDVRelation(Type3VOImpl.class, new Type3VH.Creator(null));
         dataSet.registerDVRelation(Type4VOImpl.class, new Type4VH.Creator(null));
         dataSet.registerDVRelation(Type5VOImpl.class, new Type5VH.Creator(null));
+
+        dataSetSection1.add(new SectionHeader(MenuVO2.Level.l1, "此处开始是Section1\r\n对比左右两个列表注册的样式区别  "));
+        dataSetSection2.add(new SectionHeader(MenuVO2.Level.l1, "此处开始是Section2"));
+        dataSetSection3.add(new SectionHeader(MenuVO2.Level.l1, "此处开始是Section3"));
     }
 
-    private void addSection1() {
+    /**
+     * 添加数据到Section1 中（尾部）
+     * 按序一共5个数据
+     * SectionHeader
+     * type5
+     * type4
+     * type2
+     * type3
+     */
+    private void addDataIntoSection1() {
         Collection<DataSet.Data> collection = new ArrayList<>();
-        collection.add(new Type1VOImpl("section1[5423]" + TimeUtil.getCurrentTimeInString()));
+        collection.add(new SectionHeader(MenuVO2.Level.l2, "one group data in section1,依次为\r\n"
+                + "type5\r\ntype4\r\ntype2\r\ntype3\r\n"
+                + "add at" + TimeUtil.getCurrentTimeInString()));
         collection.add(new Type5VOImpl(2));
         collection.add(new Type4VOImpl(3));
         collection.add(new Type2VOImpl(4));
@@ -181,25 +284,29 @@ public class MainActivity extends AppCompatActivity {
         dataSetSection1.addAll(collection);
     }
 
-    private void addSection2() {
+    private void addDataIntoSection2() {
         Collection<DataSet.Data> collection = new ArrayList<>();
-        collection.add(new Type1VOImpl("section2[53422]" + TimeUtil.getCurrentTimeInString()));
-        collection.add(new Type5VOImpl(2));
-        collection.add(new Type3VOImpl(3));
-        collection.add(new Type4VOImpl(4));
-        collection.add(new Type2VOImpl(5));
-        collection.add(new Type2VOImpl(6));
+        String time = TimeUtil.getCurrentTimeInString();
+        collection.add(new SectionHeader(MenuVO2.Level.l2, "one group data in section2,依次为\r\n"
+                + "type1\r\ntype1\r\n"
+                + "add at" + time));
+        collection.add(new Type1VOImpl("type1点击可删除" + time));
+        collection.add(new Type1VOImpl("整段数据添加到了Section2的尾部" + time));
 
         dataSetSection2.addAll(collection);
     }
 
-    private void addSection3() {
+    private void addDataIntoSection3() {
         Collection<DataSet.Data> collection = new ArrayList<>();
-        collection.add(new Type1VOImpl("section3[5455]" + TimeUtil.getCurrentTimeInString()));
+        collection.add(new SectionHeader(MenuVO2.Level.l2, "one group data in section3,依次为\r\n"
+                + "type5\r\ntype3\r\ntype4\r\ntype2\r\ntype1\r\n"
+                + "add at" + TimeUtil.getCurrentTimeInString()));
+
         collection.add(new Type5VOImpl(2));
-        collection.add(new Type4VOImpl(3));
-        collection.add(new Type5VOImpl(4));
-        collection.add(new Type5VOImpl(5));
+        collection.add(new Type3VOImpl(3));
+        collection.add(new Type4VOImpl(4));
+        collection.add(new Type2VOImpl(5));
+        collection.add(new Type1VOImpl("6"));
 
         dataSetSection3.addAll(collection);
     }

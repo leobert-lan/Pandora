@@ -27,7 +27,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".cases.MultiTypeTestActivity">
 
     <LinearLayout
         android:id="@+id/ll"
@@ -55,16 +55,27 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv"
-        android:layout_width="180dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/ll" />
+        android:layout_below="@+id/ll"
+        android:layout_margin="3dp"
+        android:layout_toLeftOf="@id/divider" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="1dp"
+        android:background="@color/colorPrimaryDark"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ll"
+        android:layout_centerHorizontal="true" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv2"
-        android:layout_width="180dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/ll"
-        android:layout_toRightOf="@+id/rv" />
+        android:layout_margin="3dp"
+        android:layout_toRightOf="@+id/divider" />
 
 
 </RelativeLayout>

@@ -29,7 +29,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import osp.leobert.android.pandora.rv.ViewHolderCreator;
 import osp.leobert.android.pandorasample.R;
 
@@ -69,7 +68,7 @@ public class Type2VH extends FooVH<Type2VO> {
         @Override
         public AbsViewHolder createViewHolder(ViewGroup parent) {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.app_vh_type2, null,false);
+                    .inflate(R.layout.app_vh_type2, parent, false);
             return new Type2VH(view, itemInteract);
         }
     }

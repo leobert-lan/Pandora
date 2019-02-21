@@ -177,6 +177,7 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
             sub.removeFromOriginalParent();
         }
 
+        onBeforeChanged();
         int groupIndex = subs.size();
         sub.setGroupIndex(groupIndex);
 
@@ -184,6 +185,7 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
         sub.setStartIndex((int) count);
         sub.notifyHasAddToParent(this);
         subs.add(sub);
+        onAfterChanged();
     }
 
 

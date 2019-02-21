@@ -23,7 +23,7 @@
  *
  */
 
-package osp.leobert.android.pandorasample;
+package osp.leobert.android.pandorasample.menu;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -34,18 +34,21 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 import osp.leobert.android.pandora.Pandora;
 import osp.leobert.android.pandora.RealDataSet;
 import osp.leobert.android.pandora.rv.DataSet;
 import osp.leobert.android.pandora.rv.PandoraRealRvDataSet;
-import osp.leobert.android.pandorasample.dvh.Type1VH;
-import osp.leobert.android.pandorasample.dvh.Type1VO;
-import osp.leobert.android.pandorasample.dvh.Type1VOImpl;
+import osp.leobert.android.pandorasample.cases.CompositeOpsInWrapTestActivity;
+import osp.leobert.android.pandorasample.cases.DataChangeTestActivity;
+import osp.leobert.android.pandorasample.cases.DataPropertyChangeTestActivity;
+import osp.leobert.android.pandorasample.cases.MultiTypeTestActivity;
+import osp.leobert.android.pandorasample.R;
+import osp.leobert.android.pandorasample.RvAdapter;
+import osp.leobert.android.pandorasample.dvh.AbsViewHolder;
+import osp.leobert.android.pandorasample.kt.TestKtActivity;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -53,7 +56,7 @@ public class MenuActivity extends AppCompatActivity {
     PandoraRealRvDataSet<DataSet.Data> dataSet;
     RvAdapter<PandoraRealRvDataSet<DataSet.Data>> adapter;
 
-    private static final class Foo {
+    private static final class Foo implements MenuVO2 {
         String name;
         Class<? extends Activity> activityClz;
 
@@ -61,14 +64,29 @@ public class MenuActivity extends AppCompatActivity {
             this.name = name;
             this.activityClz = activityClz;
         }
+
+        @Override
+        public int level() {
+            return Level.l1;
+        }
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public void setToViewHolder(AbsViewHolder<DataSet.Data> viewHolder) {
+            viewHolder.setData(this);
+        }
     }
 
     List<Foo> cases = Arrays.asList(
-            new Foo("\r多样式\r", MainActivity.class),
+            new Foo("\r多样式&一套数据，多处使用\r", MultiTypeTestActivity.class),
             new Foo("\r数据测试\r", DataChangeTestActivity.class),
             new Foo("\r数据测试2-属性变化\r", DataPropertyChangeTestActivity.class),
-            new Foo("\rWrap数据集中的组合操作测试\r", CompositeOpsInWrapTestActivity.class)
-
+            new Foo("\rWrap数据集中的组合操作测试\r", CompositeOpsInWrapTestActivity.class),
+            new Foo("\rkotlin pandora rv lib test\r", TestKtActivity.class)
     );
 
 
@@ -102,21 +120,15 @@ public class MenuActivity extends AppCompatActivity {
         dataSet = new PandoraRealRvDataSet<>(wrapperDataSet);
 
 
-        dataSet.registerDVRelation(Type1VOImpl.class, new Type1VH.Creator(new Type1VH.ItemInteract() {
+        dataSet.registerDVRelation(Foo.class, new MenuVH2.Creator(new MenuVH2.ItemInteract() {
             @Override
-            public void foo(int pos, Type1VO data) {
+            public void onMenuItemClicked(int pos, MenuVO2 data) {
                 if (pos >= 0 && pos < cases.size()) {
                     Intent intent = new Intent(MenuActivity.this, cases.get(pos).activityClz);
                     startActivity(intent);
                 }
             }
         }));
-
-        Collection<DataSet.Data> collection = new ArrayList<>();
-        for (Foo foo : cases) {
-            collection.add(new Type1VOImpl(foo.name));
-        }
-
-        dataSet.addAll(collection);
+        Pandora.addAll(dataSet.getRealDataSet(), cases);
     }
 }

@@ -23,4 +23,4 @@
  *
  */
 
-include ':app', ':pandora', ':pandorarv'
+include ':app', ':pandora', ':pandorarv', ':pandora_kt', ':pandorarv_kt'
