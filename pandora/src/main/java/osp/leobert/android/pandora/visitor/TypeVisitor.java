@@ -1,6 +1,6 @@
 package osp.leobert.android.pandora.visitor;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * <p><b>Package:</b> osp.leobert.android.pandora.visitor </p>

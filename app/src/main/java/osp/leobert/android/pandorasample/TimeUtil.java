@@ -25,7 +25,7 @@
 
 package osp.leobert.android.pandorasample;
 
-import android.support.annotation.IntRange;
+import androidx.annotation.IntRange;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

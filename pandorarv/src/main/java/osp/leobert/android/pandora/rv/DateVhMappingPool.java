@@ -25,7 +25,7 @@
 
 package osp.leobert.android.pandora.rv;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
