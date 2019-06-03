@@ -25,9 +25,11 @@
 
 package osp.leobert.android.pandora.rv;
 
-import androidx.annotation.NonNull;
 import android.util.SparseArray;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import osp.leobert.android.pandora.Logger;
 
@@ -42,6 +44,9 @@ import osp.leobert.android.pandora.Logger;
 public class DateVhMappingPool {
     private final SparseArray<TypeCell> viewTypeCache = new SparseArray<>();
     private int maxSize = 5;
+
+    @Nullable
+    private TypeCell internalErrorTypeCell;
 
     public synchronized void removeDVRelation(@NonNull Class<?> dataClz) {
         synchronized (viewTypeCache) {
@@ -79,7 +84,7 @@ public class DateVhMappingPool {
             while (n > maxSize) {
                 maxSize *= 2;
                 for (int i = 0; i < viewTypeCache.size(); i++) {
-                    viewTypeCache.get(i).updateMaxSize(maxSize);
+                    viewTypeCache.valueAt(i).updateMaxSize(maxSize);
                 }
             }
 
@@ -90,31 +95,59 @@ public class DateVhMappingPool {
         }
     }
 
+    public void whenInternalError(@NonNull ViewHolderCreator viewHolderCreator) {
+        this.internalErrorTypeCell = new TypeCell<>(Integer.MAX_VALUE, new DataVhRelation<>(DataSet.Data.class, viewHolderCreator));
+    }
+
     @SuppressWarnings("unchecked")
     public <T> int getItemViewTypeV2(String key, T data) { //getItemViewType
         for (int i = 0; i < viewTypeCache.size(); i++) {//折半查找可能效率更高一点
-            if (viewTypeCache.get(i).workFor(key)) {
-                int viewType = viewTypeCache.get(i).getItemViewType(data);
-                return viewType;
+            TypeCell typeCell = viewTypeCache.valueAt(i);
+            if (typeCell == null) continue;
+            if (typeCell.workFor(key)) {
+                return typeCell.getItemViewType(data);
             }
         }
-        RuntimeException e = new RuntimeException("have you register for:" + key);
-        Logger.e(Logger.TAG, "missing type register", e);
-        throw e;
+        if (Logger.DEBUG) {
+            RuntimeException e = new RuntimeException("have you register for:" + key);
+            Logger.e(Logger.TAG, "missing type register", e);
+            throw e;
+        } else {
+            return Integer.MAX_VALUE;
+        }
     }
 
     public int getViewTypeCount() {//getViewTypeCount
         int ret = 0;
+        if (internalErrorTypeCell != null)
+            ret += 1;
         for (int i = 0; i < viewTypeCache.size(); i++) {
-            ret += viewTypeCache.get(i).getSubTypeCount();
+            try {
+                ret += viewTypeCache.valueAt(i).getSubTypeCount();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return ret;
     }
 
     public IViewHolder createViewHolderV2(ViewGroup parent, int viewType) { // createViewHolder(ViewGroup parent, int viewType)
-        int index = viewType / maxSize;
-        int subIndex = viewType % maxSize;
-        return viewTypeCache.get(index).getVhCreator(subIndex).createViewHolder(parent);
+        try {
+            int index = viewType / maxSize;
+            int subIndex = viewType % maxSize;
+            return viewTypeCache.valueAt(index).getVhCreator(subIndex).createViewHolder(parent);
+        } catch (Exception e) {
+            if (Logger.DEBUG) {
+                if (internalErrorTypeCell != null)
+                    return internalErrorTypeCell.getVhCreator(0).createViewHolder(parent);
+                Logger.e(Logger.TAG, "missing viewType:" + viewType + " ?", e);
+                throw e;
+            } else {
+                if (internalErrorTypeCell != null)
+                    return internalErrorTypeCell.getVhCreator(0).createViewHolder(parent);
+                return null;
+            }
+        }
     }
 
 

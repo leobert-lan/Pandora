@@ -1,7 +1,7 @@
 package osp.leobert.androidkt.pandora.rv
 
 import android.annotation.SuppressLint
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import osp.leobert.android.pandora.PandoraException
 import java.lang.ref.WeakReference

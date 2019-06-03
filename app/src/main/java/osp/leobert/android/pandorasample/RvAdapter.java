@@ -25,9 +25,10 @@
 
 package osp.leobert.android.pandorasample;
 
-import androidx.appcompat.widget.RecyclerView;
 import android.util.Log;
 import android.view.ViewGroup;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import osp.leobert.android.pandora.Logger;
 import osp.leobert.android.pandora.PandoraException;

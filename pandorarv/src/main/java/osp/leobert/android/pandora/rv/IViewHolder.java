@@ -25,7 +25,8 @@
 
 package osp.leobert.android.pandora.rv;
 
-import androidx.appcompat.widget.RecyclerView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * <p><b>Package:</b> osp.leobert.android.pandorarv </p>
