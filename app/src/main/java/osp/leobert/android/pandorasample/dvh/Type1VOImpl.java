@@ -27,6 +27,7 @@ package osp.leobert.android.pandorasample.dvh;
 
 
 import osp.leobert.android.pandora.rv.DataSet;
+import osp.leobert.android.pandora.rv.IReactiveViewHolder;
 import osp.leobert.android.pandorasample.Utils;
 
 /**
@@ -76,5 +77,15 @@ public class Type1VOImpl implements Type1VO {
     @Override
     public int hashCode() {
         return Utils.hash(s);
+    }
+
+    @Override
+    public void bindReactiveVh(IReactiveViewHolder<DataSet.Data> viewHolder) {
+
+    }
+
+    @Override
+    public void unbindReactiveVh() {
+
     }
 }
