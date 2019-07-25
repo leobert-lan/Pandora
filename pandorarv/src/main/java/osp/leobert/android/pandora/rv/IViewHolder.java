@@ -25,7 +25,9 @@
 
 package osp.leobert.android.pandora.rv;
 
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * <p><b>Package:</b> osp.leobert.android.pandorarv </p>
@@ -68,7 +70,7 @@ import android.support.v7.widget.RecyclerView;
  * Created by leobert on 2018/10/10.
  */
 
-public interface IViewHolder<T> /*extends RecyclerView.ViewHolder*/ {
+public interface IViewHolder<T> {
 
     RecyclerView.ViewHolder asViewHolder();
 
@@ -79,11 +81,16 @@ public interface IViewHolder<T> /*extends RecyclerView.ViewHolder*/ {
      */
     void setData(T data);
 
-    /*protected Context getContext() {
-        return itemView.getContext();
-    }*/
-
     void onViewAttachedToWindow();
 
     void onViewDetachedFromWindow();
+
+    void accept(@NonNull Visitor visitor);
+
+    abstract class Visitor {
+        //now only have this sub functional type
+        public void visit(IReactiveViewHolder holder) {
+
+        }
+    }
 }

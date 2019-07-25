@@ -3,6 +3,7 @@ package osp.leobert.androidkt.pandora.rv
 import android.util.SparseArray
 import android.view.ViewGroup
 import osp.leobert.android.pandora.Logger
+import osp.leobert.android.pandora.PandoraException
 
 /**
  * <p><b>Package:</b> osp.leobert.androidkt.pandora.rv </p>
@@ -14,6 +15,8 @@ import osp.leobert.android.pandora.Logger
 class DateVhMappingPool<T : D<T, IViewHolder<T>>> {
     private val viewTypeCache = SparseArray<TypeCell<Any>>()
     private var maxSize = 5
+
+    private var internalErrorTypeCell: TypeCell<*>? = null
 
     @Synchronized
     fun removeDVRelation(dataClz: Class<*>) {
@@ -57,7 +60,7 @@ class DateVhMappingPool<T : D<T, IViewHolder<T>>> {
                 while (n > maxSize) {
                     maxSize *= 2
                     for (i in 0 until viewTypeCache.size()) {
-                        viewTypeCache.get(i).updateMaxSize(maxSize)
+                        viewTypeCache.valueAt(i).updateMaxSize(maxSize)
                     }
                 }
 
@@ -67,39 +70,59 @@ class DateVhMappingPool<T : D<T, IViewHolder<T>>> {
                         viewTypeCache.put(index, typeCell as TypeCell<Any>)
                     }
                 }
-
-//                val index = viewTypeCache.size()
-//                val typeCell = TypeCell(index, it)
-//                typeCell.updateMaxSize(maxSize)
-//                viewTypeCache.put(index, typeCell)
             }
         }
 
+    }
+
+    fun whenInternalError(viewHolderCreator: ViewHolderCreator) {
+        this.internalErrorTypeCell = TypeCell(Integer.MAX_VALUE,
+                DataVhRelation(DataSet.Data::class.java, viewHolderCreator))
     }
 
     fun getItemViewTypeV2(key: String, data: T): Int { //getItemViewType
         for (i in 0 until viewTypeCache.size()) {//折半查找可能效率更高一点
-            if (viewTypeCache.get(i).workFor(key)) {
-                return viewTypeCache.get(i).getItemViewType(data)
+            val typeCell = viewTypeCache.valueAt(i)
+            if (typeCell?.workFor(key) == true) {
+                return typeCell.getItemViewType(data)
             }
         }
-        val e = RuntimeException("have you register for:$key")
-        Logger.e(Logger.TAG, "missing type register", e)
-        throw e
+        if (Logger.DEBUG) {
+            val e = RuntimeException("have you register for:$key")
+            Logger.e(Logger.TAG, "missing type register", e)
+            throw e
+        } else {
+            return Integer.MAX_VALUE
+        }
     }
 
     fun getViewTypeCount(): Int {//getViewTypeCount
         var ret = 0
+        internalErrorTypeCell?.let { ret++ }
         for (i in 0 until viewTypeCache.size()) {
-            ret += viewTypeCache.get(i).getSubTypeCount()
+            ret += viewTypeCache.valueAt(i).getSubTypeCount()
         }
         return ret
     }
 
     fun createViewHolderV2(parent: ViewGroup, viewType: Int): IViewHolder<*> { // createViewHolder(ViewGroup parent, int viewType)
-        val index = viewType / maxSize
-        val subIndex = viewType % maxSize
-        return viewTypeCache.get(index).getVhCreator(subIndex).createViewHolder(parent)
+
+        try {
+            val index = viewType / maxSize
+            val subIndex = viewType % maxSize
+            return viewTypeCache.valueAt(index).getVhCreator(subIndex).createViewHolder(parent)
+        } catch (e: Exception) {
+            if (Logger.DEBUG) {
+                if (internalErrorTypeCell != null)
+                    return internalErrorTypeCell!!.getVhCreator(0).createViewHolder(parent)
+                Logger.e(Logger.TAG, "missing viewType:$viewType ?", e)
+                throw e
+            } else {
+                return (internalErrorTypeCell?.getVhCreator(0) ?: throw PandoraException(e))
+                        .createViewHolder(parent)
+            }
+        }
+
     }
 
 

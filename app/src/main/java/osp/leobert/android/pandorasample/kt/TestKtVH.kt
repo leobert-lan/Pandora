@@ -1,10 +1,10 @@
 package osp.leobert.android.pandorasample.kt
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import osp.leobert.android.pandorasample.R
 import osp.leobert.androidkt.pandora.rv.ViewHolderCreator
 

@@ -1,6 +1,6 @@
 package osp.leobert.androidkt.pandora.rv
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * <p><b>Package:</b> osp.leobert.androidkt.pandora.rv </p>

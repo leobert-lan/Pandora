@@ -1,6 +1,6 @@
 package osp.leobert.androidkt.pandora.rv
 
-import android.support.annotation.IntRange
+import androidx.annotation.IntRange
 
 /**
  * <p><b>Package:</b> osp.leobert.androidkt.pandora.rv </p>
@@ -9,11 +9,9 @@ import android.support.annotation.IntRange
  * <p><b>Description:</b> model for a type of item used in RecyclerView </p>
  * Created by leobert on 2019/2/19.
  */
-class TypeCell<T>(@IntRange(from = 0) index: Int, dvRelation: DateVhMappingPool.DVRelation<T>) {
-    @IntRange(from = 0)
-    private val index: Int = index
-
-    private val dvRelation: DateVhMappingPool.DVRelation<T> = dvRelation
+class TypeCell<T>(@IntRange(from = 0) private val index: Int, private val dvRelation: DateVhMappingPool.DVRelation<T>) {
+//    @IntRange(from = 0)
+//    private val index: Int = index
 
     private var subTypeTokens: MutableList<String> = mutableListOf()
 

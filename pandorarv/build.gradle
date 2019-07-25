@@ -32,7 +32,7 @@ targetCompatibility = "1.7"
 
 def MAVEN_LOCAL_PATH = uri('../../local_repo')
 def ARTIFACT_ID = 'pandorarv'
-def VERSION_NAME = '0.0.6'
+def VERSION_NAME = '0.0.8'
 def GROUP_ID = 'osp.leobert.android'
 
 ext {
@@ -50,13 +50,18 @@ android {
     compileSdkVersion versions.compileSdk
     buildToolsVersion versions.androidTools
 
+
+    dataBinding {
+        enabled = true
+    }
+
     defaultConfig {
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -73,7 +78,7 @@ dependencies {
     implementation deps.support.v7.recyclerView
 
 //    compileOnly project(":pandora")
-    compileOnly 'osp.leobert.android:pandora:0.0.5'
+    compileOnly 'osp.leobert.android:pandora:0.0.6'
 
 }
 

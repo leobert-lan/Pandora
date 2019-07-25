@@ -1,6 +1,6 @@
 package osp.leobert.android.pandorasample.menu;
 
-import android.support.annotation.IntDef;
+import androidx.annotation.IntDef;
 
 import osp.leobert.android.pandora.rv.DataSet;
 import osp.leobert.android.pandorasample.dvh.AbsViewHolder;

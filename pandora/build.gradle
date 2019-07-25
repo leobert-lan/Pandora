@@ -32,7 +32,7 @@ targetCompatibility = "1.7"
 
 def MAVEN_LOCAL_PATH = uri('../../local_repo')
 def ARTIFACT_ID = 'pandora'
-def VERSION_NAME = '0.0.5'
+def VERSION_NAME = '0.0.6'
 def GROUP_ID = 'osp.leobert.android'
 
 ext {
@@ -56,7 +56,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -71,9 +71,6 @@ dependencies {
 
     implementation deps.support.v7.appcompat
     implementation deps.support.v7.recyclerView
-//    testImplementation deps.junit
-//    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-//    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
 
 apply from:'../bintray_upload.gradle'

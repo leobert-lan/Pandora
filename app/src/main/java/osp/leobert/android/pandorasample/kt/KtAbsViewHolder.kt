@@ -1,8 +1,8 @@
 package osp.leobert.android.pandorasample.kt
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import osp.leobert.androidkt.pandora.rv.IViewHolder
 
 /**

@@ -1,8 +1,8 @@
 package osp.leobert.android.pandorasample.kt
 
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import osp.leobert.android.pandora.Logger
 import osp.leobert.android.pandora.PandoraException
 import osp.leobert.androidkt.pandora.rv.D
@@ -38,18 +38,16 @@ class KtRvAdapter<Item : D<Item, IViewHolder<Item>>, DS :DataSet<Item>
 //        dataSet.addDataObserver(this)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): KtAbsViewHolder<Item> {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KtAbsViewHolder<Item> {
+
         try {
-            if (parent != null) {
-               return dataSet.createViewHolderV2(parent, viewType) as KtAbsViewHolder<Item>
-            }
-            throw PandoraException("parent is null when onCreateViewHolder")
+            return dataSet.createViewHolderV2(parent, viewType) as KtAbsViewHolder<Item>
+//            throw PandoraException("parent is null when onCreateViewHolder")
         } catch (e: PandoraException) {
             e.printStackTrace()
             Logger.e(Logger.TAG, tag, e)
             throw e
         }
-
     }
 
 
@@ -70,13 +68,13 @@ class KtRvAdapter<Item : D<Item, IViewHolder<Item>>, DS :DataSet<Item>
 
 
 
-    override fun onViewAttachedToWindow(holder: KtAbsViewHolder<Item>?) {
+    override fun onViewAttachedToWindow(holder: KtAbsViewHolder<Item>) {
         super.onViewAttachedToWindow(holder)
         holder?.onViewAttachedToWindow()
     }
 
 
-    override fun onViewDetachedFromWindow(holder: KtAbsViewHolder<Item>?) {
+    override fun onViewDetachedFromWindow(holder: KtAbsViewHolder<Item>) {
         super.onViewDetachedFromWindow(holder)
         holder?.onViewDetachedFromWindow()
     }

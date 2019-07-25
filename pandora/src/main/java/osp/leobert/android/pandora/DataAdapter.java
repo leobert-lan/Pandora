@@ -25,7 +25,7 @@
 
 package osp.leobert.android.pandora;
 
-import android.support.annotation.IntRange;
+import androidx.annotation.IntRange;
 
 import java.util.Collection;
 

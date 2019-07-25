@@ -28,6 +28,7 @@ package osp.leobert.android.pandorasample.dvh;
 
 
 import osp.leobert.android.pandora.rv.DataSet;
+import osp.leobert.android.pandora.rv.ReactiveData;
 
 /**
  * <p><b>Package:</b> osp.leobert.android.pandorasample.dvh </p>
@@ -36,7 +37,8 @@ import osp.leobert.android.pandora.rv.DataSet;
  * <p><b>Description:</b> TODO </p>
  * Created by leobert on 2018/10/11.
  */
-public interface Type1VO extends DataSet.Data<DataSet.Data, AbsViewHolder<DataSet.Data>> {
+public interface Type1VO extends DataSet.Data<DataSet.Data, AbsViewHolder<DataSet.Data>>,
+        ReactiveData<DataSet.Data, AbsViewHolder<DataSet.Data>> {
     String getData();
 
     void resetData(String data);

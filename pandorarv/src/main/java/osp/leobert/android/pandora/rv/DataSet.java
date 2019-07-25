@@ -25,8 +25,9 @@
 
 package osp.leobert.android.pandora.rv;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.ViewGroup;
 
 import java.lang.ref.WeakReference;
@@ -47,7 +48,16 @@ public abstract class DataSet {
 
     public static <DATA, VH extends IViewHolder<? super DATA>>
     void helpSetToViewHolder(D<DATA, VH> data, VH viewHolder) {
+        //make sure it will dispose the binding to old reactive data
+        //even though someone will write the logic in osp.leobert.android.pandora.rv.DataSet.D.setToViewHolder
+        viewHolder.accept(IReactiveViewHolder.MAKE_SURE_UNBIND_VISITOR);
+
         data.setToViewHolder(viewHolder);
+
+        //make sure the vh binds to new reactive data
+        //even though someone has written the logic in osp.leobert.android.pandora.rv.DataSet.D.setToViewHolder
+        viewHolder.accept(IReactiveViewHolder.MAKE_SURE_BIND_VISITOR);
+
     }
 
     /**

@@ -25,9 +25,9 @@
 
 package osp.leobert.android.pandora;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.util.DiffUtil;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DiffUtil;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.util.SparseIntArray;

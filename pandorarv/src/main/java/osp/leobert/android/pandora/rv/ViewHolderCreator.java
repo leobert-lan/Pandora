@@ -25,7 +25,7 @@
 
 package osp.leobert.android.pandora.rv;
 
-import android.support.annotation.LayoutRes;
+import androidx.annotation.LayoutRes;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;

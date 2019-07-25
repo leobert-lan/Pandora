@@ -25,9 +25,9 @@
 
 package osp.leobert.android.pandora;
 
-import android.support.annotation.NonNull;
-import android.support.v7.util.ListUpdateCallback;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ListUpdateCallback;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Arrays;

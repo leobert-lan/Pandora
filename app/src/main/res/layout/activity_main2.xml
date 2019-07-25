@@ -53,7 +53,7 @@
             android:text="add3" />
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.appcompat.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -69,7 +69,7 @@
         android:layout_below="@id/ll"
         android:layout_centerHorizontal="true" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.appcompat.widget.RecyclerView
         android:id="@+id/rv2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
