@@ -8,6 +8,7 @@ import androidx.databinding.Observable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import osp.leobert.android.pandora.rv.IReactiveViewHolder;
+import osp.leobert.android.pandora.rv.ReactiveData;
 
 /**
  * <p><b>Package:</b> osp.leobert.android.pandorasample.dvh </p>
@@ -48,5 +49,10 @@ public abstract class AbsViewHolder<T> extends RecyclerView.ViewHolder implement
     @Override
     public void onPropertyChanged(Observable sender, T data, int propertyId) {
 
+    }
+
+    @Override
+    public ReactiveData getReactiveDataIfExist() {
+        return null;
     }
 }
