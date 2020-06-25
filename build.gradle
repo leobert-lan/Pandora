@@ -28,15 +28,15 @@ buildscript {
     Properties properties = new Properties()
     InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream()
     properties.load(inputStream)
-    def kt = '1.3.31'
+    def kt = '1.3.72'
     if (properties.containsKey('kotlin')) {
         kt = properties.getProperty('kotlin')
     }
     ext.kotlin_version = kt
     ext.versions = [
             'minSdk'    : 19,
-            'targetSdk' : 27,
-            'compileSdk': 28,
+            'targetSdk' : 29,
+            'compileSdk': 29,
             'androidTools':'28.0.3'
     ]
 
@@ -103,7 +103,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.1'
+        classpath 'com.android.tools.build:gradle:4.0.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'//deps.publish.maven
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.2'
