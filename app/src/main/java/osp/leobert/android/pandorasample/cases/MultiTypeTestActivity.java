@@ -26,15 +26,15 @@
 package osp.leobert.android.pandorasample.cases;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -188,14 +188,7 @@ public class MultiTypeTestActivity extends AppCompatActivity {
         dataSet.addSub(dataSetSection2.getRealDataSet());
         dataSet.addSub(dataSetSection3.getRealDataSet());
 
-        dataSet.removeDVRelation(Type1VOImpl.class);
 
-        dataSet.registerDVRelation(Type1VOImpl.class, new Type1VH.Creator(new Type1VH.ItemInteract() {
-            @Override
-            public void foo(int pos, Type1VO data) {
-                dataSet.removeAtPos(pos);
-            }
-        }));
 //        dataSet.registerDVRelation(SectionHeader.class, new MenuVH2.Creator(null));
 
         dataSet.registerDVRelation(new DateVhMappingPool.DVRelation<SectionHeader>() {
@@ -257,6 +250,23 @@ public class MultiTypeTestActivity extends AppCompatActivity {
         dataSet.registerDVRelation(Type3VOImpl.class, new Type3VH.Creator(null));
         dataSet.registerDVRelation(Type4VOImpl.class, new Type4VH.Creator(null));
         dataSet.registerDVRelation(Type5VOImpl.class, new Type5VH.Creator(null));
+
+        dataSet.registerDVRelation(Type1VOImpl.class, new Type1VH.Creator(new Type1VH.ItemInteract() {
+            @Override
+            public void foo(int pos, Type1VO data) {
+                Toast.makeText(MultiTypeTestActivity.this, "1", Toast.LENGTH_SHORT).show();
+                dataSet.removeAtPos(pos);
+            }
+        }));
+
+        dataSet.removeDVRelation(Type1VOImpl.class);
+
+        dataSet.registerDVRelation(Type1VOImpl.class, new Type1VH.Creator(new Type1VH.ItemInteract() {
+            @Override
+            public void foo(int pos, Type1VO data) {
+                dataSet.removeAtPos(pos);
+            }
+        }));
 
         dataSetSection1.add(new SectionHeader(MenuVO2.Level.l1, "此处开始是Section1\r\n对比左右两个列表注册的样式区别  "));
         dataSetSection2.add(new SectionHeader(MenuVO2.Level.l1, "此处开始是Section2"));

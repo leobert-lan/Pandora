@@ -45,6 +45,20 @@ public class DateVhMappingPool {
     private final SparseArray<TypeCell> viewTypeCache = new SparseArray<>();
     private int maxSize = 5;
 
+    //先备注一个bug
+    // E/Pandora: missing viewType:180 ?
+    //    java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+    //        at java.util.ArrayList.get(ArrayList.java:411)
+    //        at osp.leobert.android.pandora.rv.TypeCell.getVhCreator(TypeCell.java:82)
+    //        at osp.leobert.android.pandora.rv.DateVhMappingPool.createViewHolderV2(DateVhMappingPool.java:138)
+    //        at osp.leobert.android.pandora.rv.DataSet.createViewHolderV2(DataSet.java:125)
+
+    //设计缺陷，目前采用的int viewType 到 relation 的映射关系存在一个问题，
+    //            int index = viewType / maxSize;
+    //            int subIndex = viewType % maxSize;
+    //            return viewTypeCache.valueAt(index).getVhCreator(subIndex).createViewHolder(parent);
+    // 我们以这样的方式进行转化，但是如果执行过removeDVRelation，则有错误几率
+
     @Nullable
     private TypeCell internalErrorTypeCell;
 
