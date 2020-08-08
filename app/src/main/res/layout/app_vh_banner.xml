@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<layout>
+
+    <data>
+
+        <variable
+            name="vo"
+            type="osp.leobert.android.pandorasample.widget.BannerVO2" />
+
+        <variable
+            name="itemInteract"
+            type="osp.leobert.android.pandorasample.widget.BannerItemInteract" />
+
+        <variable
+            name="vh"
+            type="osp.leobert.android.pandorasample.dvh.AbsViewHolder" />
+
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@color/c909090" />
+    </FrameLayout>
+</layout>

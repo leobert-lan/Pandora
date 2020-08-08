@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vo"
+            type="osp.leobert.android.pandorasample.widget.HeaderShortCutVO2" />
+
+        <variable
+            name="itemInteract"
+            type="osp.leobert.android.pandorasample.widget.HeaderShortCutItemInteract" />
+
+        <variable
+            name="vh"
+            type="osp.leobert.android.pandorasample.dvh.AbsViewHolder" />
+
+        <import type="osp.leobert.android.davinci.DaVinCiExpression" />
+
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <View
+                daVinCi_bg="@{DaVinCiExpression.shape().rectAngle().corner(`8dp`).solid(`#909090`)}"
+                android:layout_width="68dp"
+                android:layout_height="68dp"
+                android:layout_margin="10dp"
+                tools:background="@color/c909090" />
+
+            <View
+                daVinCi_bg="@{DaVinCiExpression.shape().rectAngle().corner(`8dp`).solid(`#909090`)}"
+                android:layout_width="68dp"
+                android:layout_height="68dp"
+                android:layout_margin="10dp"
+                tools:background="@color/c909090" />
+
+            <View
+                daVinCi_bg="@{DaVinCiExpression.shape().rectAngle().corner(`8dp`).solid(`#909090`)}"
+                android:layout_width="68dp"
+                android:layout_height="68dp"
+                android:layout_margin="10dp"
+                tools:background="@color/c909090" />
+
+            <View
+                daVinCi_bg="@{DaVinCiExpression.shape().rectAngle().corner(`8dp`).solid(`#909090`)}"
+                android:layout_width="68dp"
+                android:layout_height="68dp"
+                android:layout_margin="10dp"
+                tools:background="@color/c909090" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="78dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <View
+                daVinCi_bg="@{DaVinCiExpression.shape().rectAngle().corner(`8dp`).solid(`#909090`)}"
+                android:layout_width="68dp"
+                android:layout_height="68dp"
+                android:layout_margin="10dp"
+                tools:background="@color/c909090" />
+
+            <View
+                daVinCi_bg="@{DaVinCiExpression.shape().rectAngle().corner(`8dp`).solid(`#909090`)}"
+                android:layout_width="68dp"
+                android:layout_height="68dp"
+                android:layout_margin="10dp"
+                tools:background="@color/c909090" />
+
+            <View
+                daVinCi_bg="@{DaVinCiExpression.shape().rectAngle().corner(`8dp`).solid(`#909090`)}"
+                android:layout_width="68dp"
+                android:layout_height="68dp"
+                android:layout_margin="10dp"
+                tools:background="@color/c909090" />
+
+            <View
+                daVinCi_bg="@{DaVinCiExpression.shape().rectAngle().corner(`8dp`).solid(`#909090`)}"
+                android:layout_width="68dp"
+                android:layout_height="68dp"
+                android:layout_margin="10dp"
+                tools:background="@color/c909090" />
+        </LinearLayout>
+
+
+    </FrameLayout>
+</layout>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<layout>
+
+    <data>
+
+        <variable
+            name="vo"
+            type="osp.leobert.android.pandorasample.widget.RecommendGoodsVO2" />
+
+        <variable
+            name="itemInteract"
+            type="osp.leobert.android.pandorasample.widget.RecommendGoodsItemInteract" />
+
+        <import type="osp.leobert.android.davinci.DaVinCiExpression" />
+
+        <variable
+            name="vh"
+            type="osp.leobert.android.pandorasample.dvh.AbsViewHolder" />
+
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="15dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="5dp">
+
+        <View
+            daVinCi_bg="@{DaVinCiExpression.shape().corner(`6dp`).solid(`@i1`)}"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+            <tag
+                android:id="@id/i1"
+                android:value="@color/c909090" />
+        </View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="60dp"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_marginEnd="50dp"
+                android:background="@color/c909090" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="200dp"
+                android:background="@color/c909090" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="150dp"
+                android:background="@color/c909090" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</layout>

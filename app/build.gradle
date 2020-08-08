@@ -29,6 +29,10 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 29
+    dataBinding {
+        enabled = true
+    }
+
     defaultConfig {
         applicationId "osp.leobert.android.pandorasample"
         minSdkVersion 19
@@ -59,7 +63,10 @@ dependencies {
 //    implementation 'osp.leobert.android:pandorarv:0.0.2'
 
     implementation deps.support.v7.recyclerView
+    implementation deps.support.v7.cardView
+    implementation 'osp.leobert.android:davinci:0.0.2-beta'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation project(':pandorarv_kt')
+
 }
