@@ -11,32 +11,30 @@ Pandora is a library to build flexible dataset.
 [插件项目Pandora-Plugin地址](https://github.com/leobert-lan/Pandora-Plugin)
 
 ## 关于Pandora
-首先为公司产品做一下简单推广，笔者目前在为[“哈罗摩托”](https://sj.qq.com/myapp/detail.htm?apkName=com.jdd.motorfans)团队提供技术服务。哈罗摩托汇聚摩托车爱好者，源自国内具影响力的摩托社区！有兴趣的朋友可以试着玩玩（偶尔会有小福利😂）
 
-在之前半年里，我们产品主要朝**资讯方向**发展。而限于H5人力有限，绝大多数的内容均由原生实现，**粗略评估有超过80%的页面都可以使用RecyclerView做呈现**。当时笔者开发了一套支持多样式的RecyclerView框架支持以及结合实际情况开发了复杂数据集方案。
+
+在2018年的时候，我们公司产品主要朝**资讯方向**发展。而限于H5人力有限，绝大多数的内容均由原生实现，**粗略评估有超过80%的页面都可以使用RecyclerView做呈现**。当时笔者开发了一套支持多样式的RecyclerView框架支持以及结合实际情况开发了数据集结构化方案。
 
 ### 为什么不使用已有的框架
 在当时，确实有非常优秀的框架，例如专注于多样式的：drakeet的[MultiType](https://github.com/drakeet/MultiType),sockeqwe的[AdapterDelegates](https://github.com/sockeqwe/AdapterDelegates)；专注于特定模板的：alibaba的[Vlayout](https://github.com/alibaba/vlayout)等等。
 
 1. 首先是需求，当时主要的场景是混杂的样式（列表）、富文本的编辑与显示，这一点就决定了类似于VLayout的实现预定义模板布局的框架都是不符合需求的。
-2. 当时，项目非常的混乱，受“快速迭代”，“能用就行”等瞎几把鬼扯的指（遭）导（受）性（压）思（迫）想，RecyclerView相关功能的设计是急躁的，基类的定义都比较随意，扩展性已经比较差，想要直接引入一些库直接使用基本没有希望（基本都有Adapter、ViewHolder的基类）
-
+2. 当时，项目非常的混乱，受“快速迭代”，“能用就行”的指导思想，和RecyclerView相关的内容，功能设计也比较急躁、基类的定义都比较随意，引入一些三方类库也是缺乏系统的分析。继续引入三方库已经面临“无法兼容”的问题。
+3. 真实痛点，我们的痛点是各种“系统”未经熔炼就进入了项目中，职责也不单一，扩展性差，所以需要将核心部分提炼，避免受到三方库的制约。
 
 ## Module简介
 
 * APP:sample项目
-* pandora：一个用于快速构建复杂内容数据集的框架，抽象了数据集的构建，封装了数据集的常见操作，**可以将多个数据集构建为树**。*PS:受限于时间，哈罗摩托项目中，这一块是根据实际需求去做的，没有做抽象和封装，可以说当前是新设计的，可能存在各种坑*
-* pandorarv：RecyclerView多样式支持库。
+* pandora：一个用于快速构“结构化”数据集的框架，抽象了数据集的构建，封装了数据集的常见操作，**可以灵活的按照树结构组织多组数据，实现结构化，既可以便捷的对树中节点数据集进行操作，也可以灵活访问**。
+* pandorarv：装饰性封装，包含了上面的pandora数据集和多样式支持库。
 
 
 ## Pandora适合哪些项目
-笼统来说，MVC模式和MVP模式可以无缝使用，MVVM模式的项目可能需要做一定的调整。业务中不牵涉到多组别数据的基本没有相关需求（例如地图类应用）。
-
-对于电商类、资讯内容类的应用比较适合。
+笼统来说，只要项目中出现大量的列表使用场景，就适合使用，对于电商类、资讯内容类的应用更契合。
 
 ## 集成
 
-*jfrog近期好像做了一些调整，path需要三个部分，request被拒了，在成功发布后我会修改本内容，请先使用以下仓库地址*
+*如果jcenter访问受限，可以单独加上仓库地址*
 
 ```
  maven {
@@ -59,7 +57,7 @@ implementation或compile 'osp.leobert.android:pandorarv:{version}'
 ## 使用简介
 ### pandora
 
-前面我们提到pandora是用于构建复杂数据集的。先岔开一句，常见的需求中，无非：
+前面我们提到pandora是用于构建结构化数据集的（一般都是比较复杂的情况）。先岔开一句，常见的需求中，无非：
 
 * 一个独立的数据。 one instance of a Data Object.
 * 一组类型一致的数据。 one collection of one Data Object's instances 
@@ -109,7 +107,7 @@ WrapperDataSet<T> foo = new WrapperDataSet<>();
 
 从这里大家应该可以直接推测出，想要使用复杂数据集时，去泛化只会使用抽象类型。
 
-**这恰好是我们使用Pandora作为项目名的隐喻，你不知道会释放出什么，但取出来的东西一定会被安排的明明白白😂，这里会在pandorarv的使用以及我的博客中做一定的延伸**
+**这恰好是我们使用Pandora作为项目名的隐喻，比较粗放的做法里，一旦数据混杂在一个集合中，就是万恶之源，探索数据的细节就像是打开了盒子，就像代码中的各种instanceof判断一样，很容易出现“丑陋”的代码，而装在pandora的魔盒中，pandora是知道细节的，如果非要探寻细节，也有一些优雅的方式。**
 
 基础数据操作API，顾名思义
 
@@ -167,6 +165,10 @@ pandora数据集中，数据的变化是通过DiffUtil去计算的。
 
 在 areItemsTheSame中主要依靠equals来判断是否一致；
 在 areContentsTheSame中，因为我们哈罗摩托项目的一些要求，我们同时判断了equals和hash。具体请参见代码。
+
+*2020年08月08日 补充：*
+
+**上面提到的做法，我们需要依赖equals和hash，如果是列表数据的条目变更，哪怕是不覆写equals和hash也没有问题，但是某个数据内部属性变化的嗅探，就需要依靠hash，这一点还是有比较大的制约。所以19年时，我对pandorarv进行过一次升级，如果数据和ViewHolder同时支持的响应式变化，数据内部的属性发生变化时，可以直接更新对应绑定的ViewHolder，不依赖RecyclerView的更新，响应速度也变快了。**
 
 #### 关于transaction:
 pandora中并没有实现真正意义的transaction，因为它无法支持一旦失败全部取消，他也无法支持锁机制（而且本身pandora也没有去考虑多线程）
