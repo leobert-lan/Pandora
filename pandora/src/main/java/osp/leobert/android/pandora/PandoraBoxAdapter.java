@@ -25,11 +25,12 @@
 
 package osp.leobert.android.pandora;
 
+import android.util.Pair;
+
 import androidx.annotation.CheckResult;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.ListUpdateCallback;
-import android.util.Pair;
 
 /**
  * <p><b>Package:</b> osp.leobert.android.pandora </p>
@@ -39,7 +40,7 @@ import android.util.Pair;
  * Created by leobert on 2018/9/29.
  */
 public abstract class PandoraBoxAdapter<T> implements Node<PandoraBoxAdapter<T>>,
-        DataAdapter<T>,Iterable<T> {
+        DataAdapter<T>, Iterable<T> {
     protected ListUpdateCallback listUpdateCallback;
 
     /**
@@ -147,5 +148,29 @@ public abstract class PandoraBoxAdapter<T> implements Node<PandoraBoxAdapter<T>>
     abstract boolean isAliasConflict(@NonNull String alias);
 
     public abstract PandoraBoxAdapter<T> findByAlias(@NonNull final String targetAlias);
+
+    public void runForeach(Consumer<? super T> action) {
+        int count = getDataCount();
+        for (int i = 0; i < count; i++) {
+            try {
+                action.accept(getDataByIndex(i));
+            } catch (Exception e) {
+                Logger.e(Logger.TAG, "exception when runForeach", e);
+            }
+        }
+    }
+
+    abstract protected void restore();
+
+    @FunctionalInterface
+    public interface Consumer<T> {
+
+        /**
+         * Performs this operation on the given argument.
+         *
+         * @param t the input argument
+         */
+        void accept(T t);
+    }
 
 }

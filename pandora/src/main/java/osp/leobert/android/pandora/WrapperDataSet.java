@@ -29,6 +29,7 @@ import androidx.annotation.CheckResult;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
+
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
@@ -231,6 +232,15 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
             ret = iterator.next().findByAlias(targetAlias);
         }
         return ret;
+    }
+
+    @Override
+    protected void restore() {
+        for (int i = 0; i < getChildCount(); i++) {
+            PandoraBoxAdapter<T> child = getChild(i);
+            if (child != null)
+                child.restore();
+        }
     }
 
     @Override
@@ -459,6 +469,14 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
         }
     }
 
+    private void dump(@NonNull List<T> target) {
+        long count = getDataCount();
+        for (int i = 0; i < count; i++) {
+            T data = getDataByIndex(i);
+            target.add(i, data);
+        }
+    }
+
 
     @Override
     protected boolean inTransaction() {
@@ -594,13 +612,17 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
     /**
      * <em>Attention:Caution with method!It will apply all data change then use loop
      * to create a snapshot list.And any changes e.g. remove() will make none positive effects</em>
+     * <p>
+     * change log: it's not a wisdom choice to apply changes before looping! we use a new list to generate the Iterator.
+     * <p>
+     * better use {@link #runForeach(Consumer)}
      */
     @NonNull
     @Override
     public Iterator<T> iterator() {
-        endTransaction();
-        snapshot();
-        return oldList.iterator();
+        List<T> dump = new ArrayList<>();
+        dump(dump);
+        return dump.iterator();
     }
 
     public void accept(int pos, @NonNull TypeVisitor typeVisitor) {

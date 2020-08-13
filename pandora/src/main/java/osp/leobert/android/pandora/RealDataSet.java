@@ -334,6 +334,12 @@ public class RealDataSet<T> extends PandoraBoxAdapter<T> {
         return null;
     }
 
+    @Override
+    protected void restore() {
+        data.clear();
+        data.addAll(oldList);
+    }
+
     private void snapshot() {
         oldList.clear();
         oldList.addAll(data);
