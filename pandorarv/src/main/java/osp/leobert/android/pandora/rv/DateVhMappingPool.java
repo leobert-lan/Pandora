@@ -107,8 +107,6 @@ public class DateVhMappingPool {
                 }
             }
 
-            //todo bug,如果注册过程中出现移除，size会变
-//            int index = viewTypeCache.size();
             final int index = typeCellKey;
             TypeCell typeCell = new TypeCell<>(index, dvRelation);
             typeCell.updateMaxSize(maxSize);

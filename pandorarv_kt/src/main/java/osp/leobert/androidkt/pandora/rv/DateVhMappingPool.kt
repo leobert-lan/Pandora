@@ -12,11 +12,19 @@ import osp.leobert.android.pandora.PandoraException
  * <p><b>Description:</b> a pool to restore and fetch the relationship between VO and VH  </p>
  * Created by leobert on 2019/2/19.
  */
+
+//private fun <VO:D<VO, IViewHolder<VO>>> createCache(): SparseArray<TypeCell<VO>> {
+//    return SparseArray()
+//}
+
 class DateVhMappingPool<T : D<T, IViewHolder<T>>> {
-    private val viewTypeCache = SparseArray<TypeCell<Any>>()
+    private val viewTypeCache =
+//            createCache<DataSet.Data<*>>()
+            SparseArray<TypeCell<Any>>()
     private var maxSize = 5
 
     private var internalErrorTypeCell: TypeCell<*>? = null
+    private var typeCellKey: Int = 0
 
     @Synchronized
     fun removeDVRelation(dataClz: Class<*>) {
@@ -29,6 +37,10 @@ class DateVhMappingPool<T : D<T, IViewHolder<T>>> {
                         val key = viewTypeCache.keyAt(i)
                         viewTypeCache.remove(key)
                         i--
+
+                        if (Logger.DEBUG)
+                            Logger.i(Logger.TAG, "want to remove:" + dataClz.name + "; executed typeCell:" + typeCell)
+
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -45,11 +57,6 @@ class DateVhMappingPool<T : D<T, IViewHolder<T>>> {
         this.registerDVRelation(DataVhRelation(dataClz, viewHolderCreator))
     }
 
-//    @Synchronized
-//    fun <T /*: D<T, IViewHolder<T>>*/> registerDvRelation(vararg dvRelations: DVRelation<Any>) {
-//        for (dvRelation in dvRelations)
-//            registerDVRelation(dvRelation)
-//    }
 
     @Synchronized
     fun <VO : D<VO, IViewHolder<VO>>, Impl : VO> registerDVRelation(dvRelation: DVRelation<Impl>?) {
@@ -63,13 +70,17 @@ class DateVhMappingPool<T : D<T, IViewHolder<T>>> {
                         viewTypeCache.valueAt(i).updateMaxSize(maxSize)
                     }
                 }
+                val index = typeCellKey
 
-                viewTypeCache.size().let { index ->
-                    TypeCell(index, it).let { typeCell ->
-                        typeCell.updateMaxSize(maxSize)
-                        viewTypeCache.put(index, typeCell as TypeCell<Any>)
+                TypeCell(index, it).let { typeCell ->
+                    typeCell.updateMaxSize(maxSize)
+                    if (Logger.DEBUG) {
+                        Logger.i(Logger.TAG, "registerDVRelation: cacheKey" + index + "hasKey?" + (viewTypeCache[index] != null) + " ; typeCell:" + typeCell)
                     }
+
+                    viewTypeCache.put(index, typeCell as TypeCell<Any>)
                 }
+                typeCellKey++
             }
         }
 
@@ -79,7 +90,7 @@ class DateVhMappingPool<T : D<T, IViewHolder<T>>> {
         this.internalErrorTypeCell = TypeCell(Integer.MAX_VALUE,
                 DataVhRelation(DataSet.Data::class.java, viewHolderCreator))
     }
-
+//fun <VO : D<VO, IViewHolder<VO>>> getItemViewTypeV2(key: String, data: VO): Int { //getItemViewType
     fun getItemViewTypeV2(key: String, data: T): Int { //getItemViewType
         for (i in 0 until viewTypeCache.size()) {//折半查找可能效率更高一点
             val typeCell = viewTypeCache.valueAt(i)
