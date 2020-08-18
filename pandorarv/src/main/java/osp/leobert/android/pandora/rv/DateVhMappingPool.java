@@ -62,6 +62,8 @@ public class DateVhMappingPool {
     @Nullable
     private TypeCell internalErrorTypeCell;
 
+    private int typeCellKey = 0;
+
     public synchronized void removeDVRelation(@NonNull Class<?> dataClz) {
         synchronized (viewTypeCache) {
             for (int i = 0; i < viewTypeCache.size(); i++) {
@@ -71,6 +73,9 @@ public class DateVhMappingPool {
                         int key = viewTypeCache.keyAt(i);
                         viewTypeCache.remove(key);
                         i--;
+
+                        if (Logger.DEBUG)
+                            Logger.i(Logger.TAG, "want to remove:" + dataClz.getName() + "; executed typeCell:" + typeCell);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -102,10 +107,16 @@ public class DateVhMappingPool {
                 }
             }
 
-            int index = viewTypeCache.size();
+            //todo bug,如果注册过程中出现移除，size会变
+//            int index = viewTypeCache.size();
+            final int index = typeCellKey;
             TypeCell typeCell = new TypeCell<>(index, dvRelation);
             typeCell.updateMaxSize(maxSize);
+            if (Logger.DEBUG) {
+                Logger.i(Logger.TAG, "registerDVRelation: cacheKey" + index + "hasKey?" + (viewTypeCache.get(index) != null) + " ; typeCell:" + typeCell);
+            }
             viewTypeCache.put(index, typeCell);
+            typeCellKey++;
         }
     }
 
@@ -125,6 +136,7 @@ public class DateVhMappingPool {
         if (Logger.DEBUG) {
             RuntimeException e = new RuntimeException("have you register for:" + key);
             Logger.e(Logger.TAG, "missing type register", e);
+            Logger.d(Logger.TAG, "debug typeCells:" + viewTypeCache);
             throw e;
         } else {
             return Integer.MAX_VALUE;
@@ -149,7 +161,11 @@ public class DateVhMappingPool {
         try {
             int index = viewType / maxSize;
             int subIndex = viewType % maxSize;
-            return viewTypeCache.valueAt(index).getVhCreator(subIndex).createViewHolder(parent);
+
+            Logger.e(Logger.TAG, "lmsg:index" + index + " ,subIndex:" + subIndex + "  viewtype:" + viewType);
+            //todo valueAt不合适，index是key
+//            return viewTypeCache.valueAt(index).getVhCreator(subIndex).createViewHolder(parent);
+            return viewTypeCache.get(index).getVhCreator(subIndex).createViewHolder(parent);
         } catch (Exception e) {
             if (Logger.DEBUG) {
                 if (internalErrorTypeCell != null)

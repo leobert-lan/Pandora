@@ -82,4 +82,18 @@ import java.util.List;
         String subTypeToken = subTypeTokens.get(subTypeIndex);
         return dvRelation.getVhCreator(subTypeToken);
     }
+
+    private String dvRelationToString() {
+        return "DvRelation{ forClz:" + dvRelation.getDataClz().toString() + "; sub_type_count:" + getSubTypeCount()+"}";
+    }
+
+    @Override
+    public String toString() {
+        return "TypeCell{" +
+                "index=" + index +
+                ", maxSize=" + maxSize +
+                ", dvRelation=" + dvRelationToString() +
+                ", subTypeTokens=" + subTypeTokens +
+                '}';
+    }
 }

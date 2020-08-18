@@ -246,11 +246,6 @@ public class MultiTypeTestActivity extends AppCompatActivity {
 
 //        dataSet.removeDVRelation(Type1VOImpl.class); //验证下log
 
-        dataSet.registerDVRelation(Type2VOImpl.class, new Type2VH.Creator(null));
-        dataSet.registerDVRelation(Type3VOImpl.class, new Type3VH.Creator(null));
-        dataSet.registerDVRelation(Type4VOImpl.class, new Type4VH.Creator(null));
-        dataSet.registerDVRelation(Type5VOImpl.class, new Type5VH.Creator(null));
-
         dataSet.registerDVRelation(Type1VOImpl.class, new Type1VH.Creator(new Type1VH.ItemInteract() {
             @Override
             public void foo(int pos, Type1VO data) {
@@ -258,7 +253,13 @@ public class MultiTypeTestActivity extends AppCompatActivity {
                 dataSet.removeAtPos(pos);
             }
         }));
+        dataSet.registerDVRelation(Type2VOImpl.class, new Type2VH.Creator(null));
+        dataSet.registerDVRelation(Type3VOImpl.class, new Type3VH.Creator(null));
+        dataSet.registerDVRelation(Type4VOImpl.class, new Type4VH.Creator(null));
+        dataSet.registerDVRelation(Type5VOImpl.class, new Type5VH.Creator(null));
 
+
+        //0.0.6及其之前版本存在异常
         dataSet.removeDVRelation(Type1VOImpl.class);
 
         dataSet.registerDVRelation(Type1VOImpl.class, new Type1VH.Creator(new Type1VH.ItemInteract() {

@@ -110,7 +110,8 @@ class DateVhMappingPool<T : D<T, IViewHolder<T>>> {
         try {
             val index = viewType / maxSize
             val subIndex = viewType % maxSize
-            return viewTypeCache.valueAt(index).getVhCreator(subIndex).createViewHolder(parent)
+//            return viewTypeCache.valueAt(index).getVhCreator(subIndex).createViewHolder(parent)
+            return viewTypeCache.get(index).getVhCreator(subIndex).createViewHolder(parent)
         } catch (e: Exception) {
             if (Logger.DEBUG) {
                 if (internalErrorTypeCell != null)
