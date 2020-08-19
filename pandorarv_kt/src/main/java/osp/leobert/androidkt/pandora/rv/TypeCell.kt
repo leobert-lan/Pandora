@@ -9,7 +9,8 @@ import androidx.annotation.IntRange
  * <p><b>Description:</b> model for a type of item used in RecyclerView </p>
  * Created by leobert on 2019/2/19.
  */
-class TypeCell<T>(@IntRange(from = 0) private val index: Int, private val dvRelation: DateVhMappingPool.DVRelation<T>) {
+class TypeCell<T>(@IntRange(from = 0) private val index: Int,
+                  private val dvRelation: DateVhMappingPool.DVRelation<in T>) {
 //    @IntRange(from = 0)
 //    private val index: Int = index
 

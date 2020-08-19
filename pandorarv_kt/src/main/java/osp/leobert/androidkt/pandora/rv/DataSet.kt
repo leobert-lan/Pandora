@@ -16,7 +16,7 @@ import java.util.*
  */
 @SuppressWarnings("unused")
 @SuppressLint("unused")
-abstract class DataSet<T : D<T, IViewHolder<T>>> {
+abstract class DataSet<T : DataSet.Data> {
 
     companion object {
         fun <DATA, VH : IViewHolder<DATA>> helpSetToViewHolder(data: D<DATA, VH>, viewHolder: VH) {
@@ -37,15 +37,27 @@ abstract class DataSet<T : D<T, IViewHolder<T>>> {
 //    interface Data<DA : D<*, *>, V : IViewHolder<in DA>> : D<DA, V>
 
 
-    interface Data<VO> : D<Data<VO>, IViewHolder<Data<VO>>> {
-        override fun setToViewHolder(viewHolder: IViewHolder<Data<VO>>) {
-            viewHolder.setData(this)
+//    interface Data<VO> : D<Data<VO>, IViewHolder<Data<VO>>> {
+//        override fun setToViewHolder(viewHolder: IViewHolder<Data<VO>>) {
+//            viewHolder.setData(this)
+//
+//        }
+//    }
 
+//    interface Data<VO :D<VO,IViewHolder<VO>>> : D<VO, IViewHolder<VO>> {
+//    }
+
+    interface Data : D<Data, IViewHolder<Data>> {
+//        override fun setToViewHolder(viewHolder: IViewHolder<VO>) {
+//            viewHolder.setData(this)
+//        }
+
+        override fun setToViewHolder(viewHolder: IViewHolder<Data>) {
+            viewHolder.setData(this)
         }
     }
 
-
-    private val dateVhMappingPool = DateVhMappingPool<T>()
+    private val dateVhMappingPool = DateVhMappingPool()
 
     /**
      * @return the count of data in the data set
@@ -93,12 +105,14 @@ abstract class DataSet<T : D<T, IViewHolder<T>>> {
     }
 
     @Synchronized
-    fun <VO : D<VO, IViewHolder<VO>>, Impl : VO> registerDVRelation(dataClz: Class<Impl>, viewHolderCreator: ViewHolderCreator) {
+    fun registerDVRelation(dataClz: Class<out Data>, viewHolderCreator: ViewHolderCreator) {
         dateVhMappingPool.registerDVRelation(dataClz, viewHolderCreator)
     }
 
+    /*<VO : D<VO, IViewHolder<VO>>, Impl : VO>*/
+
     @Synchronized
-    fun <VO : D<VO, IViewHolder<VO>>, Impl : VO> registerDVRelation(dvRelation: DateVhMappingPool.DVRelation<Impl>) {
+    fun /*<VO : D<VO, IViewHolder<VO>>, Impl : VO>*/ registerDVRelation(dvRelation: DateVhMappingPool.DVRelation<out Data>) {
         dateVhMappingPool.registerDVRelation(dvRelation)
     }
 

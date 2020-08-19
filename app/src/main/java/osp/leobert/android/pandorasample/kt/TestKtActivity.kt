@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import osp.leobert.android.pandora.Pandora
 import osp.leobert.android.pandorasample.R
 import osp.leobert.androidkt.pandora.rv.DataSet
-import osp.leobert.androidkt.pandora.rv.PandoraRealRvDataSet
+import osp.leobert.androidkt.pandora.rv.PandoraRvDataSet
 
 /**
  * <p><b>Package:</b> osp.leobert.android.pandorasample.kt </p>
@@ -20,7 +20,7 @@ import osp.leobert.androidkt.pandora.rv.PandoraRealRvDataSet
  */
 class TestKtActivity : Activity() {
 
-    lateinit var dataSet: PandoraRealRvDataSet<DataSet.Data<Any>>
+    lateinit var dataSet: PandoraRvDataSet<DataSet.Data>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,11 +28,11 @@ class TestKtActivity : Activity() {
 
         val recyclerView = findViewById<RecyclerView>(R.id.rv)
 
-        dataSet = PandoraRealRvDataSet(Pandora.real())
+        dataSet = PandoraRvDataSet(Pandora.real<DataSet.Data>())
         val adapter = KtRvAdapter(dataSet, javaClass.simpleName)
         dataSet.registerDVRelation(TestKtVO.Impl1::class.java, TestKtVH.Creator(null))
         dataSet.registerDVRelation(TestKtVO.Impl2::class.java, TestKtVH.Creator(null))
-        Pandora.bind2RecyclerViewAdapter(dataSet.getRealDataSet(), adapter)
+        Pandora.bind2RecyclerViewAdapter(dataSet.boxAdapter(), adapter)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
@@ -50,19 +50,19 @@ class TestKtActivity : Activity() {
     }
 
     private fun addSection3() {
-        dataSet.add(TestKtVO.Impl1() as DataSet.Data<Any>)
-        dataSet.add(TestKtVO.Impl2() as DataSet.Data<Any>)
+        dataSet.add(TestKtVO.Impl1())
+        dataSet.add(TestKtVO.Impl2())
     }
 
     private fun addSection2() {
-        dataSet.add(TestKtVO.Impl1() as DataSet.Data<Any>)
-        dataSet.add(TestKtVO.Impl2() as DataSet.Data<Any>)
+        dataSet.add(TestKtVO.Impl1())
+        dataSet.add(TestKtVO.Impl2())
 
     }
 
     private fun addSection1() {
-        dataSet.add(TestKtVO.Impl1() as DataSet.Data<Any>)
-        dataSet.add(TestKtVO.Impl2() as DataSet.Data<Any>)
+        dataSet.add(TestKtVO.Impl1())
+        dataSet.add(TestKtVO.Impl2())
     }
 
 }

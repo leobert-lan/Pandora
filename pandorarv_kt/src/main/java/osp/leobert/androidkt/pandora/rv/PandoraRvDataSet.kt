@@ -12,9 +12,10 @@ import osp.leobert.android.pandora.RealDataSet
  * <p><b>Description:</b> TODO </p>
  * Created by leobert on 2019/2/19.
  */
-class PandoraRealRvDataSet<T : D<T, IViewHolder<T>>>(private val realDataSet: RealDataSet<T>) : DataSet<T>() {
+class PandoraRvDataSet<T : DataSet.Data>(private val realDataSet: PandoraBoxAdapter<T>)
+    : DataSet<DataSet.Data>() {
 
-    fun getRealDataSet(): RealDataSet<T> {
+    fun boxAdapter(): PandoraBoxAdapter<T> {
         return realDataSet
     }
 

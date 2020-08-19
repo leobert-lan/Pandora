@@ -17,10 +17,10 @@ import osp.leobert.android.pandora.PandoraException
 //    return SparseArray()
 //}
 
-class DateVhMappingPool<T : D<T, IViewHolder<T>>> {
+class DateVhMappingPool {
     private val viewTypeCache =
 //            createCache<DataSet.Data<*>>()
-            SparseArray<TypeCell<Any>>()
+            SparseArray<TypeCell<DataSet.Data>>()
     private var maxSize = 5
 
     private var internalErrorTypeCell: TypeCell<*>? = null
@@ -53,13 +53,15 @@ class DateVhMappingPool<T : D<T, IViewHolder<T>>> {
     }
 
     @Synchronized
-    fun <VO : D<VO, IViewHolder<VO>>, Impl : VO> registerDVRelation(dataClz: Class<Impl>, viewHolderCreator: ViewHolderCreator) {
+    fun registerDVRelation(dataClz: Class<out DataSet.Data>, viewHolderCreator: ViewHolderCreator) {
         this.registerDVRelation(DataVhRelation(dataClz, viewHolderCreator))
     }
 
 
     @Synchronized
-    fun <VO : D<VO, IViewHolder<VO>>, Impl : VO> registerDVRelation(dvRelation: DVRelation<Impl>?) {
+    @Suppress("unchecked")
+    @SuppressWarnings("unchecked")
+    fun registerDVRelation(dvRelation: DVRelation<out DataSet.Data>?) {
         dvRelation?.let {
             synchronized(viewTypeCache) {
                 val n = it.one2N()
@@ -78,7 +80,7 @@ class DateVhMappingPool<T : D<T, IViewHolder<T>>> {
                         Logger.i(Logger.TAG, "registerDVRelation: cacheKey" + index + "hasKey?" + (viewTypeCache[index] != null) + " ; typeCell:" + typeCell)
                     }
 
-                    viewTypeCache.put(index, typeCell as TypeCell<Any>)
+                    viewTypeCache.put(index, typeCell as TypeCell<DataSet.Data>)
                 }
                 typeCellKey++
             }
@@ -90,8 +92,9 @@ class DateVhMappingPool<T : D<T, IViewHolder<T>>> {
         this.internalErrorTypeCell = TypeCell(Integer.MAX_VALUE,
                 DataVhRelation(DataSet.Data::class.java, viewHolderCreator))
     }
-//fun <VO : D<VO, IViewHolder<VO>>> getItemViewTypeV2(key: String, data: VO): Int { //getItemViewType
-    fun getItemViewTypeV2(key: String, data: T): Int { //getItemViewType
+
+    //fun <VO : D<VO, IViewHolder<VO>>> getItemViewTypeV2(key: String, data: VO): Int { //getItemViewType
+    fun getItemViewTypeV2(key: String, data: DataSet.Data): Int { //getItemViewType
         for (i in 0 until viewTypeCache.size()) {//折半查找可能效率更高一点
             val typeCell = viewTypeCache.valueAt(i)
             if (typeCell?.workFor(key) == true) {
@@ -138,9 +141,9 @@ class DateVhMappingPool<T : D<T, IViewHolder<T>>> {
     }
 
 
-    interface DVRelation<in T> {
+    interface DVRelation<T> {
 
-        val dataClz: Class<in T>
+        val dataClz: Class<T>
 
         fun one2N(): Int
 
@@ -160,7 +163,7 @@ class DateVhMappingPool<T : D<T, IViewHolder<T>>> {
         }
 
         override fun subTypeToken(data: T): String {
-            return DateVhMappingPool.DVRelation.SINGLE_TYPE_TOKEN
+            return DVRelation.SINGLE_TYPE_TOKEN
         }
 
         override fun getVhCreator(subTypeToken: String): ViewHolderCreator {

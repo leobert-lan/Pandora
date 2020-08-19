@@ -1,7 +1,5 @@
 package osp.leobert.android.pandorasample.kt
 
-import osp.leobert.android.pandora.rv.IReactiveViewHolder
-import osp.leobert.android.pandora.rv.ReactiveData
 import osp.leobert.androidkt.pandora.rv.DataSet
 
 /**
@@ -11,7 +9,7 @@ import osp.leobert.androidkt.pandora.rv.DataSet
  * <p><b>Description:</b> TODO </p>
  * Created by leobert on 2019/2/20.
  */
-interface TestKtVO : DataSet.Data<TestKtVO>/*,ReactiveData<TestKtVO,IReactiveViewHolder<TestKtVO>> */{
+interface TestKtVO : DataSet.Data/*,ReactiveData<TestKtVO,IReactiveViewHolder<TestKtVO>> */{
     //D<TestKtVO,IViewHolder<TestKtVO>>
 
     fun getData(): String {
@@ -22,7 +20,7 @@ interface TestKtVO : DataSet.Data<TestKtVO>/*,ReactiveData<TestKtVO,IReactiveVie
 //        viewHolder.setData(this)
 //    }
 
-    class Impl1 : TestKtVO
+    class Impl1 : TestKtVO,DataSet.Data
 
 
 
