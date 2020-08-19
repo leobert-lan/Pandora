@@ -39,6 +39,11 @@ import java.util.List;
  * Created by leobert on 2018/10/10.
  */
 /*public*/ final class TypeCell<T> {
+
+    static <T> TypeCell<T> of(int index, TypeCell<T> from) {
+        return new TypeCell<>(index, from.dvRelation);
+    }
+
     @IntRange(from = 0)
     private final int index;
 
@@ -84,7 +89,7 @@ import java.util.List;
     }
 
     private String dvRelationToString() {
-        return "DvRelation{ forClz:" + dvRelation.getDataClz().toString() + "; sub_type_count:" + getSubTypeCount()+"}";
+        return "DvRelation{ forClz:" + dvRelation.getDataClz().toString() + "; sub_type_count:" + getSubTypeCount() + "}";
     }
 
     @Override

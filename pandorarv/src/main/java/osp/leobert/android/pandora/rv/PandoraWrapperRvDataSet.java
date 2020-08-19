@@ -28,6 +28,7 @@ package osp.leobert.android.pandora.rv;
 import androidx.annotation.CheckResult;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import android.util.Pair;
 
 import java.util.Collection;
@@ -82,6 +83,10 @@ public class PandoraWrapperRvDataSet<T extends DataSet.D> extends DataSet {
 
     public void addSub(PandoraBoxAdapter<T> sub) {
         wrapperDataSet.addChild(sub);
+    }
+
+    public void merge(DateVhMappingPool pool) {
+        dateVhMappingPool.merge(pool);
     }
 
     public boolean hasBind2Parent() {

@@ -89,7 +89,11 @@ public abstract class DataSet {
 
     }
 
-    private final DateVhMappingPool dateVhMappingPool = new DateVhMappingPool();
+    protected final DateVhMappingPool dateVhMappingPool = new DateVhMappingPool();
+
+    public DateVhMappingPool getDateVhMappingPool() {
+        return dateVhMappingPool;
+    }
 
     /**
      * @return the count of data in the data set
