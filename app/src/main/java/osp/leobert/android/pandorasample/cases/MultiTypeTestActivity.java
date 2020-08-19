@@ -38,8 +38,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 
 import osp.leobert.android.pandora.Pandora;
+import osp.leobert.android.pandora.PandoraException;
 import osp.leobert.android.pandora.RealDataSet;
 import osp.leobert.android.pandora.WrapperDataSet;
 import osp.leobert.android.pandora.rv.DataSet;
@@ -50,6 +52,8 @@ import osp.leobert.android.pandora.rv.ViewHolderCreator;
 import osp.leobert.android.pandorasample.R;
 import osp.leobert.android.pandorasample.RvAdapter;
 import osp.leobert.android.pandorasample.TimeUtil;
+import osp.leobert.android.pandorasample.decor.BackgroundDecor;
+import osp.leobert.android.pandorasample.decor.IgnoreDelegate;
 import osp.leobert.android.pandorasample.dvh.AbsViewHolder;
 import osp.leobert.android.pandorasample.dvh.Type1VH;
 import osp.leobert.android.pandorasample.dvh.Type1VO;
@@ -100,14 +104,15 @@ public class MultiTypeTestActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView recyclerView2;
 
-    PandoraWrapperRvDataSet<DataSet.Data> dataSet;
+    PandoraWrapperRvDataSet<DataSet.Data> aDataSet;
 
-    PandoraRealRvDataSet<DataSet.Data> dataSetSection1;
+    PandoraRealRvDataSet<DataSet.Data> bDataSet;
+
+    RealDataSet<DataSet.Data> section1;
     PandoraRealRvDataSet<DataSet.Data> dataSetSection2;
     PandoraRealRvDataSet<DataSet.Data> dataSetSection3;
-    RvAdapter<PandoraWrapperRvDataSet<DataSet.Data>> adapter;
 
-    RealDataSet<DataSet.Data> dataSet1;
+    RvAdapter<PandoraWrapperRvDataSet<DataSet.Data>> adapter;
 
 
     RvAdapter<PandoraRealRvDataSet<DataSet.Data>> adapter2;
@@ -122,11 +127,11 @@ public class MultiTypeTestActivity extends AppCompatActivity {
         recyclerView2 = findViewById(R.id.rv2);
         initDataSet();
 
-        adapter = new RvAdapter<>(dataSet, getClass().getSimpleName());
-        adapter2 = new RvAdapter<>(dataSetSection1, getClass().getSimpleName());
+        adapter = new RvAdapter<>(aDataSet, getClass().getSimpleName());
+        adapter2 = new RvAdapter<>(bDataSet, getClass().getSimpleName());
 
-        Pandora.bind2RecyclerViewAdapter(dataSet.getDataSet(), adapter);
-        Pandora.bind2RecyclerViewAdapter(dataSetSection1.getRealDataSet(), adapter2);
+        Pandora.bind2RecyclerViewAdapter(aDataSet.getDataSet(), adapter);
+        Pandora.bind2RecyclerViewAdapter(bDataSet.getRealDataSet(), adapter2);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
@@ -165,33 +170,40 @@ public class MultiTypeTestActivity extends AppCompatActivity {
             }
         });
 
+        setSectionBg();
+
     }
 
     private void initDataSet() {
         WrapperDataSet<DataSet.Data> wrapperDataSet = Pandora.wrapper();
-        dataSet = new PandoraWrapperRvDataSet<>(wrapperDataSet);
+        aDataSet = new PandoraWrapperRvDataSet<>(wrapperDataSet);
 
 //        dataSet.retrieveAdapterByDataIndex2(1)
 
-        dataSetSection1 = new PandoraRealRvDataSet<>(Pandora.<DataSet.Data>real());
-        dataSetSection1.setAlias("sec1");
+        bDataSet = new PandoraRealRvDataSet<>(Pandora.<DataSet.Data>real());
+
+        section1 = Pandora.real();
+        try {
+            section1.setAlias("sec1");
+        } catch (PandoraException e) {
+            e.printStackTrace();
+        }
+
         dataSetSection2 = new PandoraRealRvDataSet<>(Pandora.<DataSet.Data>real());
         dataSetSection2.setAlias("sec2");
         dataSetSection3 = new PandoraRealRvDataSet<>(Pandora.<DataSet.Data>real());
         dataSetSection3.setAlias("sec3");
 
-        dataSet1 = Pandora.real();
-        dataSet.addSub(dataSet1);
+        aDataSet.addSub(section1);
 
-
-        dataSet.addSub(dataSetSection1.getRealDataSet());
-        dataSet.addSub(dataSetSection2.getRealDataSet());
-        dataSet.addSub(dataSetSection3.getRealDataSet());
+        aDataSet.addSub(bDataSet.getRealDataSet());
+        aDataSet.addSub(dataSetSection2.getRealDataSet());
+        aDataSet.addSub(dataSetSection3.getRealDataSet());
 
 
 //        dataSet.registerDVRelation(SectionHeader.class, new MenuVH2.Creator(null));
 
-        dataSet.registerDVRelation(new DateVhMappingPool.DVRelation<SectionHeader>() {
+        aDataSet.registerDVRelation(new DateVhMappingPool.DVRelation<SectionHeader>() {
             private static final String type_l1 = "type_l1";
             private static final String type_l2 = "type_l2";
 
@@ -229,49 +241,91 @@ public class MultiTypeTestActivity extends AppCompatActivity {
         });
 
 
-        dataSetSection1.registerDVRelation(Type1VOImpl.class, new Type1VH.Creator(new Type1VH.ItemInteract() {
+        bDataSet.registerDVRelation(Type1VOImpl.class, new Type1VH.Creator(new Type1VH.ItemInteract() {
             @Override
             public void foo(int pos, Type1VO data) {
-                dataSetSection1.removeAtPos(pos);
+                bDataSet.removeAtPos(pos);
             }
         }));
         //此处体现了同样的基础数据，在不同使用场景下体现出区别，对比左右两个列表
-        dataSetSection1.registerDVRelation(SectionHeader.class, new MenuVH2.Creator(null));
+        bDataSet.registerDVRelation(SectionHeader.class, new MenuVH2.Creator(null));
 
-        dataSetSection1.registerDVRelation(Type2VOImpl.class, new Type2VH.Creator(null));
-        dataSetSection1.registerDVRelation(Type3VOImpl.class, new Type3VH.Creator(null));
-        dataSetSection1.registerDVRelation(Type4VOImpl.class, new Type4VH.Creator(null));
-        dataSetSection1.registerDVRelation(Type5VOImpl.class, new Type5VH.Creator(null));
+        bDataSet.registerDVRelation(Type2VOImpl.class, new Type2VH.Creator(null));
+        bDataSet.registerDVRelation(Type3VOImpl.class, new Type3VH.Creator(null));
+        bDataSet.registerDVRelation(Type4VOImpl.class, new Type4VH.Creator(null));
+        bDataSet.registerDVRelation(Type5VOImpl.class, new Type5VH.Creator(null));
 
 
 //        dataSet.removeDVRelation(Type1VOImpl.class); //验证下log
 
-        dataSet.registerDVRelation(Type1VOImpl.class, new Type1VH.Creator(new Type1VH.ItemInteract() {
+        aDataSet.registerDVRelation(Type1VOImpl.class, new Type1VH.Creator(new Type1VH.ItemInteract() {
             @Override
             public void foo(int pos, Type1VO data) {
                 Toast.makeText(MultiTypeTestActivity.this, "1", Toast.LENGTH_SHORT).show();
-                dataSet.removeAtPos(pos);
+                aDataSet.removeAtPos(pos);
             }
         }));
-        dataSet.registerDVRelation(Type2VOImpl.class, new Type2VH.Creator(null));
-        dataSet.registerDVRelation(Type3VOImpl.class, new Type3VH.Creator(null));
-        dataSet.registerDVRelation(Type4VOImpl.class, new Type4VH.Creator(null));
-        dataSet.registerDVRelation(Type5VOImpl.class, new Type5VH.Creator(null));
+        aDataSet.registerDVRelation(Type2VOImpl.class, new Type2VH.Creator(null));
+        aDataSet.registerDVRelation(Type3VOImpl.class, new Type3VH.Creator(null));
+        aDataSet.registerDVRelation(Type4VOImpl.class, new Type4VH.Creator(null));
+        aDataSet.registerDVRelation(Type5VOImpl.class, new Type5VH.Creator(null));
 
 
         //0.0.6及其之前版本存在异常
-        dataSet.removeDVRelation(Type1VOImpl.class);
+        aDataSet.removeDVRelation(Type1VOImpl.class);
 
-        dataSet.registerDVRelation(Type1VOImpl.class, new Type1VH.Creator(new Type1VH.ItemInteract() {
+        aDataSet.registerDVRelation(Type1VOImpl.class, new Type1VH.Creator(new Type1VH.ItemInteract() {
             @Override
             public void foo(int pos, Type1VO data) {
-                dataSet.removeAtPos(pos);
+                aDataSet.removeAtPos(pos);
             }
         }));
 
-        dataSetSection1.add(new SectionHeader(MenuVO2.Level.l1, "此处开始是Section1\r\n对比左右两个列表注册的样式区别  "));
+        bDataSet.add(new SectionHeader(MenuVO2.Level.l1, "此处开始是Section1\r\n对比左右两个列表注册的样式区别  "));
         dataSetSection2.add(new SectionHeader(MenuVO2.Level.l1, "此处开始是Section2"));
         dataSetSection3.add(new SectionHeader(MenuVO2.Level.l1, "此处开始是Section3"));
+
+    }
+
+    private void setSectionBg() {
+        recyclerView.addItemDecoration(new BackgroundDecor(this, getResources().getColor(R.color.cff744f),
+                new IgnoreDelegate() {
+                    @Override
+                    public boolean isIgnore(int pos) {
+                        try {
+                            return !"sec1".equals(Objects.requireNonNull(aDataSet.retrieveAdapterByDataIndex(pos)).getAlias());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        return true;
+                    }
+                }));
+
+        recyclerView.addItemDecoration(new BackgroundDecor(this, getResources().getColor(R.color.c82a3c7),
+                new IgnoreDelegate() {
+                    @Override
+                    public boolean isIgnore(int pos) {
+                        try {
+                            return !"sec2".equals(Objects.requireNonNull(aDataSet.retrieveAdapterByDataIndex(pos)).getAlias());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        return true;
+                    }
+                }));
+
+        recyclerView.addItemDecoration(new BackgroundDecor(this, getResources().getColor(R.color.ceaeaea),
+                new IgnoreDelegate() {
+                    @Override
+                    public boolean isIgnore(int pos) {
+                        try {
+                            return !"sec3".equals(Objects.requireNonNull(aDataSet.retrieveAdapterByDataIndex(pos)).getAlias());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        return true;
+                    }
+                }));
     }
 
     /**
@@ -293,7 +347,7 @@ public class MultiTypeTestActivity extends AppCompatActivity {
         collection.add(new Type2VOImpl(4));
         collection.add(new Type3VOImpl(5));
 
-        dataSetSection1.addAll(collection);
+        bDataSet.addAll(collection);
     }
 
     private void addDataIntoSection2() {

@@ -26,21 +26,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="15dp">
+    android:padding="5dp">
 
     <TextView
         android:id="@+id/test_item_hint"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="30dp"
-        android:text="type1"
-        android:textColor="@color/colorAccent" />
+        android:text="类型1"
+        android:textColor="@color/c191919"
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/test_item_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/test_item_hint"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/test_item_hint"
+        android:textSize="11sp"
+        android:textColor="@color/c3e3e3e"
         android:text="Hello World!" />
 
 
