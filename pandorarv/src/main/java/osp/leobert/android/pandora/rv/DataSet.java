@@ -89,9 +89,9 @@ public abstract class DataSet {
 
     }
 
-    protected final DateVhMappingPool dateVhMappingPool = new DateVhMappingPool();
+    protected final DataVhMappingPool dateVhMappingPool = new DataVhMappingPool();
 
-    public DateVhMappingPool getDateVhMappingPool() {
+    public DataVhMappingPool getDateVhMappingPool() {
         return dateVhMappingPool;
     }
 
@@ -141,11 +141,11 @@ public abstract class DataSet {
         dateVhMappingPool.registerDVRelation(dataClz, viewHolderCreator);
     }
 
-    public synchronized void registerDvRelation(DateVhMappingPool.DVRelation... dvRelations) {
+    public synchronized void registerDvRelation(DataVhMappingPool.DVRelation... dvRelations) {
         dateVhMappingPool.registerDvRelation(dvRelations);
     }
 
-    public synchronized void registerDVRelation(DateVhMappingPool.DVRelation<?> dvRelation) {
+    public synchronized void registerDVRelation(DataVhMappingPool.DVRelation<?> dvRelation) {
         dateVhMappingPool.registerDvRelation(dvRelation);
     }
 

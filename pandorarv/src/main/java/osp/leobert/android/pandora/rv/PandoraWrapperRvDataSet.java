@@ -85,7 +85,7 @@ public class PandoraWrapperRvDataSet<T extends DataSet.D> extends DataSet {
         wrapperDataSet.addChild(sub);
     }
 
-    public void merge(DateVhMappingPool pool) {
+    public void merge(DataVhMappingPool pool) {
         dateVhMappingPool.merge(pool);
     }
 

@@ -55,7 +55,7 @@ import java.util.List;
     }
 
     @NonNull
-    private final DateVhMappingPool.DVRelation<T> dvRelation;
+    private final DataVhMappingPool.DVRelation<T> dvRelation;
 
     private final List<String> subTypeTokens;
 
@@ -63,7 +63,7 @@ import java.util.List;
         return clz.equals(dvRelation.getDataClz().getName());
     }
 
-    TypeCell(@IntRange(from = 0) int index, @NonNull DateVhMappingPool.DVRelation<T> dvRelation) {
+    TypeCell(@IntRange(from = 0) int index, @NonNull DataVhMappingPool.DVRelation<T> dvRelation) {
         this.index = index;
         this.dvRelation = dvRelation;
         subTypeTokens = new ArrayList<>();
