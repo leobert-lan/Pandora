@@ -10,9 +10,13 @@ import androidx.annotation.IntRange
  * Created by leobert on 2019/2/19.
  */
 class TypeCell<T>(@IntRange(from = 0) private val index: Int,
-                  private val dvRelation: DateVhMappingPool.DVRelation<in T>) {
-//    @IntRange(from = 0)
-//    private val index: Int = index
+                  private val dvRelation: DataVhMappingPool.DVRelation<in T>) {
+    companion object {
+        fun <T> of(index: Int, from: TypeCell<T>): TypeCell<T> {
+            return TypeCell(index, from.dvRelation)
+        }
+
+    }
 
     private var subTypeTokens: MutableList<String> = mutableListOf()
 

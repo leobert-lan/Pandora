@@ -28,11 +28,16 @@ apply plugin: 'com.android.library'
 sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
 
+def RELEASE_NOTE =
+        "v0.0.9:" +
+                "1. 修复样式注册方式存在的隐性bug，在移除样式后继续执行注册样式会出现错误覆盖" +
+                "2. 新增简单的样式合并功能，但对于同一数据类的不同样式需要业务处理，并不会智能合并" +
+                "3. 修改类名错误，DateVhMappingPool将在下个版本移除"
 
 
 def MAVEN_LOCAL_PATH = uri('../../local_repo')
 def ARTIFACT_ID = 'pandorarv'
-def VERSION_NAME = '0.0.8'
+def VERSION_NAME = '0.0.9'
 def GROUP_ID = 'osp.leobert.android'
 
 ext {
@@ -78,9 +83,17 @@ dependencies {
     implementation deps.support.v7.recyclerView
 
 //    compileOnly project(":pandora")
-    compileOnly 'osp.leobert.android:pandora:0.0.6'
+    compileOnly 'osp.leobert.android:pandora:0.0.7'
 
 }
+
+
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+
 
 apply from:'../bintray_upload.gradle'
 apply from:'../maven_upload.gradle'

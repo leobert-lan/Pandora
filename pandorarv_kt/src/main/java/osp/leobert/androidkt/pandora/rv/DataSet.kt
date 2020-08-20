@@ -57,7 +57,7 @@ abstract class DataSet<T : DataSet.Data> {
         }
     }
 
-    private val dateVhMappingPool = DateVhMappingPool()
+    private val dateVhMappingPool = DataVhMappingPool()
 
     /**
      * @return the count of data in the data set
@@ -112,7 +112,7 @@ abstract class DataSet<T : DataSet.Data> {
     /*<VO : D<VO, IViewHolder<VO>>, Impl : VO>*/
 
     @Synchronized
-    fun /*<VO : D<VO, IViewHolder<VO>>, Impl : VO>*/ registerDVRelation(dvRelation: DateVhMappingPool.DVRelation<out Data>) {
+    fun /*<VO : D<VO, IViewHolder<VO>>, Impl : VO>*/ registerDVRelation(dvRelation: DataVhMappingPool.DVRelation<out Data>) {
         dateVhMappingPool.registerDVRelation(dvRelation)
     }
 

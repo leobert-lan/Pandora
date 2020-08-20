@@ -13,14 +13,8 @@ import osp.leobert.android.pandora.PandoraException
  * Created by leobert on 2019/2/19.
  */
 
-//private fun <VO:D<VO, IViewHolder<VO>>> createCache(): SparseArray<TypeCell<VO>> {
-//    return SparseArray()
-//}
-
-class DateVhMappingPool {
-    private val viewTypeCache =
-//            createCache<DataSet.Data<*>>()
-            SparseArray<TypeCell<DataSet.Data>>()
+class DataVhMappingPool {
+    internal val viewTypeCache = SparseArray<TypeCell<DataSet.Data>>()
     private var maxSize = 5
 
     private var internalErrorTypeCell: TypeCell<*>? = null
@@ -85,7 +79,34 @@ class DateVhMappingPool {
                 typeCellKey++
             }
         }
+    }
 
+    @Synchronized
+    private fun registerDVRelation(typeCell: TypeCell<DataSet.Data>?) {
+        if (typeCell == null) return
+        synchronized(viewTypeCache) {
+            val index = typeCellKey
+            val copy: TypeCell<DataSet.Data> = TypeCell.of(index, typeCell)
+            val n: Int = copy.getSubTypeCount()
+            while (n > maxSize) {
+                maxSize *= 2
+                for (i in 0 until viewTypeCache.size()) {
+                    viewTypeCache.valueAt(i).updateMaxSize(maxSize)
+                }
+            }
+            copy.updateMaxSize(maxSize)
+            if (Logger.DEBUG) {
+                Logger.i(Logger.TAG, "registerDVRelation: cacheKey" + index + "hasKey?" + (viewTypeCache[index] != null) + " ; typeCell:" + copy)
+            }
+            viewTypeCache.put(index, copy)
+            typeCellKey++
+        }
+    }
+
+    fun merge(pool:DataVhMappingPool) {
+        for (i in 0 until pool.typeCellKey) {
+            registerDVRelation(pool.viewTypeCache.get(i))
+        }
     }
 
     fun whenInternalError(viewHolderCreator: ViewHolderCreator) {

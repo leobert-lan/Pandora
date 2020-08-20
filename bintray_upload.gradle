@@ -2,6 +2,18 @@ apply plugin: 'com.jfrog.bintray'
 
 version = libraryVersion
 
+//task javadoc(type: Javadoc) {
+//    options{
+//        encoding("utf-8")
+//        links "http://docs.oracle.com/javase/7/docs/api"
+//    }
+//    exclude("**/DaVinCiCore.kt","**/DaVinCiException.kt")
+//    source = android.sourceSets.main.java.srcDirs
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//    destinationDir = file("../javadoc/")
+//    failOnError false
+//}
+
 if (project.hasProperty("android")) { // Android libraries
     task sourcesJar(type: Jar) {
         classifier = 'sources'
@@ -9,6 +21,10 @@ if (project.hasProperty("android")) { // Android libraries
     }
 
     task javadoc(type: Javadoc) {
+        options {
+            encoding("utf-8")
+            links "http://docs.oracle.com/javase/7/docs/api"
+        }
         source = android.sourceSets.main.java.srcDirs
         classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
     }
