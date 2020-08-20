@@ -1,14 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/vh_menu_name"
+    <data>
+
+        <variable
+            name="vo"
+            type="osp.leobert.android.pandorasample.menu.MenuVO2" />
+
+        <variable
+            name="itemInteract"
+            type="osp.leobert.android.pandorasample.menu.MenuVH2.ItemInteract" />
+        <variable
+            name="vh"
+            type="androidx.recyclerview.widget.RecyclerView.ViewHolder" />
+
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:padding="10dp"
         android:layout_height="wrap_content"
-        tools:text="text" />
+        android:onClick="@{(view)->itemInteract.onMenuItemClicked(vh.adapterPosition,vo)}"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/vh_menu_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textColor="@color/c191919"
+            android:textSize="15sp"
+            android:text="@{vo.name}"
+            tools:text="text" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+</layout>

@@ -172,7 +172,7 @@ public class DataVhMappingPool {
             int index = viewType / maxSize;
             int subIndex = viewType % maxSize;
 
-            Logger.e(Logger.TAG, "lmsg:index" + index + " ,subIndex:" + subIndex + "  viewtype:" + viewType);
+            Logger.v(Logger.TAG, "createViewHolderV2:index" + index + " ,subIndex:" + subIndex + "  viewtype:" + viewType);
             //valueAt不合适，index是key  return viewTypeCache.valueAt(index).getVhCreator(subIndex).createViewHolder(parent);
             return viewTypeCache.get(index).getVhCreator(subIndex).createViewHolder(parent);
         } catch (Exception e) {

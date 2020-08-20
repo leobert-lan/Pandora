@@ -25,15 +25,14 @@
 
 package osp.leobert.android.pandora;
 
+import android.text.TextUtils;
+import android.util.Pair;
+import android.util.SparseIntArray;
+
 import androidx.annotation.CheckResult;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
-
-import android.text.TextUtils;
-import android.util.Log;
-import android.util.Pair;
-import android.util.SparseIntArray;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -50,8 +49,8 @@ import osp.leobert.android.pandora.visitor.TypeVisitor;
  * Created by leobert on 2018/9/29.
  */
 public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
-    private void log(int p, String msg) {
-        Log.println(p, "WrapperDataSet", msg);
+    private void log(@Logger.Level int p, String msg) {
+        Logger.println(p, "WrapperDataSet", msg);
     }
 
     private final List<T> oldList = new ArrayList<>();
@@ -257,7 +256,7 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
     @Nullable
     public final T getDataByIndex(int indexResolved/*must be resolved pos*/) {
         int realIndex = indexResolved + startIndex;
-        log(Log.DEBUG, "getDataByResolvedIndex" + indexResolved + "   ; real index:" + realIndex);
+        log(Logger.Level.v, "getDataByResolvedIndex" + indexResolved + "   ; real index:" + realIndex);
         if (0 <= indexResolved && getDataCount() > indexResolved) {
             //find the sub
 
@@ -287,11 +286,11 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
                 }
             }
             if (targetSub == null) {
-                log(Log.ERROR, "getDataByRealIndex" + realIndex + ";no child find");
+                log(Logger.Level.e, "getDataByRealIndex" + realIndex + ";no child find");
                 return null;
             }
 
-            log(Log.DEBUG, "getDataByIndex" + realIndex + targetSub.getAlias() + " - " + targetSub.toString());
+            log(Logger.Level.v, "getDataByIndex" + realIndex + targetSub.getAlias() + " - " + targetSub.toString());
 
             int resolvedIndex = realIndex - targetSub.getStartIndex();
 
@@ -345,7 +344,7 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
             Pair<PandoraBoxAdapter<T>, Integer> target = retrieveAdapterByDataIndex2(pos);
 
             if (target == null)
-                log(Log.ERROR, "bug,cannot find target adapter");
+                log(Logger.Level.e, "bug,cannot find target adapter");
             else {
                 target.first.add(target.second, item);
             }
@@ -381,11 +380,11 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
     public void removeAtPos(int position) {
         startTransaction();
         if (position < 0 || position >= getDataCount()) {
-            log(Log.ERROR, "index out of boundary");
+            log(Logger.Level.e, "index out of boundary");
         } else {
             Pair<PandoraBoxAdapter<T>, Integer> target = retrieveAdapterByDataIndex2(position);
             if (target == null)
-                log(Log.ERROR, "bug,cannot find target adapter");
+                log(Logger.Level.e, "bug,cannot find target adapter");
             else {
                 target.first.removeAtPos(target.second);
             }

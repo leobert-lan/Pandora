@@ -28,6 +28,7 @@ package osp.leobert.android.pandorasample.cases;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -41,7 +42,6 @@ import java.util.Collection;
 import java.util.Objects;
 
 import osp.leobert.android.pandora.Pandora;
-import osp.leobert.android.pandora.PandoraException;
 import osp.leobert.android.pandora.RealDataSet;
 import osp.leobert.android.pandora.WrapperDataSet;
 import osp.leobert.android.pandora.rv.DataSet;
@@ -54,6 +54,7 @@ import osp.leobert.android.pandorasample.RvAdapter;
 import osp.leobert.android.pandorasample.TimeUtil;
 import osp.leobert.android.pandorasample.decor.BackgroundDecor;
 import osp.leobert.android.pandorasample.decor.IgnoreDelegate;
+import osp.leobert.android.pandorasample.decor.SimpleDividerItemDecoration;
 import osp.leobert.android.pandorasample.dvh.AbsViewHolder;
 import osp.leobert.android.pandorasample.dvh.Type1VH;
 import osp.leobert.android.pandorasample.dvh.Type1VO;
@@ -72,7 +73,10 @@ import osp.leobert.android.pandorasample.menu.SectionVH2;
 
 /**
  * 多数据类型测试
+ * <p>
+ * 注意：一套数据多处使用的方式需要非常小心，尤其是我们需要计算位置时
  */
+@SuppressWarnings({"rawtype","box"})
 public class MultiTypeTestActivity extends AppCompatActivity {
 
     private static final class SectionHeader implements MenuVO2 {
@@ -138,10 +142,6 @@ public class MultiTypeTestActivity extends AppCompatActivity {
         recyclerView2.setLayoutManager(new LinearLayoutManager(this));
         recyclerView2.setAdapter(adapter2);
 
-        DividerItemDecoration decoration = new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
-        decoration.setDrawable(getResources().getDrawable(R.color.colorAccent));
-        recyclerView.addItemDecoration(decoration);
-        recyclerView2.addItemDecoration(decoration);
 
         Button btn1 = findViewById(R.id.b1);
         btn1.setText("向Section1\r\n中添加");
@@ -172,6 +172,15 @@ public class MultiTypeTestActivity extends AppCompatActivity {
 
         setSectionBg();
 
+        DividerItemDecoration decoration = new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
+        decoration.setDrawable(getResources().getDrawable(R.color.colorAccent));
+
+        SimpleDividerItemDecoration divider = new SimpleDividerItemDecoration(this,
+                LinearLayout.VERTICAL);
+        divider.setDrawable(getResources().getDrawable(R.drawable.listview_divider));
+        recyclerView.addItemDecoration(divider);
+        recyclerView2.addItemDecoration(decoration);
+
     }
 
     private void initDataSet() {
@@ -183,11 +192,8 @@ public class MultiTypeTestActivity extends AppCompatActivity {
         bDataSet = new PandoraRealRvDataSet<>(Pandora.<DataSet.Data>real());
 
         section1 = Pandora.real();
-        try {
-            section1.setAlias("sec1");
-        } catch (PandoraException e) {
-            e.printStackTrace();
-        }
+
+        bDataSet.setAlias("sec1");
 
         dataSetSection2 = new PandoraRealRvDataSet<>(Pandora.<DataSet.Data>real());
         dataSetSection2.setAlias("sec2");

@@ -28,11 +28,16 @@ apply plugin: 'com.android.library'
 sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
 
+def RELEASE_NOTE =
+        "v0.0.7:" +
+                "1. 修改WrapperDataSet的Iterable实现，不再使用旧版本副本进行迭代，故而不再强制执行迭代前版本差异比对；" +
+                "2. 新增runForeach进行遍历；" +
+                "3. 日志增加级别过滤"
 
 
 def MAVEN_LOCAL_PATH = uri('../../local_repo')
 def ARTIFACT_ID = 'pandora'
-def VERSION_NAME = '0.0.6'
+def VERSION_NAME = '0.0.7'
 def GROUP_ID = 'osp.leobert.android'
 
 ext {
@@ -73,5 +78,5 @@ dependencies {
     implementation deps.support.v7.recyclerView
 }
 
-apply from:'../bintray_upload.gradle'
-apply from:'../maven_upload.gradle'
+apply from: '../bintray_upload.gradle'
+apply from: '../maven_upload.gradle'

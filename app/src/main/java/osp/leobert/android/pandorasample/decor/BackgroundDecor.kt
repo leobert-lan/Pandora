@@ -2,8 +2,12 @@ package osp.leobert.android.pandorasample.decor
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Rect
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import androidx.annotation.ColorInt
 import androidx.recyclerview.widget.RecyclerView
+import kotlin.math.roundToInt
 
 /**
  * <p><b>Package:</b> osp.leobert.android.pandorasample.decor </p>
@@ -14,9 +18,13 @@ class BackgroundDecor(val context: Context,
                       @ColorInt val bgColor: Int,
                       val ignoreDelegate: IgnoreDelegate? = null) : RecyclerView.ItemDecoration() {
 
+    val bgDrawable = ColorDrawable(bgColor)
+
     private fun isIgnore(pos: Int): Boolean {
         return ignoreDelegate?.isIgnore(pos) ?: false
     }
+
+    private val mBounds = Rect()
 
     override fun onDraw(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
 
@@ -25,6 +33,18 @@ class BackgroundDecor(val context: Context,
         }
 
         canvas.save()
+        val left: Int
+        val right: Int
+        //noinspection AndroidLintNewApi - NewApi lint fails to handle overrides.
+        if (parent.clipToPadding) {
+            left = parent.paddingLeft
+            right = parent.width - parent.paddingRight
+            canvas.clipRect(left, parent.paddingTop, right,
+                    parent.height - parent.paddingBottom)
+        } else {
+            left = 0
+            right = parent.width
+        }
         val childCount = parent.childCount
         for (i in 0 until childCount) {
             val child = parent.getChildAt(i)
@@ -32,8 +52,11 @@ class BackgroundDecor(val context: Context,
             if (isIgnore(pos)) {
                 continue
             }
-
-            canvas.drawColor(bgColor)
+            parent.getDecoratedBoundsWithMargins(child, mBounds)
+            val bottom: Int = mBounds.bottom + child.translationY.roundToInt()
+            val top: Int = bottom - child.height
+            bgDrawable.setBounds(left, top, right, bottom)
+            bgDrawable.draw(canvas)
         }
         canvas.restore()
     }

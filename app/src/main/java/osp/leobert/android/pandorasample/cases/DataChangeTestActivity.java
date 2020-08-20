@@ -75,7 +75,6 @@ public class DataChangeTestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.e("lmsg", "test");
 
         recyclerView = findViewById(R.id.rv);
         initDataSet();
