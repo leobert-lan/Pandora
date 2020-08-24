@@ -101,19 +101,20 @@ public class CompositeOpsInWrapTestActivity extends AppCompatActivity {
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(CompositeOpsInWrapTestActivity.this, "错误的延迟操作", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CompositeOpsInWrapTestActivity.this, "错误的写法", Toast.LENGTH_SHORT).show();
                 errorDemo1();
             }
         });
 
         Button b3 = findViewById(R.id.b3);
-        b3.setText("随机修改属性");
-        b3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeProperty();
-            }
-        });
+        b3.setVisibility(View.GONE);
+//        b3.setText("随机修改属性");
+//        b3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                changeProperty();
+//            }
+//        });
 
     }
 

@@ -28,6 +28,7 @@ package osp.leobert.android.pandorasample.menu;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -61,6 +62,13 @@ public class MenuActivity extends AppCompatActivity {
         String name;
         Class<? extends Activity> activityClz;
 
+        String subTitle;
+
+        public Foo setSubTitle(String subTitle) {
+            this.subTitle = subTitle;
+            return this;
+        }
+
         public Foo(String name, Class<? extends Activity> activityClz) {
             this.name = name;
             this.activityClz = activityClz;
@@ -77,17 +85,27 @@ public class MenuActivity extends AppCompatActivity {
         }
 
         @Override
+        public String getSubTitle() {
+            return subTitle;
+        }
+
+        @Override
         public void setToViewHolder(AbsViewHolder<DataSet.Data> viewHolder) {
             viewHolder.setData(this);
         }
     }
 
     List<Foo> cases = Arrays.asList(
-            new Foo("\r多样式&一套数据，多处使用\r", MultiTypeTestActivity.class),
-            new Foo("\r数据测试\r", DataChangeTestActivity.class),
-            new Foo("\r数据测试2-属性变化\r", DataPropertyChangeTestActivity.class),
-            new Foo("\rWrap数据集中的组合操作测试\r", CompositeOpsInWrapTestActivity.class),
-            new Foo("\rkotlin pandora rv lib test\r", TestKtActivity.class)
+            new Foo("数据分组测试", DataChangeTestActivity.class)
+                    .setSubTitle("列表进行虚拟分组，针对组进行定向更新"),
+            new Foo("数据属性变化测试", DataPropertyChangeTestActivity.class)
+                    .setSubTitle("依赖于equals和hash"),
+            new Foo("Wrap数据集中的组合操作测试", CompositeOpsInWrapTestActivity.class)
+                    .setSubTitle("在Wrapper类型数据集中，遍历删除所有的Type2Impl数据"),
+            new Foo("多样式&一套数据，多处使用", MultiTypeTestActivity.class)
+                    .setSubTitle("慎用，务必厘清原理再使用!!"),
+            new Foo("pandora_rv_kt demo", TestKtActivity.class)
+                    .setSubTitle("pandora_rv_kt 简单演示，参考pandora_rv的使用即可")
     );
 
 
