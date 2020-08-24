@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import osp.leobert.android.pandora.Logger
 import osp.leobert.android.pandora.PandoraException
 
-/**
+/*
  * <p><b>Package:</b> osp.leobert.androidkt.pandora.rv </p>
  * <p><b>Project:</b> Pandora </p>
  * <p><b>Classname:</b> DateVhMappingPool </p>

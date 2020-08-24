@@ -25,6 +25,7 @@ if (project.hasProperty("android")) { // Android libraries
             encoding("utf-8")
             links "http://docs.oracle.com/javase/7/docs/api"
         }
+        exclude("**/*.kt")
         source = android.sourceSets.main.java.srcDirs
         classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
     }
