@@ -94,10 +94,7 @@ buildscript {
     repositories {
         jcenter()
         maven { url "https://jitpack.io" }
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
+        google()
         maven {
             url 'https://dl.bintray.com/leobert-lan-oss/maven/'
         }
@@ -116,10 +113,7 @@ allprojects {
             url 'https://dl.bintray.com/leobert-lan-oss/maven'
         }
         jcenter()
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
+        google()
         maven {
             url uri('../local_repo')
             name 'local-repo'

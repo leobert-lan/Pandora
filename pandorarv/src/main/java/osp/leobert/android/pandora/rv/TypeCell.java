@@ -89,7 +89,7 @@ import java.util.List;
     }
 
     private String dvRelationToString() {
-        return "DvRelation{ forClz:" + dvRelation.getDataClz().toString() + "; sub_type_count:" + getSubTypeCount() + "}";
+        return DataVhMappingPool.dvRelationToString(dvRelation,getSubTypeCount());
     }
 
     @Override
@@ -97,8 +97,8 @@ import java.util.List;
         return "TypeCell{" +
                 "index=" + index +
                 ", maxSize=" + maxSize +
-                ", dvRelation=" + dvRelationToString() +
-                ", subTypeTokens=" + subTypeTokens +
-                '}';
+                ",\r\n    dvRelation=" + dvRelationToString() +
+                ",\r\n    subTypeTokens=" + subTypeTokens +
+                "\r\n}";
     }
 }
