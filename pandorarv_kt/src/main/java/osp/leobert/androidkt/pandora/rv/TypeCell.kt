@@ -2,7 +2,7 @@ package osp.leobert.androidkt.pandora.rv
 
 import androidx.annotation.IntRange
 
-/**
+/*
  * <p><b>Package:</b> osp.leobert.androidkt.pandora.rv </p>
  * <p><b>Project:</b> Pandora </p>
  * <p><b>Classname:</b> TypeCell </p>

@@ -45,7 +45,7 @@ import osp.leobert.android.pandora.Pandora;
 import osp.leobert.android.pandora.RealDataSet;
 import osp.leobert.android.pandora.WrapperDataSet;
 import osp.leobert.android.pandora.rv.DataSet;
-import osp.leobert.android.pandora.rv.DateVhMappingPool;
+import osp.leobert.android.pandora.rv.DataVhMappingPool;
 import osp.leobert.android.pandora.rv.PandoraRealRvDataSet;
 import osp.leobert.android.pandora.rv.PandoraWrapperRvDataSet;
 import osp.leobert.android.pandora.rv.ViewHolderCreator;
@@ -76,13 +76,20 @@ import osp.leobert.android.pandorasample.menu.SectionVH2;
  * <p>
  * 注意：一套数据多处使用的方式需要非常小心，尤其是我们需要计算位置时
  */
-@SuppressWarnings({"rawtype","box"})
+@SuppressWarnings({"rawtype", "box"})
 public class MultiTypeTestActivity extends AppCompatActivity {
 
     private static final class SectionHeader implements MenuVO2 {
         private final String name;
         @Level
         private final int level;
+
+        private String subTitle;
+
+        public SectionHeader setSubTitle(String subTitle) {
+            this.subTitle = subTitle;
+            return this;
+        }
 
         public SectionHeader(@Level int level, String name) {
             this.level = level;
@@ -97,6 +104,11 @@ public class MultiTypeTestActivity extends AppCompatActivity {
         @Override
         public String getName() {
             return name;
+        }
+
+        @Override
+        public String getSubTitle() {
+            return subTitle;
         }
 
         @Override
@@ -209,7 +221,7 @@ public class MultiTypeTestActivity extends AppCompatActivity {
 
 //        dataSet.registerDVRelation(SectionHeader.class, new MenuVH2.Creator(null));
 
-        aDataSet.registerDVRelation(new DateVhMappingPool.DVRelation<SectionHeader>() {
+        aDataSet.registerDVRelation(new DataVhMappingPool.DVRelation<SectionHeader>() {
             private static final String type_l1 = "type_l1";
             private static final String type_l2 = "type_l2";
 
@@ -287,7 +299,8 @@ public class MultiTypeTestActivity extends AppCompatActivity {
             }
         }));
 
-        bDataSet.add(new SectionHeader(MenuVO2.Level.l1, "此处开始是Section1\r\n对比左右两个列表注册的样式区别  "));
+        bDataSet.add(new SectionHeader(MenuVO2.Level.l1, "此处开始是Section1")
+                .setSubTitle("对比左右两个列表注册的样式区别"));
         dataSetSection2.add(new SectionHeader(MenuVO2.Level.l1, "此处开始是Section2"));
         dataSetSection3.add(new SectionHeader(MenuVO2.Level.l1, "此处开始是Section3"));
 

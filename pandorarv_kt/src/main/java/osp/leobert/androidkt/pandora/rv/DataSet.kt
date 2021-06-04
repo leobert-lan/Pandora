@@ -7,11 +7,10 @@ import osp.leobert.android.pandora.PandoraException
 import java.lang.ref.WeakReference
 import java.util.*
 
-/**
+/*
  * <p><b>Package:</b> osp.leobert.androidkt.pandora.rv </p>
  * <p><b>Project:</b> Pandora </p>
  * <p><b>Classname:</b> DataSet </p>
- * <p><b>Description:</b> TODO </p>
  * Created by leobert on 2019/2/19.
  */
 @SuppressWarnings("unused")

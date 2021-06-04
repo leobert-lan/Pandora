@@ -11,6 +11,7 @@
         <variable
             name="itemInteract"
             type="osp.leobert.android.pandorasample.menu.MenuVH2.ItemInteract" />
+
         <variable
             name="vh"
             type="androidx.recyclerview.widget.RecyclerView.ViewHolder" />
@@ -21,21 +22,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="@{(view)->itemInteract.onMenuItemClicked(vh.adapterPosition,vo)}"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/vh_menu_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:text="@{vo.name}"
             android:textColor="@color/c191919"
             android:textSize="15sp"
-            android:text="@{vo.name}"
             tools:text="text" />
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@{vo.subTitle}"
+            android:textColor="@color/c3e3e3e"
+            android:textSize="13sp" />
 
 
     </LinearLayout>

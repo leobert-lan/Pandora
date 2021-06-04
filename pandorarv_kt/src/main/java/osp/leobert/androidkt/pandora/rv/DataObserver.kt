@@ -1,6 +1,6 @@
 package osp.leobert.androidkt.pandora.rv
 
-/**
+/*
  * <p><b>Package:</b> osp.leobert.androidkt.pandora.rv </p>
  * <p><b>Project:</b> Pandora </p>
  * <p><b>Classname:</b> DataObserver </p>
@@ -8,7 +8,7 @@ package osp.leobert.androidkt.pandora.rv
  * Created by leobert on 2019/2/19.
  */
 interface DataObserver {
-    /**
+    /*
      * invoked when data changed.
      * *now it only be invoked when a manual notify called * [DataSet.notifyChanged]
      */
