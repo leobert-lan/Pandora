@@ -49,10 +49,10 @@ buildscript {
             //google support
             'support': [
                     'compat'     : "androidx.appcompat:appcompat:1.0.2",
-                    'design'     : "com.google.android.material:material:1.1.0-alpha06",
+                    'design'     : "com.google.android.material:material:1.2.1",
                     'v7'         : [
-                            'appcompat'   : "androidx.appcompat:appcompat:1.1.0-alpha05",
-                            'recyclerView': "androidx.recyclerview:recyclerview:1.1.0-alpha05",
+                            'appcompat'   : "androidx.appcompat:appcompat:1.2.0",
+                            'recyclerView': "androidx.recyclerview:recyclerview:1.1.0",
                             'cardView'    : "androidx.cardview:cardview:1.0.0",
 
                     ],
@@ -94,9 +94,11 @@ buildscript {
     repositories {
         jcenter()
         maven { url "https://jitpack.io" }
+        google()
+        mavenCentral()
         maven {
-            url 'https://maven.google.com/'
-            name 'Google'
+            name "sonatype"
+            url 'https://s01.oss.sonatype.org/content/repositories/releases/'
         }
         maven {
             url 'https://dl.bintray.com/leobert-lan-oss/maven/'
@@ -107,19 +109,22 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'//deps.publish.maven
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.2'
+        classpath "io.github.leobert-lan:easy-publish:1.1.1"
     }
 }
 
 allprojects {
     repositories {
+        mavenCentral()
+        maven {
+            name "sonatype"
+            url 'https://s01.oss.sonatype.org/content/repositories/releases/'
+        }
         maven {
             url 'https://dl.bintray.com/leobert-lan-oss/maven'
         }
         jcenter()
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
+        google()
         maven {
             url uri('../local_repo')
             name 'local-repo'

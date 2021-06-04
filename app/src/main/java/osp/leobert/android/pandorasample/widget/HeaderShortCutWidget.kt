@@ -46,7 +46,6 @@ class HeaderShortCutVHCreator(private val itemInteract: HeaderShortCutItemIntera
 
 
 interface HeaderShortCutItemInteract {
-    //TODO: define interact functions here
 }
 
 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<layout>
+
+    <data>
+
+        <variable
+            name="vo"
+            type="osp.leobert.android.pandorasample.widget.CollectionsVO2" />
+
+        <variable
+            name="itemInteract"
+            type="osp.leobert.android.pandorasample.widget.CollectionsItemInteract" />
+
+        <variable
+            name="vh"
+            type="osp.leobert.android.pandorasample.dvh.DataBindingViewHolder" />
+
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+</layout>

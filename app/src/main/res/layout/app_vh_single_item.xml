@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vo"
+            type="osp.leobert.android.pandorasample.widget.SingleItemVO2" />
+
+        <variable
+            name="itemInteract"
+            type="osp.leobert.android.pandorasample.widget.SingleItemItemInteract" />
+
+        <variable
+            name="vh"
+            type="osp.leobert.android.pandorasample.dvh.DataBindingViewHolder" />
+
+        <import type="osp.leobert.android.davinci.DaVinCiExpression"/>
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <View
+            daVinCi_bg="@{DaVinCiExpression.shape().rectAngle().corner(`8dp`).solid(`#909090`)}"
+            tools:background="@color/c909090"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
+            android:layout_margin="10dp" />
+
+        <!-- android:onClick="@{(view)->itemInteract.foo(vh.getAdapterPosition(),vo)}"-->
+        <TextView
+            android:layout_width="68dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="88dp"
+            android:text="@{vo.text}" />
+    </FrameLayout>
+</layout>

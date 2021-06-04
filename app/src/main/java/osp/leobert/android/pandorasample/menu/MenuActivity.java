@@ -28,12 +28,12 @@ package osp.leobert.android.pandorasample.menu;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.View;
 
 import java.util.Arrays;
 import java.util.List;
@@ -42,12 +42,13 @@ import osp.leobert.android.pandora.Pandora;
 import osp.leobert.android.pandora.RealDataSet;
 import osp.leobert.android.pandora.rv.DataSet;
 import osp.leobert.android.pandora.rv.PandoraRealRvDataSet;
+import osp.leobert.android.pandorasample.R;
+import osp.leobert.android.pandorasample.RvAdapter;
 import osp.leobert.android.pandorasample.cases.CompositeOpsInWrapTestActivity;
 import osp.leobert.android.pandorasample.cases.DataChangeTestActivity;
 import osp.leobert.android.pandorasample.cases.DataPropertyChangeTestActivity;
 import osp.leobert.android.pandorasample.cases.MultiTypeTestActivity;
-import osp.leobert.android.pandorasample.R;
-import osp.leobert.android.pandorasample.RvAdapter;
+import osp.leobert.android.pandorasample.cases.SampleActivity;
 import osp.leobert.android.pandorasample.dvh.AbsViewHolder;
 import osp.leobert.android.pandorasample.kt.TestKtActivity;
 
@@ -87,7 +88,8 @@ public class MenuActivity extends AppCompatActivity {
             new Foo("\r数据测试\r", DataChangeTestActivity.class),
             new Foo("\r数据测试2-属性变化\r", DataPropertyChangeTestActivity.class),
             new Foo("\rWrap数据集中的组合操作测试\r", CompositeOpsInWrapTestActivity.class),
-            new Foo("\rkotlin pandora rv lib test\r", TestKtActivity.class)
+            new Foo("\rkotlin pandora rv lib test\r", TestKtActivity.class),
+            new Foo("\rrv嵌套型\r", SampleActivity.class)
     );
 
 

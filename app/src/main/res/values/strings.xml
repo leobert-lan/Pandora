@@ -26,5 +26,5 @@
 <resources>
     <string name="app_name">Pandora</string>
 
-    <item name="i1" type="id"/>
+    <item name="i1" type="id" />
 </resources>

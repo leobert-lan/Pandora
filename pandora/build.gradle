@@ -24,9 +24,10 @@
  */
 
 apply plugin: 'com.android.library'
+apply plugin: 'osp.leobert.maven.publish'
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
+//sourceCompatibility = "1.7"
+//targetCompatibility = "1.7"
 
 def RELEASE_NOTE =
         "v0.0.7:" +
@@ -35,21 +36,7 @@ def RELEASE_NOTE =
                 "3. 日志增加级别过滤"
 
 
-def MAVEN_LOCAL_PATH = uri('../../local_repo')
-def ARTIFACT_ID = 'pandora'
-def VERSION_NAME = '0.0.7'
-def GROUP_ID = 'osp.leobert.android'
-
-ext {
-    bintrayName = ARTIFACT_ID
-    artifact = ARTIFACT_ID
-    libraryName = ARTIFACT_ID
-    libraryDescription = 'pandora'
-    libraryVersion = VERSION_NAME
-    licenseName = 'MIT'
-    licenseUrl = 'https://github.com/leobert-lan/Pandora/blob/2b2f7dfe709f49ada3def69e2d68046eae65b7d5/LICENSE'
-    allLicenses = ["MIT"]
-}
+//def MAVEN_LOCAL_PATH = uri('../../local_repo')
 
 android {
     compileSdkVersion versions.compileSdk
@@ -78,5 +65,33 @@ dependencies {
     implementation deps.support.v7.recyclerView
 }
 
-apply from: '../bintray_upload.gradle'
-apply from: '../maven_upload.gradle'
+EasyPublish {
+    sourceSet = android.sourceSets.main.java.srcDirs
+    docClassPathAppend = project.files(android.getBootClasspath().join(File.pathSeparator)).asPath
+    docExcludes = ["osp/leobert/android/pandora/*"]
+    artifact {
+        value = "build/outputs/aar/pandora-release.aar"
+    }
+
+    description = 'pandora'
+    developer {
+        id = 'leobert'
+        name = 'leobert'
+        email = 'leobert.l@hotmail.com'
+    }
+
+
+    groupId = "io.github.leobert-lan"
+    artifactId = "pandora"
+    version = "0.0.7"
+    packaging = "aar"
+    siteUrl = "https://github.com/leobert-lan/Panora"
+    gitUrl = "https://github.com/leobert-lan/Panora.git"
+    licenseName = 'MIT'
+    licenseUrl = 'https://github.com/leobert-lan/Pandora/blob/2b2f7dfe709f49ada3def69e2d68046eae65b7d5/LICENSE'
+
+    mavenRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+}
+
+//apply from: '../bintray_upload.gradle'
+//apply from: '../maven_upload.gradle'
