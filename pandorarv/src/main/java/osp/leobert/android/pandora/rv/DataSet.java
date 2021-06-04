@@ -89,10 +89,10 @@ public abstract class DataSet {
 
     }
 
-    protected final DataVhMappingPool dateVhMappingPool = new DataVhMappingPool();
+    protected final DataVhMappingPool dataVhMappingPool = new DataVhMappingPool();
 
-    public DataVhMappingPool getDateVhMappingPool() {
-        return dateVhMappingPool;
+    public DataVhMappingPool getDataVhMappingPool() {
+        return dataVhMappingPool;
     }
 
     /**
@@ -117,7 +117,7 @@ public abstract class DataSet {
         String key = getItem(pos).getClass().getName();
         D data = getItem(pos);
         try {
-            return dateVhMappingPool.getItemViewTypeV2(key, data);
+            return dataVhMappingPool.getItemViewTypeV2(key, data);
         } catch (Exception e) {
             e.printStackTrace();
             throw new PandoraException(e);
@@ -126,7 +126,7 @@ public abstract class DataSet {
 
     public RecyclerView.ViewHolder createViewHolderV2(ViewGroup parent, int viewType) throws PandoraException {
         try {
-            return dateVhMappingPool.createViewHolderV2(parent, viewType).asViewHolder();
+            return dataVhMappingPool.createViewHolderV2(parent, viewType).asViewHolder();
         } catch (Exception e) {
             e.printStackTrace();
             throw new PandoraException(e);
@@ -134,23 +134,23 @@ public abstract class DataSet {
     }
 
     protected int getViewTypeCount() {
-        return dateVhMappingPool.getViewTypeCount();
+        return dataVhMappingPool.getViewTypeCount();
     }
 
     public synchronized void registerDVRelation(@NonNull Class<?> dataClz, @NonNull ViewHolderCreator viewHolderCreator) {
-        dateVhMappingPool.registerDVRelation(dataClz, viewHolderCreator);
+        dataVhMappingPool.registerDVRelation(dataClz, viewHolderCreator);
     }
 
     public synchronized void registerDvRelation(DataVhMappingPool.DVRelation... dvRelations) {
-        dateVhMappingPool.registerDvRelation(dvRelations);
+        dataVhMappingPool.registerDvRelation(dvRelations);
     }
 
     public synchronized void registerDVRelation(DataVhMappingPool.DVRelation<?> dvRelation) {
-        dateVhMappingPool.registerDvRelation(dvRelation);
+        dataVhMappingPool.registerDvRelation(dvRelation);
     }
 
     public synchronized void removeDVRelation(@NonNull Class<?> dataClz) {
-        dateVhMappingPool.removeDVRelation(dataClz);
+        dataVhMappingPool.removeDVRelation(dataClz);
     }
 
     ///////////////////////////////////////////////////////////////////////////

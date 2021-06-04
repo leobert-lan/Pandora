@@ -105,14 +105,14 @@ public class MenuActivity extends AppCompatActivity {
                     .setSubTitle("在Wrapper类型数据集中，遍历删除所有的Type2Impl数据"),
             new Foo("多样式&一套数据，多处使用", MultiTypeTestActivity.class)
                     .setSubTitle("慎用，务必厘清原理再使用!!"),
-//            new Foo("pandora_rv_kt demo", TestKtActivity.class)
-//                    .setSubTitle("pandora_rv_kt 简单演示，参考pandora_rv的使用即可")
+            new Foo("pandora_rv_kt demo", TestKtActivity.class)
+                    .setSubTitle("pandora_rv_kt 简单演示，参考pandora_rv的使用即可"),
 //            new Foo("\r多样式&一套数据，多处使用\r", MultiTypeTestActivity.class),
 //            new Foo("\r数据测试\r", DataChangeTestActivity.class),
 //            new Foo("\r数据测试2-属性变化\r", DataPropertyChangeTestActivity.class),
 //            new Foo("\rWrap数据集中的组合操作测试\r", CompositeOpsInWrapTestActivity.class),
 //            new Foo("\rkotlin pandora rv lib test\r", TestKtActivity.class),
-            new Foo("\rrv嵌套型\r", SampleActivity.class)
+            new Foo("rv嵌套型", SampleActivity.class)
     );
 
 

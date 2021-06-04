@@ -86,7 +86,7 @@ public class PandoraWrapperRvDataSet<T extends DataSet.D> extends DataSet {
     }
 
     public void merge(DataVhMappingPool pool) {
-        dateVhMappingPool.merge(pool);
+        dataVhMappingPool.merge(pool);
     }
 
     public boolean hasBind2Parent() {

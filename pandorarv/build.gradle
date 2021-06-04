@@ -24,6 +24,7 @@
  */
 
 apply plugin: 'com.android.library'
+apply plugin: 'osp.leobert.maven.publish'
 
 sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
@@ -35,21 +36,10 @@ def RELEASE_NOTE =
                 "3. 修改类名错误，DateVhMappingPool将在下个版本移除"
 
 
-def MAVEN_LOCAL_PATH = uri('../../local_repo')
-def ARTIFACT_ID = 'pandorarv'
-def VERSION_NAME = '0.0.9'
-def GROUP_ID = 'osp.leobert.android'
-
-ext {
-    bintrayName = ARTIFACT_ID
-    artifact = ARTIFACT_ID
-    libraryName = ARTIFACT_ID
-    libraryDescription = 'pandora recyclerview component'
-    libraryVersion = VERSION_NAME
-    licenseName = 'MIT'
-    licenseUrl = 'https://github.com/leobert-lan/Pandora/blob/2b2f7dfe709f49ada3def69e2d68046eae65b7d5/LICENSE'
-    allLicenses = ["MIT"]
-}
+//def MAVEN_LOCAL_PATH = uri('../../local_repo')
+//def ARTIFACT_ID = 'pandorarv'
+//def VERSION_NAME = '0.0.9'
+//def GROUP_ID = 'osp.leobert.android'
 
 android {
     compileSdkVersion versions.compileSdk
@@ -83,17 +73,39 @@ dependencies {
     implementation deps.support.v7.recyclerView
 
 //    compileOnly project(":pandora")
-    compileOnly 'osp.leobert.android:pandora:0.0.7'
+    compileOnly 'io.github.leobert-lan:pandora:0.0.7'
 
 }
-
-
 
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
 }
 
+EasyPublish {
+    sourceSet = android.sourceSets.main.java.srcDirs
+    docClassPathAppend = project.files(android.getBootClasspath().join(File.pathSeparator)).asPath
+    docExcludes = ["osp/leobert/android/pandora/rv/*"]
+    artifact {
+        value = "build/outputs/aar/pandorarv-release.aar"
+    }
+
+    description = 'pandora recyclerview component'
+    developer {
+        id = 'leobert'
+        name = 'leobert'
+        email = 'leobert.l@hotmail.com'
+    }
 
 
-apply from:'../bintray_upload.gradle'
-apply from:'../maven_upload.gradle'
+    groupId = "io.github.leobert-lan"
+    artifactId = "pandorarv"
+    version = "0.0.9"
+    packaging = "aar"
+    siteUrl = "https://github.com/leobert-lan/Panora"
+    gitUrl = "https://github.com/leobert-lan/Panora.git"
+    licenseName = 'MIT'
+    licenseUrl = 'https://github.com/leobert-lan/Pandora/blob/2b2f7dfe709f49ada3def69e2d68046eae65b7d5/LICENSE'
+
+    mavenRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+}
+

@@ -56,7 +56,7 @@ abstract class DataSet<T : DataSet.Data> {
         }
     }
 
-    private val dateVhMappingPool = DataVhMappingPool()
+    private val dataVhMappingPool = DataVhMappingPool()
 
     /**
      * @return the count of data in the data set
@@ -80,7 +80,7 @@ abstract class DataSet<T : DataSet.Data> {
         val key = getItem(pos).javaClass.name
         val data = getItem(pos)
         try {
-            return dateVhMappingPool.getItemViewTypeV2(key, data)
+            return dataVhMappingPool.getItemViewTypeV2(key, data)
         } catch (e: Exception) {
             e.printStackTrace()
             throw PandoraException(e)
@@ -91,7 +91,7 @@ abstract class DataSet<T : DataSet.Data> {
     @Throws(PandoraException::class)
     fun createViewHolderV2(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         try {
-            return dateVhMappingPool.createViewHolderV2(parent, viewType).asViewHolder()
+            return dataVhMappingPool.createViewHolderV2(parent, viewType).asViewHolder()
         } catch (e: Exception) {
             e.printStackTrace()
             throw PandoraException(e)
@@ -100,24 +100,24 @@ abstract class DataSet<T : DataSet.Data> {
     }
 
     protected fun getViewTypeCount(): Int {
-        return dateVhMappingPool.getViewTypeCount()
+        return dataVhMappingPool.getViewTypeCount()
     }
 
     @Synchronized
     fun registerDVRelation(dataClz: Class<out Data>, viewHolderCreator: ViewHolderCreator) {
-        dateVhMappingPool.registerDVRelation(dataClz, viewHolderCreator)
+        dataVhMappingPool.registerDVRelation(dataClz, viewHolderCreator)
     }
 
     /*<VO : D<VO, IViewHolder<VO>>, Impl : VO>*/
 
     @Synchronized
     fun /*<VO : D<VO, IViewHolder<VO>>, Impl : VO>*/ registerDVRelation(dvRelation: DataVhMappingPool.DVRelation<out Data>) {
-        dateVhMappingPool.registerDVRelation(dvRelation)
+        dataVhMappingPool.registerDVRelation(dvRelation)
     }
 
     @Synchronized
     fun removeDVRelation(dataClz: Class<*>) {
-        dateVhMappingPool.removeDVRelation(dataClz)
+        dataVhMappingPool.removeDVRelation(dataClz)
     }
 
     ///////////////////////////////////////////////////////////////////////////
