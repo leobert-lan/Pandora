@@ -26,6 +26,7 @@
 package osp.leobert.android.pandora;
 
 import androidx.annotation.NonNull;
+import androidx.core.util.Pair;
 import androidx.recyclerview.widget.ListUpdateCallback;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -82,6 +83,20 @@ public final class Pandora {
 
     static int hash(Object... values) {
         return Arrays.hashCode(values);
+    }
+
+    public static String dvRelationMappingInfo(Pair<String, String>... mapping) {
+        StringBuilder stringBuilder = new StringBuilder(mapping.length * 4);
+        stringBuilder.append("DvRelation:{");
+        int i = 0;
+        Pair<String, String> current;
+        while (i < mapping.length) {
+            current = mapping[i];
+            stringBuilder.append("\r\n    SubType:").append(current.first).append(" -> ").append(current.second);
+            i++;
+        }
+
+        return stringBuilder.append("\r\n}").toString();
     }
 
     /**

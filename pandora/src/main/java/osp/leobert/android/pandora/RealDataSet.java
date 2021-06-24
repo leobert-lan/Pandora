@@ -59,6 +59,8 @@ public class RealDataSet<T> extends PandoraBoxAdapter<T> {
     @Nullable
     private PandoraBoxAdapter<T> parent;
 
+    private Transaction<T> transaction = new Transaction<>(this);
+
     private final DiffUtil.Callback diffCallback = new DiffUtil.Callback() {
         @Override
         public int getOldListSize() {

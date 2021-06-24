@@ -34,6 +34,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+import osp.leobert.android.pandora.Logger;
 import osp.leobert.android.pandora.PandoraException;
 
 /**
@@ -106,8 +107,7 @@ public abstract class DataSet {
      */
     public abstract D getItem(int position);
 
-    private final List<WeakReference<DataObserver>> observersRef
-            = new ArrayList<>();
+    private final List<WeakReference<DataObserver>> observersRef = new ArrayList<>();
 
     public void addDataObserver(DataObserver dataObserver) {
         observersRef.add(new WeakReference<>(dataObserver));
@@ -324,6 +324,16 @@ public abstract class DataSet {
                 continue;
             }
             reference.get().notifyItemRangeRemoved(positionStart, itemCount);
+        }
+    }
+
+    public void logDVMappingInfo() {
+        if (Logger.DEBUG) {
+            try {
+                Logger.i("logDVMappingInfo:\r\n" + dateVhMappingPool.toString());
+            } catch (Exception ignore) {
+
+            }
         }
     }
 }

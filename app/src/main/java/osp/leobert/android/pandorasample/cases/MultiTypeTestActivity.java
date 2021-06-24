@@ -26,6 +26,7 @@
 package osp.leobert.android.pandorasample.cases;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -33,6 +34,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.util.Pair;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -193,6 +195,12 @@ public class MultiTypeTestActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(divider);
         recyclerView2.addItemDecoration(decoration);
 
+        Log.d("pandora", "log mapping for A");
+        aDataSet.logDVMappingInfo();
+
+        Log.d("pandora", "log mapping for B");
+        bDataSet.logDVMappingInfo();
+
     }
 
     private void initDataSet() {
@@ -255,6 +263,14 @@ public class MultiTypeTestActivity extends AppCompatActivity {
                     });
                 }
                 return new MenuVH2.Creator(null);
+            }
+
+            @Override
+            public String toString() {
+                return Pandora.dvRelationMappingInfo(
+                        Pair.create(type_l1, SectionVH2.Creator.class.getName()),
+                        Pair.create(type_l2, MenuVH2.Creator.class.getName())
+                );
             }
         });
 

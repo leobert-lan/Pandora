@@ -41,7 +41,7 @@ import osp.leobert.android.pandora.Logger;
  * <p><b>Description:</b> a pool to restore and fetch the relationship between VO and VH </p>
  * Created by leobert on 2018/10/10.
  */
-@SuppressWarnings({"unchecked","cast","rawtype","unused"})
+@SuppressWarnings({"unchecked", "cast", "rawtype", "unused"})
 public class DataVhMappingPool {
     private final SparseArray<TypeCell> viewTypeCache = new SparseArray<>();
     private int maxSize = 5;
@@ -110,7 +110,7 @@ public class DataVhMappingPool {
             return;
         synchronized (viewTypeCache) {
             final int index = typeCellKey;
-            TypeCell<?> copy = TypeCell.of(index,typeCell);
+            TypeCell<?> copy = TypeCell.of(index, typeCell);
 
             int n = copy.getSubTypeCount();
 
@@ -195,6 +195,15 @@ public class DataVhMappingPool {
         }
     }
 
+    @Override
+    public String toString() {
+        return "DataVhMappingPool{" +
+                "\r\n    maxSize=" + maxSize +
+                ",\r\n    internalErrorTypeCell=" + internalErrorTypeCell +
+                ",\r\n    typeCellKey=" + typeCellKey +
+                ",\r\n    viewTypeCache=" + sparseArrayToString(viewTypeCache) +
+                '}';
+    }
 
     public interface DVRelation<T> {
         String SINGLE_TYPE_TOKEN = "type_one";
@@ -209,8 +218,8 @@ public class DataVhMappingPool {
     }
 
     private static class DataVhRelation<T> implements DVRelation<T> {
-        private Class<T> dataClz;
-        private ViewHolderCreator vhCreator;
+        private final Class<T> dataClz;
+        private final ViewHolderCreator vhCreator;
 
         DataVhRelation(@NonNull Class<T> dataClz, ViewHolderCreator vhCreator) {
             this.dataClz = dataClz;
@@ -236,6 +245,57 @@ public class DataVhMappingPool {
         public final ViewHolderCreator getVhCreator(@NonNull String subTypeToken) {
             return vhCreator;
         }
+
+        @Override
+        public String toString() {
+            return "DataVhRelation{" +
+                    "dataClz=" + dataClz +
+                    ", vhCreator=" + vhCreator.getClass().getName() +
+                    '}';
+        }
+    }
+
+    static String dvRelationToString(DVRelation<?> dvRelation, int subTypeCount) {
+        if (dvRelation instanceof DataVhMappingPool.DataVhRelation) {
+            return "DataVhRelation{" +
+                    "D=" + ((DataVhRelation<?>) dvRelation).dataClz.getName() +
+                    ", vhCreator=" + ((DataVhRelation<?>) dvRelation).vhCreator.getClass().getName() +
+                    '}';
+        }
+        return "{ D:" + dvRelation.getDataClz().toString() + "; sub_type_count:" + subTypeCount + "; dvRelation:" + dvRelation + "}";
+    }
+
+
+    private static String sparseArrayToString(SparseArray<?> target) {
+
+        if (target == null)
+            return "null";
+
+        final int mSize = target.size();
+        if (mSize <= 0) {
+            return "{}";
+        }
+
+
+        StringBuilder buffer = new StringBuilder(mSize * 28);
+        buffer.append("{\r\n    ");
+        for (int i = 0; i < mSize; i++) {
+            if (i > 0) {
+                buffer.append(", \r\n    ");
+            }
+            int key = target.keyAt(i);
+            buffer.append(key);
+            buffer.append('=');
+            Object value = target.valueAt(i);
+            if (value != target) {
+                buffer.append(value);
+            } else {
+                buffer.append("(this Map)");
+            }
+        }
+        buffer.append("\r\n}");
+        return buffer.toString();
+
     }
 }
 
