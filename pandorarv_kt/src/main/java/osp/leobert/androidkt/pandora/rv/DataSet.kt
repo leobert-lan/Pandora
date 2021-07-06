@@ -1,8 +1,8 @@
 package osp.leobert.androidkt.pandora.rv
 
 import android.annotation.SuppressLint
-import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import osp.leobert.android.pandora.PandoraException
 import java.lang.ref.WeakReference
 import java.util.*
@@ -33,27 +33,16 @@ abstract class DataSet<T : DataSet.Data> {
      * just declare as Data
      * @param <V>  the VH type, de-generic with the VO thus you can access the API in VO
     </V></DA> */
-//    interface Data<DA : D<*, *>, V : IViewHolder<in DA>> : D<DA, V>
-
-
-//    interface Data<VO> : D<Data<VO>, IViewHolder<Data<VO>>> {
-//        override fun setToViewHolder(viewHolder: IViewHolder<Data<VO>>) {
-//            viewHolder.setData(this)
-//
-//        }
-//    }
-
-//    interface Data<VO :D<VO,IViewHolder<VO>>> : D<VO, IViewHolder<VO>> {
-//    }
-
     interface Data : D<Data, IViewHolder<Data>> {
-//        override fun setToViewHolder(viewHolder: IViewHolder<VO>) {
-//            viewHolder.setData(this)
-//        }
-
         override fun setToViewHolder(viewHolder: IViewHolder<Data>) {
             viewHolder.setData(this)
         }
+    }
+
+    interface ReactiveData : Data {
+        fun bindReactiveVh(viewHolder: IReactiveViewHolder<*>)
+
+        fun unbindReactiveVh()
     }
 
     private val dataVhMappingPool = DataVhMappingPool()
@@ -108,10 +97,9 @@ abstract class DataSet<T : DataSet.Data> {
         dataVhMappingPool.registerDVRelation(dataClz, viewHolderCreator)
     }
 
-    /*<VO : D<VO, IViewHolder<VO>>, Impl : VO>*/
 
     @Synchronized
-    fun /*<VO : D<VO, IViewHolder<VO>>, Impl : VO>*/ registerDVRelation(dvRelation: DataVhMappingPool.DVRelation<out Data>) {
+    fun registerDVRelation(dvRelation: DataVhMappingPool.DVRelation<out Data>) {
         dataVhMappingPool.registerDVRelation(dvRelation)
     }
 

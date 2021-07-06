@@ -16,11 +16,11 @@ interface DataObserver {
 
     fun notifyItemChanged(position: Int)
 
-    fun notifyItemChanged(position: Int, payload: Any)
+    fun notifyItemChanged(position: Int, payload: Any?)
 
     fun notifyItemRangeChanged(positionStart: Int, itemCount: Int)
 
-    fun notifyItemRangeChanged(positionStart: Int, itemCount: Int, payload: Any)
+    fun notifyItemRangeChanged(positionStart: Int, itemCount: Int, payload: Any?)
 
     fun notifyItemInserted(position: Int)
 

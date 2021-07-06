@@ -18,8 +18,8 @@ import osp.leobert.androidkt.pandora.rv.ViewHolderCreator
 class TestKtVH(itemView: View) : KtAbsViewHolder<TestKtVO>(itemView) /*, IViewHolder<TestKtVO>*/ {
     var tv :TextView = itemView.findViewById(R.id.test_item_tv)
 
-    override fun setData(x: TestKtVO) {
-        tv.text = x.getData()
+    override fun setData(data: TestKtVO) {
+        tv.text = data.getData()
     }
 
 

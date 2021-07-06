@@ -28,4 +28,7 @@ abstract class KtAbsViewHolder<T>(itemView: View) : RecyclerView.ViewHolder(item
     override fun onViewDetachedFromWindow() {
 
     }
+
+    override fun accept(visitor: IViewHolder.Visitor) {
+    }
 }

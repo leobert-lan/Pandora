@@ -8,7 +8,7 @@ import osp.leobert.android.pandora.RealDataSet
 /*
  * <p><b>Package:</b> osp.leobert.androidkt.pandora.rv </p>
  * <p><b>Project:</b> Pandora </p>
- * <p><b>Classname:</b> PandoraRealRvDataSet </p>
+ * <p><b>Classname:</b> PandoraRvDataSet </p>
  * Created by leobert on 2019/2/19.
  */
 class PandoraRvDataSet<T : DataSet.Data>(private val realDataSet: PandoraBoxAdapter<T>)

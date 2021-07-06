@@ -330,7 +330,7 @@ public abstract class DataSet {
     public void logDVMappingInfo() {
         if (Logger.DEBUG) {
             try {
-                Logger.i("logDVMappingInfo:\r\n" + dateVhMappingPool.toString());
+                Logger.i("logDVMappingInfo:\r\n" + dataVhMappingPool.toString());
             } catch (Exception ignore) {
 
             }
