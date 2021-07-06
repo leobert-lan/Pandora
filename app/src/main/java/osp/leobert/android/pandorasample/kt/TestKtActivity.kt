@@ -10,6 +10,7 @@ import osp.leobert.android.pandora.Pandora
 import osp.leobert.android.pandorasample.R
 import osp.leobert.androidkt.pandora.rv.DataSet
 import osp.leobert.androidkt.pandora.rv.PandoraRvDataSet
+import osp.leobert.androidkt.pandora.ui.RvAdapter
 
 /**
  * <p><b>Package:</b> osp.leobert.android.pandorasample.kt </p>
@@ -29,7 +30,10 @@ class TestKtActivity : Activity() {
         val recyclerView = findViewById<RecyclerView>(R.id.rv)
 
         dataSet = PandoraRvDataSet(Pandora.real<DataSet.Data>())
-        val adapter = KtRvAdapter(dataSet, javaClass.simpleName)
+//        val adapter = KtRvAdapter(dataSet, javaClass.simpleName)
+
+        val adapter = RvAdapter(dataSet, javaClass.simpleName)
+
         dataSet.registerDVRelation(TestKtVO.Impl1::class.java, TestKtVH.Creator(null))
         dataSet.registerDVRelation(TestKtVO.Impl2::class.java, TestKtVH.Creator(null))
         Pandora.bind2RecyclerViewAdapter(dataSet.boxAdapter(), adapter)

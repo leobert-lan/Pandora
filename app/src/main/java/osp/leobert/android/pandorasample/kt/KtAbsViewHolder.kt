@@ -12,6 +12,7 @@ import osp.leobert.androidkt.pandora.rv.IViewHolder
  * <p><b>Description:</b> TODO </p>
  * Created by leobert on 2019/2/20.
  */
+@Deprecated("直接使用内建")
 abstract class KtAbsViewHolder<T>(itemView: View) : RecyclerView.ViewHolder(itemView), IViewHolder<T> {
     override fun asViewHolder(): RecyclerView.ViewHolder {
         return this

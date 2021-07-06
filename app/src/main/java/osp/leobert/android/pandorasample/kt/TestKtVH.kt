@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import osp.leobert.android.pandorasample.R
 import osp.leobert.androidkt.pandora.rv.ViewHolderCreator
+import osp.leobert.androidkt.pandora.ui.AbsViewHolder
 
 /**
  * <p><b>Package:</b> osp.leobert.android.pandorasample.kt </p>
@@ -15,7 +16,7 @@ import osp.leobert.androidkt.pandora.rv.ViewHolderCreator
  * <p><b>Description:</b> TODO </p>
  * Created by leobert on 2019/2/20.
  */
-class TestKtVH(itemView: View) : KtAbsViewHolder<TestKtVO>(itemView) /*, IViewHolder<TestKtVO>*/ {
+class TestKtVH(itemView: View) : AbsViewHolder<TestKtVO>(itemView) /*, IViewHolder<TestKtVO>*/ {
     var tv :TextView = itemView.findViewById(R.id.test_item_tv)
 
     override fun setData(data: TestKtVO) {

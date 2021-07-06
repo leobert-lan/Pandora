@@ -14,6 +14,7 @@ import osp.leobert.androidkt.pandora.rv.DataSet
  * <p><b>Description:</b> TODO </p>
  * Created by leobert on 2019/2/20.
  */
+@Deprecated("直接使用内建")
 class KtRvAdapter<DS : DataSet<DataSet.Data>>(private val dataSet: DS, private val tag: String)
     : RecyclerView.Adapter<KtAbsViewHolder<DataSet.Data>>() {
     override fun onBindViewHolder(holder: KtAbsViewHolder<DataSet.Data>, position: Int) {
