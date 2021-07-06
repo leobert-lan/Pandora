@@ -58,13 +58,21 @@ class RvAdapter<D : DataSet<DataSet.Data>>(
     }
 
 
+    private inline fun <reified R> Any?.takeIfInstance(): R? {
+        if (this is R) return this
+        return null
+    }
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AbsViewHolder<DataSet.Data> {
         return try {
 //            if (ret == null) {
 //                logCreateViewHolderNull(parent, viewType)
 //                ret = InvisibleVH2.Creator.sInstance.createViewHolder(parent)
 //            }
-            dataSet.createViewHolderV2(parent, viewType) as AbsViewHolder<DataSet.Data>
+            dataSet.createViewHolderV2(parent, viewType)
+                .takeIfInstance<AbsViewHolder<DataSet.Data>>()
+                ?: InvisibleVH2.Creator.sInstance.createViewHolder(parent)
         } catch (e: PandoraException) {
             Logger.e(Logger.TAG, tag, e)
             logCreateViewHolderNull(parent, viewType)
