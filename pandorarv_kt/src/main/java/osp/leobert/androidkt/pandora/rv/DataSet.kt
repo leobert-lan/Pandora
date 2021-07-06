@@ -3,6 +3,7 @@ package osp.leobert.androidkt.pandora.rv
 import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import osp.leobert.android.pandora.Logger
 import osp.leobert.android.pandora.PandoraException
 import java.lang.ref.WeakReference
 import java.util.*
@@ -19,7 +20,16 @@ abstract class DataSet<T : DataSet.Data> {
 
     companion object {
         fun <DATA, VH : IViewHolder<DATA>> helpSetToViewHolder(data: D<DATA, VH>, viewHolder: VH) {
+
+            //make sure it will dispose the binding to old reactive data
+            //even though someone will write the logic in osp.leobert.android.pandora.rv.DataSet.D.setToViewHolder
+            viewHolder.accept(IReactiveViewHolder.MAKE_SURE_UNBIND_VISITOR)
+
             data.setToViewHolder(viewHolder)
+
+            //make sure the vh binds to new reactive data
+            //even though someone has written the logic in osp.leobert.android.pandora.rv.DataSet.D.setToViewHolder
+            viewHolder.accept(IReactiveViewHolder.MAKE_SURE_BIND_VISITOR)
         }
     }
 
@@ -241,6 +251,15 @@ abstract class DataSet<T : DataSet.Data> {
             }
             reference.get()?.notifyItemRangeRemoved(positionStart, itemCount)
             i++
+        }
+    }
+
+    fun logDVMappingInfo() {
+        if (Logger.DEBUG) {
+            try {
+                Logger.i("logDVMappingInfo:\r\n$dataVhMappingPool")
+            } catch (ignore: java.lang.Exception) {
+            }
         }
     }
 }

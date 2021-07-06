@@ -33,8 +33,6 @@ import osp.leobert.android.pandora.Logger
 import osp.leobert.android.pandora.PandoraException
 import osp.leobert.androidkt.pandora.rv.DataObserver
 import osp.leobert.androidkt.pandora.rv.DataSet
-import osp.leobert.androidkt.pandora.rv.DataSet.Companion.helpSetToViewHolder
-import osp.leobert.androidkt.pandora.rv.IViewHolder
 
 /**
  *
@@ -49,10 +47,10 @@ import osp.leobert.androidkt.pandora.rv.IViewHolder
  * "load-more" provided by some libraries used in your app, it's much more enjoyable to use a Composition pattern
  * Created by leobert on 2018/10/11.
  */
-class RvAdapter<D : DataSet<*>>(
+class RvAdapter<D : DataSet<DataSet.Data>>(
     val dataSet: D,
     var tag: String = "not set"
-) : RecyclerView.Adapter<AbsViewHolder<*>>(), DataObserver {
+) : RecyclerView.Adapter<AbsViewHolder<DataSet.Data>>(), DataObserver {
     private val attachedViewInfo = ""
 
     init {
@@ -60,13 +58,13 @@ class RvAdapter<D : DataSet<*>>(
     }
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AbsViewHolder<*> {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AbsViewHolder<DataSet.Data> {
         return try {
 //            if (ret == null) {
 //                logCreateViewHolderNull(parent, viewType)
 //                ret = InvisibleVH2.Creator.sInstance.createViewHolder(parent)
 //            }
-            dataSet.createViewHolderV2(parent, viewType) as AbsViewHolder<*>
+            dataSet.createViewHolderV2(parent, viewType) as AbsViewHolder<DataSet.Data>
         } catch (e: PandoraException) {
             Logger.e(Logger.TAG, tag, e)
             logCreateViewHolderNull(parent, viewType)
@@ -85,7 +83,7 @@ class RvAdapter<D : DataSet<*>>(
 //            throw new NullPointerException(info);
 //        }
         Log.e("RvAdapter", info);
-//        dataSet.logDVMappingInfo();
+        dataSet.logDVMappingInfo();
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
@@ -107,10 +105,10 @@ class RvAdapter<D : DataSet<*>>(
 //        }
     }
 
-    override fun onBindViewHolder(holder: AbsViewHolder<*>, position: Int) {
+    override fun onBindViewHolder(holder: AbsViewHolder<DataSet.Data>, position: Int) {
         Log.i("Pandora", "onBindViewHolder: $position")
         try {
-            helpSetToViewHolder(dataSet.getItem(position), holder as IViewHolder<DataSet.Data>)
+            DataSet.helpSetToViewHolder(dataSet.getItem(position), holder)
         } catch (e: Exception) {
             Logger.e(Logger.TAG, tag, e)
         }
@@ -129,12 +127,12 @@ class RvAdapter<D : DataSet<*>>(
         }
     }
 
-    override fun onViewAttachedToWindow(holder: AbsViewHolder<*>) {
+    override fun onViewAttachedToWindow(holder: AbsViewHolder<DataSet.Data>) {
         super.onViewAttachedToWindow(holder)
         holder.onViewAttachedToWindow()
     }
 
-    override fun onViewDetachedFromWindow(holder: AbsViewHolder<*>) {
+    override fun onViewDetachedFromWindow(holder: AbsViewHolder<DataSet.Data>) {
         super.onViewDetachedFromWindow(holder)
         holder.onViewDetachedFromWindow()
     }
