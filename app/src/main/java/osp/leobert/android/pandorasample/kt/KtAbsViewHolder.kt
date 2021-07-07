@@ -30,6 +30,6 @@ abstract class KtAbsViewHolder<T>(itemView: View) : RecyclerView.ViewHolder(item
 
     }
 
-    override fun accept(visitor: IViewHolder.Visitor) {
+    override fun accept(visitor: IViewHolder.Visitor<T>) {
     }
 }
