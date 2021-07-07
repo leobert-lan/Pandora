@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import osp.leobert.android.pandora.Logger
+import osp.leobert.android.pandora.Pandora
 import osp.leobert.android.pandora.PandoraException
 import java.lang.ref.WeakReference
 import java.util.*
@@ -19,17 +20,30 @@ import java.util.*
 abstract class DataSet<T : DataSet.Data> {
 
     companion object {
+        private inline fun <reified R> Any?.takeIfInstance(): R? {
+            if (this is R) return this
+            return null
+        }
+
         fun <DATA, VH : IViewHolder<DATA>> helpSetToViewHolder(data: D<DATA, VH>, viewHolder: VH) {
 
             //make sure it will dispose the binding to old reactive data
             //even though someone will write the logic in osp.leobert.android.pandora.rv.DataSet.D.setToViewHolder
-            viewHolder.accept(IReactiveViewHolder.MAKE_SURE_UNBIND_VISITOR)
+            try {
+                viewHolder.accept(requireNotNull(IReactiveViewHolder.MAKE_SURE_UNBIND_VISITOR.takeIfInstance()))
+            } catch (e: Exception) {
+                Logger.e(Logger.TAG, "error when MAKE_SURE_UNBIND_VISITOR", e)
+            }
 
             data.setToViewHolder(viewHolder)
 
             //make sure the vh binds to new reactive data
             //even though someone has written the logic in osp.leobert.android.pandora.rv.DataSet.D.setToViewHolder
-            viewHolder.accept(IReactiveViewHolder.MAKE_SURE_BIND_VISITOR)
+            try {
+                viewHolder.accept(requireNotNull(IReactiveViewHolder.MAKE_SURE_BIND_VISITOR.takeIfInstance()))
+            } catch (e: Exception) {
+                Logger.e(Logger.TAG, "error when MAKE_SURE_BIND_VISITOR", e)
+            }
         }
     }
 
@@ -49,10 +63,10 @@ abstract class DataSet<T : DataSet.Data> {
         }
     }
 
-    interface ReactiveData : Data {
-        fun bindReactiveVh(viewHolder: IReactiveViewHolder<*>)
+    interface ReactiveData<VO> : Data {
+        fun bindReactiveVh(viewHolder: IReactiveViewHolder<VO>)
 
-        fun unbindReactiveVh()
+        fun unbindReactiveVh(viewHolder: IReactiveViewHolder<VO>)
     }
 
     private val dataVhMappingPool = DataVhMappingPool()

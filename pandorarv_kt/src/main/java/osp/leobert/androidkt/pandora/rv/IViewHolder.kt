@@ -43,7 +43,7 @@ import androidx.recyclerview.widget.RecyclerView
  * Created by leobert on 2018/10/10.
  */
 
-interface IViewHolder<in T> {
+interface IViewHolder<T> {
 
     fun asViewHolder(): RecyclerView.ViewHolder
 
@@ -58,10 +58,10 @@ interface IViewHolder<in T> {
 
     fun onViewDetachedFromWindow()
 
-    fun accept(visitor: Visitor)
+    fun accept(visitor: Visitor<T>)
 
-    abstract class Visitor {
+    abstract class Visitor<T> {
         //now only have this sub functional type
-        open fun visit(holder: IReactiveViewHolder<*>) {}
+        open fun visit(holder: IReactiveViewHolder<T>) {}
     }
 }

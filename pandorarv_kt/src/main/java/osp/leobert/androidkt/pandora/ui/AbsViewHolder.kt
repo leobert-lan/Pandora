@@ -22,6 +22,6 @@ abstract class AbsViewHolder<T>(
     override fun onViewDetachedFromWindow() {
     }
 
-    override fun accept(visitor: IViewHolder.Visitor) {
+    override fun accept(visitor: IViewHolder.Visitor<T>) {
     }
 }

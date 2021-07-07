@@ -1,7 +1,6 @@
-package com.sceneray.manager.base.ui.rv
+package osp.leobert.androidkt.pandora.ui
 
 import androidx.databinding.ViewDataBinding
-import osp.leobert.androidkt.pandora.ui.AbsViewHolder
 
 /**
  * <p><b>Package:</b> com.sceneray.manager.base.ui.rv </p>
