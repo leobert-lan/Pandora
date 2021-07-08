@@ -112,14 +112,15 @@ buildscript {
 
 allprojects {
     repositories {
+        mavenLocal()
         mavenCentral()
         maven {
             name "sonatype"
             url 'https://s01.oss.sonatype.org/content/repositories/releases/'
         }
-        maven {
-            url 'https://dl.bintray.com/leobert-lan-oss/maven'
-        }
+//        maven {
+//            url 'https://dl.bintray.com/leobert-lan-oss/maven'
+//        }
         jcenter()
         google()
         maven {

@@ -67,14 +67,11 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
     implementation deps.support.v7.appcompat
     implementation deps.support.v7.recyclerView
 
 //    compileOnly project(":pandora")
-// todo release 0.0.8
-    compileOnly 'io.github.leobert-lan:pandora:0.0.7'
+    compileOnly 'io.github.leobert-lan:pandora:0.0.8'
 
 }
 
@@ -100,7 +97,7 @@ EasyPublish {
 
     groupId = "io.github.leobert-lan"
     artifactId = "pandorarv"
-    version = "0.0.9"
+    version = "0.1.0"
     packaging = "aar"
     siteUrl = "https://github.com/leobert-lan/Panora"
     gitUrl = "https://github.com/leobert-lan/Panora.git"

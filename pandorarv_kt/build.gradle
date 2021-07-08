@@ -56,13 +56,11 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
     implementation deps.support.v7.appcompat
     implementation deps.support.v7.recyclerView
 
 //    compileOnly project(":pandora")
-    compileOnly 'osp.leobert.android:pandora:0.0.7'
+    compileOnly 'io.github.leobert-lan:pandora:0.0.8'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
 }
@@ -77,9 +75,9 @@ tasks.withType(JavaCompile) {
 EasyPublish {
     sourceSet = android.sourceSets.main.java.srcDirs
     docClassPathAppend = project.files(android.getBootClasspath().join(File.pathSeparator)).asPath
-    docExcludes = ["osp/leobert/android/pandora/rv/*"]
+    docExcludes = ["osp/leobert/androidkt/pandora/*"]
     artifact {
-        value = "build/outputs/aar/pandorarv-release.aar"
+        value = "build/outputs/aar/pandorarv_kt-release.aar"
     }
 
     description = 'pandora recyclerview component in kotlin'
