@@ -65,3 +65,5 @@ fastlane/test_output
 fastlane/readme.md
 /pandora/gradle.properties
 /pandorarv/gradle.properties
+/pandorarv_kt/gradle.properties
+/.idea/

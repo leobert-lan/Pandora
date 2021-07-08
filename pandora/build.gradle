@@ -26,9 +26,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'osp.leobert.maven.publish'
 
-//sourceCompatibility = "1.7"
-//targetCompatibility = "1.7"
-
 def RELEASE_NOTE =
         "v0.0.8:" +
                 "一些辅助方法"
@@ -39,6 +36,11 @@ def RELEASE_NOTE =
 android {
     compileSdkVersion versions.compileSdk
     buildToolsVersion versions.androidTools
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
     defaultConfig {
         minSdkVersion versions.minSdk
@@ -81,7 +83,7 @@ EasyPublish {
 
     groupId = "io.github.leobert-lan"
     artifactId = "pandora"
-    version = "0.0.7" //todo bump to 0.0.8
+    version = "0.0.8"
     packaging = "aar"
     siteUrl = "https://github.com/leobert-lan/Panora"
     gitUrl = "https://github.com/leobert-lan/Panora.git"
@@ -90,6 +92,3 @@ EasyPublish {
 
     mavenRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
 }
-
-//apply from: '../bintray_upload.gradle'
-//apply from: '../maven_upload.gradle'

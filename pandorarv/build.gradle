@@ -26,9 +26,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'osp.leobert.maven.publish'
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
-
 def RELEASE_NOTE =
         "v0.1.0:" +
                 "1. DateVhMappingPool移除" +
@@ -44,6 +41,10 @@ android {
     compileSdkVersion versions.compileSdk
     buildToolsVersion versions.androidTools
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
     dataBinding {
         enabled = true
