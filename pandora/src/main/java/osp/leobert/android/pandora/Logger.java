@@ -15,7 +15,7 @@ public final class Logger {
     public static boolean DEBUG = false;
 
     @IntDef({Level.v, Level.d, Level.i, Level.w, Level.e})
-    @interface Level {
+    public @interface Level {
         int v = Log.VERBOSE;
         int d = Log.DEBUG;
         int i = Log.INFO;
