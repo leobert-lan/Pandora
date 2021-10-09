@@ -53,10 +53,9 @@ abstract class DataSet<T : DataSet.Data> {
      * in the library, thus we must have something used when de-generic in the "Multi-Type" case
      * use in the generic
      *
-     * @param <DA> if this VO (View Object) is only use in 'single-type', you can declare the VO type. Otherwise,
+     * [Data] if this VO (View Object) is only use in 'single-type', you can declare the VO type. Otherwise,
      * just declare as Data
-     * @param <V>  the VH type, de-generic with the VO thus you can access the API in VO
-    </V></DA> */
+     * */
     interface Data : D<Data, IViewHolder<Data>> {
         override fun setToViewHolder(viewHolder: IViewHolder<Data>) {
             viewHolder.setData(this)

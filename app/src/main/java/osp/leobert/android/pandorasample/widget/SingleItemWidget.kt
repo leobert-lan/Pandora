@@ -11,8 +11,9 @@ import osp.leobert.android.pandorasample.databinding.AppVhSingleItemBinding
 import osp.leobert.android.pandorasample.dvh.AbsViewHolder
 import osp.leobert.android.pandorasample.dvh.DataBindingViewHolder
 
-interface SingleItemVO2 : DataSet.Data<SingleItemVO2, AbsViewHolder<SingleItemVO2>>, ReactiveData<SingleItemVO2, AbsViewHolder<SingleItemVO2>> {
-    override fun setToViewHolder(viewHolder: AbsViewHolder<SingleItemVO2>?) {
+interface SingleItemVO2 : DataSet.Data2, ReactiveData<SingleItemVO2, AbsViewHolder<SingleItemVO2>> {
+
+    override fun setToViewHolder(viewHolder: IViewHolder<DataSet.Data2>?) {
         viewHolder?.setData(this)
     }
 

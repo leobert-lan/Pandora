@@ -42,6 +42,7 @@ import java.util.List;
 import osp.leobert.android.pandora.Pandora;
 import osp.leobert.android.pandora.RealDataSet;
 import osp.leobert.android.pandora.rv.DataSet;
+import osp.leobert.android.pandora.rv.IViewHolder;
 import osp.leobert.android.pandora.rv.PandoraRealRvDataSet;
 import osp.leobert.android.pandorasample.R;
 import osp.leobert.android.pandorasample.RvAdapter;
@@ -56,8 +57,8 @@ import osp.leobert.android.pandorasample.kt.TestKtActivity;
 public class MenuActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    PandoraRealRvDataSet<DataSet.Data> dataSet;
-    RvAdapter<PandoraRealRvDataSet<DataSet.Data>> adapter;
+    PandoraRealRvDataSet<DataSet.Data2> dataSet;
+    RvAdapter<PandoraRealRvDataSet<DataSet.Data2>> adapter;
 
     private static final class Foo implements MenuVO2 {
         String name;
@@ -91,7 +92,7 @@ public class MenuActivity extends AppCompatActivity {
         }
 
         @Override
-        public void setToViewHolder(AbsViewHolder<DataSet.Data> viewHolder) {
+        public void setToViewHolder(IViewHolder<DataSet.Data2> viewHolder) {
             viewHolder.setData(this);
         }
     }
@@ -142,7 +143,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     private void initDataSet() {
-        RealDataSet<DataSet.Data> wrapperDataSet = Pandora.real();
+        RealDataSet<DataSet.Data2> wrapperDataSet = Pandora.real();
         dataSet = new PandoraRealRvDataSet<>(wrapperDataSet);
 
 

@@ -37,8 +37,7 @@ import osp.leobert.android.pandora.rv.ReactiveData;
  * <p><b>Description:</b> TODO </p>
  * Created by leobert on 2018/10/11.
  */
-public interface Type1VO extends DataSet.Data<DataSet.Data, AbsViewHolder<DataSet.Data>>,
-        ReactiveData<DataSet.Data, AbsViewHolder<DataSet.Data>> {
+public interface Type1VO extends DataSet.Data2, ReactiveData<Type1VO, AbsViewHolder<Type1VO>> {
     String getData();
 
     void resetData(String data);

@@ -62,12 +62,12 @@ public class DataChangeTestActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
 
-    PandoraWrapperRvDataSet<DataSet.Data> dataSet;
+    PandoraWrapperRvDataSet<DataSet.Data2> dataSet;
 
-    PandoraRealRvDataSet<DataSet.Data> dataSetSection1;
-    PandoraRealRvDataSet<DataSet.Data> dataSetSection2;
-    //    PandoraRealRvDataSet<DataSet.Data> dataSetSection3;
-    RvAdapter<PandoraWrapperRvDataSet<DataSet.Data>> adapter;
+    PandoraRealRvDataSet<DataSet.Data2> dataSetSection1;
+    PandoraRealRvDataSet<DataSet.Data2> dataSetSection2;
+    //    PandoraRealRvDataSet<DataSet.Data2> dataSetSection3;
+    RvAdapter<PandoraWrapperRvDataSet<DataSet.Data2>> adapter;
 
     private int index = 0;
 
@@ -119,12 +119,12 @@ public class DataChangeTestActivity extends AppCompatActivity {
     }
 
     private void initDataSet() {
-        WrapperDataSet<DataSet.Data> wrapperDataSet = Pandora.wrapper();
+        WrapperDataSet<DataSet.Data2> wrapperDataSet = Pandora.wrapper();
         dataSet = new PandoraWrapperRvDataSet<>(wrapperDataSet);
 
-        dataSetSection1 = new PandoraRealRvDataSet<>(Pandora.<DataSet.Data>real());
+        dataSetSection1 = new PandoraRealRvDataSet<>(Pandora.<DataSet.Data2>real());
         dataSetSection1.setAlias("sec1");
-        dataSetSection2 = new PandoraRealRvDataSet<>(Pandora.<DataSet.Data>real());
+        dataSetSection2 = new PandoraRealRvDataSet<>(Pandora.<DataSet.Data2>real());
         dataSetSection2.setAlias("sec2");
         dataSet.addSub(dataSetSection1.getRealDataSet());
         dataSet.addSub(dataSetSection2.getRealDataSet());
@@ -153,7 +153,7 @@ public class DataChangeTestActivity extends AppCompatActivity {
     }
 
     private void addSection1() {
-        Collection<DataSet.Data> collection = new ArrayList<>();
+        Collection<DataSet.Data2> collection = new ArrayList<>();
         collection.add(new Type1VOImpl("s1-" + generateIndex()));
         dataSetSection1.addAll(collection);
     }
@@ -165,7 +165,7 @@ public class DataChangeTestActivity extends AppCompatActivity {
     }
 
     private void addSection2() {
-        Collection<DataSet.Data> collection = new ArrayList<>();
+        Collection<DataSet.Data2> collection = new ArrayList<>();
         collection.add(new Type1VOImpl("s2-" + generateIndex()));
         collection.add(new Type1VOImpl("s2-" + generateIndex()));
         dataSetSection2.addAll(collection);

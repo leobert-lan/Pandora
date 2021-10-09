@@ -14,13 +14,12 @@ import osp.leobert.android.pandorasample.databinding.AppVhCollectionsBinding
 import osp.leobert.android.pandorasample.dvh.AbsViewHolder
 import osp.leobert.android.pandorasample.dvh.DataBindingViewHolder
 
-interface CollectionsVO2 : DataSet.Data<CollectionsVO2, AbsViewHolder<CollectionsVO2>>,
-        ReactiveData<CollectionsVO2, AbsViewHolder<CollectionsVO2>> {
-    override fun setToViewHolder(viewHolder: AbsViewHolder<CollectionsVO2>?) {
+interface CollectionsVO2 : DataSet.Data2, ReactiveData<CollectionsVO2, AbsViewHolder<CollectionsVO2>> {
+    override fun setToViewHolder(viewHolder: IViewHolder<DataSet.Data2>?) {
         viewHolder?.setData(this)
     }
 
-    val items: List<DataSet.Data<*, *>>
+    val items: List<DataSet.Data2>
 
     class Impl : CollectionsVO2 {
         private var viewHolder: IReactiveViewHolder<CollectionsVO2>? = null
@@ -33,7 +32,7 @@ interface CollectionsVO2 : DataSet.Data<CollectionsVO2, AbsViewHolder<Collection
 
             })
         }
-        override val items: List<DataSet.Data<*, *>> = arrayListOf(
+        override val items: List<DataSet.Data2> = arrayListOf(
                 SingleItemVO2.Impl(),
                 SingleItemVO2.Impl(),
                 SingleItemVO2.Impl(),
@@ -61,10 +60,10 @@ class CollectionsVHCreator(private val itemInteract: CollectionsItemInteract?) :
         val vh = object : DataBindingViewHolder<CollectionsVO2, AppVhCollectionsBinding>(binding), IReactiveViewHolder<CollectionsVO2> {
 
             var mData: CollectionsVO2? = null
-            private val dataSet = PandoraRealRvDataSet<DataSet.Data<*, *>>(Pandora.real())
+            private val dataSet = PandoraRealRvDataSet<DataSet.Data2>(Pandora.real())
 
             init {
-                val adapter = RvAdapter<PandoraRealRvDataSet<DataSet.Data<*, *>>>(dataSet)
+                val adapter = RvAdapter(dataSet)
                 Pandora.bind2RecyclerViewAdapter(dataSet.getRealDataSet(), adapter)
                 binding.rv.isNestedScrollingEnabled = false
 

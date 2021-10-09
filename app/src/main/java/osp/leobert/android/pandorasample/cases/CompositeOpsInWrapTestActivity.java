@@ -26,14 +26,14 @@
 package osp.leobert.android.pandorasample.cases;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -60,11 +60,11 @@ public class CompositeOpsInWrapTestActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
 
-    PandoraWrapperRvDataSet<DataSet.Data> dataSet;
+    PandoraWrapperRvDataSet<DataSet.Data2> dataSet;
 
-    PandoraRealRvDataSet<DataSet.Data> dataSetSection1;
-    PandoraRealRvDataSet<DataSet.Data> dataSetSection2;
-    RvAdapter<PandoraWrapperRvDataSet<DataSet.Data>> adapter;
+    PandoraRealRvDataSet<DataSet.Data2> dataSetSection1;
+    PandoraRealRvDataSet<DataSet.Data2> dataSetSection2;
+    RvAdapter<PandoraWrapperRvDataSet<DataSet.Data2>> adapter;
 
     private int index = 0;
 
@@ -119,12 +119,12 @@ public class CompositeOpsInWrapTestActivity extends AppCompatActivity {
     }
 
     private void initDataSet() {
-        WrapperDataSet<DataSet.Data> wrapperDataSet = Pandora.wrapper();
+        WrapperDataSet<DataSet.Data2> wrapperDataSet = Pandora.wrapper();
         dataSet = new PandoraWrapperRvDataSet<>(wrapperDataSet);
 
-        dataSetSection1 = new PandoraRealRvDataSet<>(Pandora.<DataSet.Data>real());
+        dataSetSection1 = new PandoraRealRvDataSet<>(Pandora.<DataSet.Data2>real());
         dataSetSection1.setAlias("sec1");
-        dataSetSection2 = new PandoraRealRvDataSet<>(Pandora.<DataSet.Data>real());
+        dataSetSection2 = new PandoraRealRvDataSet<>(Pandora.<DataSet.Data2>real());
         dataSetSection2.setAlias("sec2");
         dataSet.addSub(dataSetSection1.getRealDataSet());
         dataSet.addSub(dataSetSection2.getRealDataSet());
@@ -144,14 +144,14 @@ public class CompositeOpsInWrapTestActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        Collection<DataSet.Data> collection1 = new ArrayList<>();
+        Collection<DataSet.Data2> collection1 = new ArrayList<>();
         collection1.add(new Type1VOImpl("s1-" + generateIndex()));
         collection1.add(new Type2VOImpl(1));
         collection1.add(new Type2VOImpl(2));
         collection1.add(new Type1VOImpl("s1-" + generateIndex()));
         dataSetSection1.addAll(collection1);
 
-        Collection<DataSet.Data> collection2 = new ArrayList<>();
+        Collection<DataSet.Data2> collection2 = new ArrayList<>();
         collection2.add(new Type1VOImpl("s2-" + generateIndex()));
         collection2.add(new Type1VOImpl("s2-" + generateIndex()));
         collection2.add(new Type2VOImpl(3));
@@ -170,7 +170,7 @@ public class CompositeOpsInWrapTestActivity extends AppCompatActivity {
     private void demo1() {
         int count = dataSet.getCount();
         for (int i = 0; i < count; i++) {
-            DataSet.Data data = dataSet.getDataByIndex(i);
+            DataSet.Data2 data = dataSet.getDataByIndex(i);
             if (data instanceof Type2VOImpl) {
                 dataSet.removeAtPos(i);
                 i--;
@@ -189,7 +189,7 @@ public class CompositeOpsInWrapTestActivity extends AppCompatActivity {
             List<Integer> targets = new ArrayList<>();
             int count = dataSet.getCount();
             for (int i = 0; i < count; i++) {
-                DataSet.Data data = dataSet.getDataByIndex(i);
+                DataSet.Data2 data = dataSet.getDataByIndex(i);
                 if (data instanceof Type2VOImpl) {
                     targets.add(i);
                 }

@@ -11,7 +11,7 @@ import osp.leobert.android.pandorasample.dvh.AbsViewHolder;
  * <p><b>Classname:</b> Menu </p>
  * Created by leobert on 2019/2/20.
  */
-public interface MenuVO2 extends DataSet.Data<DataSet.Data, AbsViewHolder<DataSet.Data>> {
+public interface MenuVO2 extends DataSet.Data2 {
 
     @IntDef({Level.l1, Level.l2})
     @interface Level {

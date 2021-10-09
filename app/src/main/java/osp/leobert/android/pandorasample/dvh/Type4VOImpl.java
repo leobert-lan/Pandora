@@ -27,6 +27,7 @@ package osp.leobert.android.pandorasample.dvh;
 
 
 import osp.leobert.android.pandora.rv.DataSet;
+import osp.leobert.android.pandora.rv.IViewHolder;
 
 /**
  * <p><b>Package:</b> osp.leobert.android.pandorasample.dvh </p>
@@ -48,7 +49,7 @@ public class Type4VOImpl implements Type4VO {
     }
 
     @Override
-    public void setToViewHolder(AbsViewHolder<DataSet.Data> viewHolder) {
+    public void setToViewHolder(IViewHolder<DataSet.Data2> viewHolder) {
         viewHolder.setData(this);
     }
 

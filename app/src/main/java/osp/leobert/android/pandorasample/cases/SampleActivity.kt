@@ -15,7 +15,7 @@ import osp.leobert.android.pandorasample.widget.CollectionsVO2
 
 class SampleActivity : AppCompatActivity() {
 
-    private val dataSet by lazy { PandoraRealRvDataSet<DataSet.Data<*, *>>(Pandora.real()) }
+    private val dataSet by lazy { PandoraRealRvDataSet<DataSet.Data2>(Pandora.real()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +25,7 @@ class SampleActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.rv)
         initDataSet()
 
-        val adapter = RvAdapter<PandoraRealRvDataSet<DataSet.Data<*, *>>>(dataSet)
+        val adapter = RvAdapter(dataSet)
         Pandora.bind2RecyclerViewAdapter(dataSet.getRealDataSet(), adapter)
 
         recyclerView.layoutManager = LinearLayoutManager(this)

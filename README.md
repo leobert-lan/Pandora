@@ -286,7 +286,7 @@ public class FooVH2 extends AbsViewHolder2<FooVO2> {
 定义VO
 
 ```
-public static interface FooVO2 extends DataSet.Data<DataSet.Data, AbsViewHolder2<DataSet.Data>> {
+public static interface FooVO2 extends DataSet.Data<DataSet.Data, AbsViewHolder2<DataSet.Data2>> {
 	String foo();
 }
 ```
@@ -303,7 +303,7 @@ public class FooVO2Impl implement FooVO2{
 	}
 
 	@Override
-    public void setToViewHolder(AbsViewHolder2<DataSet.Data> viewHolder) {
+    public void setToViewHolder(AbsViewHolder2<DataSet.Data2> viewHolder) {
     	//适当的判断或者一些前置逻辑 ...
     	
     	//设置数据

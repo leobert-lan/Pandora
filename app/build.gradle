@@ -56,23 +56,24 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation deps.support.v7.appcompat
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-//    implementation project(":pandora")
-    implementation 'io.github.leobert-lan:pandora:0.0.8'
-//    implementation project(":pandorarv")
-    implementation 'io.github.leobert-lan:pandorarv:0.1.0'
-//    implementation project(':pandorarv_kt')
-    implementation 'io.github.leobert-lan:pandorarv_kt:0.0.4'
+    implementation project(":pandora")
+//    implementation 'io.github.leobert-lan:pandora:0.0.8'
+    implementation project(":pandorarv")
+//    implementation 'io.github.leobert-lan:pandorarv:0.1.0'
+    implementation project(':pandorarv_kt')
+//    implementation 'io.github.leobert-lan:pandorarv_kt:0.0.4'
 
-    implementation deps.support.v7.recyclerView
-    implementation deps.support.v7.cardView
+
+    implementation "androidx.appcompat:appcompat:1.3.0"
+    implementation "androidx.recyclerview:recyclerview:1.2.0"
+    implementation "androidx.cardview:cardview:1.0.0"
     implementation 'osp.leobert.android:davinci:0.0.2-beta'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test:runner:1.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
 }

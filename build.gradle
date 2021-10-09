@@ -28,7 +28,7 @@ buildscript {
     Properties properties = new Properties()
     InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream()
     properties.load(inputStream)
-    def kt = '1.5.10'
+    def kt = '1.5.30'
     if (properties.containsKey('kotlin')) {
         kt = properties.getProperty('kotlin')
     }

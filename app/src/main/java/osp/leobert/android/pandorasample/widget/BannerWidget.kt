@@ -4,14 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import osp.leobert.android.pandora.rv.DataSet
+import osp.leobert.android.pandora.rv.IViewHolder
 import osp.leobert.android.pandora.rv.ViewHolderCreator
 import osp.leobert.android.pandorasample.R
 import osp.leobert.android.pandorasample.databinding.AppVhBannerBinding
-import osp.leobert.android.pandorasample.dvh.AbsViewHolder
 import osp.leobert.android.pandorasample.dvh.DataBindingViewHolder
 
-interface BannerVO2 : DataSet.Data<BannerVO2, AbsViewHolder<BannerVO2>> {
-    override fun setToViewHolder(viewHolder: AbsViewHolder<BannerVO2>?) {
+interface BannerVO2 : DataSet.Data2 {
+    override fun setToViewHolder(viewHolder: IViewHolder<DataSet.Data2>?) {
         viewHolder?.setData(this)
     }
 
