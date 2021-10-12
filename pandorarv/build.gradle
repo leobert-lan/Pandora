@@ -27,9 +27,8 @@ apply plugin: 'com.android.library'
 apply plugin: 'osp.leobert.maven.publish'
 
 def RELEASE_NOTE =
-        "v0.1.0:" +
-                "1. DateVhMappingPool移除" +
-                "2. Mapping信息输出"
+        "v0.1.1:" +
+                "1. 移除不必要的泛型约束"
 
 
 //def MAVEN_LOCAL_PATH = uri('../../local_repo')
@@ -98,7 +97,7 @@ EasyPublish {
 
     groupId = "io.github.leobert-lan"
     artifactId = "pandorarv"
-    version = "0.1.0"
+    version = "0.1.1"
     packaging = "aar"
     siteUrl = "https://github.com/leobert-lan/Panora"
     gitUrl = "https://github.com/leobert-lan/Panora.git"
