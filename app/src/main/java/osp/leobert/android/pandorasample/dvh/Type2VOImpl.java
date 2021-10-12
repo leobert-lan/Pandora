@@ -49,7 +49,7 @@ public class Type2VOImpl implements Type2VO {
     }
 
     @Override
-    public void setToViewHolder(IViewHolder<DataSet.Data2> viewHolder) {
+    public void setToViewHolder(IViewHolder<DataSet.Data> viewHolder) {
         viewHolder.setData(this);
     }
 

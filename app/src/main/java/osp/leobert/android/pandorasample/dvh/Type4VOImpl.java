@@ -49,7 +49,7 @@ public class Type4VOImpl implements Type4VO {
     }
 
     @Override
-    public void setToViewHolder(IViewHolder<DataSet.Data2> viewHolder) {
+    public void setToViewHolder(IViewHolder<DataSet.Data> viewHolder) {
         viewHolder.setData(this);
     }
 

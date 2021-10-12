@@ -8,12 +8,11 @@ import osp.leobert.android.pandora.rv.IViewHolder
 import osp.leobert.android.pandora.rv.ViewHolderCreator
 import osp.leobert.android.pandorasample.R
 import osp.leobert.android.pandorasample.databinding.AppVhRecommendGoodsBinding
-import osp.leobert.android.pandorasample.dvh.AbsViewHolder
 import osp.leobert.android.pandorasample.dvh.DataBindingViewHolder
 
-interface RecommendGoodsVO2 : DataSet.Data2 {
+interface RecommendGoodsVO2 : DataSet.Data {
 
-    override fun setToViewHolder(viewHolder: IViewHolder<DataSet.Data2>?) {
+    override fun setToViewHolder(viewHolder: IViewHolder<DataSet.Data>?) {
         viewHolder?.setData(this)
     }
 

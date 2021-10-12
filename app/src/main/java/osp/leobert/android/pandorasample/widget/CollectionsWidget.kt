@@ -14,12 +14,12 @@ import osp.leobert.android.pandorasample.databinding.AppVhCollectionsBinding
 import osp.leobert.android.pandorasample.dvh.AbsViewHolder
 import osp.leobert.android.pandorasample.dvh.DataBindingViewHolder
 
-interface CollectionsVO2 : DataSet.Data2, ReactiveData<CollectionsVO2, AbsViewHolder<CollectionsVO2>> {
-    override fun setToViewHolder(viewHolder: IViewHolder<DataSet.Data2>?) {
+interface CollectionsVO2 : DataSet.Data, ReactiveData<CollectionsVO2, AbsViewHolder<CollectionsVO2>> {
+    override fun setToViewHolder(viewHolder: IViewHolder<DataSet.Data>?) {
         viewHolder?.setData(this)
     }
 
-    val items: List<DataSet.Data2>
+    val items: List<DataSet.Data>
 
     class Impl : CollectionsVO2 {
         private var viewHolder: IReactiveViewHolder<CollectionsVO2>? = null
@@ -32,7 +32,7 @@ interface CollectionsVO2 : DataSet.Data2, ReactiveData<CollectionsVO2, AbsViewHo
 
             })
         }
-        override val items: List<DataSet.Data2> = arrayListOf(
+        override val items: List<DataSet.Data> = arrayListOf(
                 SingleItemVO2.Impl(),
                 SingleItemVO2.Impl(),
                 SingleItemVO2.Impl(),
@@ -60,7 +60,7 @@ class CollectionsVHCreator(private val itemInteract: CollectionsItemInteract?) :
         val vh = object : DataBindingViewHolder<CollectionsVO2, AppVhCollectionsBinding>(binding), IReactiveViewHolder<CollectionsVO2> {
 
             var mData: CollectionsVO2? = null
-            private val dataSet = PandoraRealRvDataSet<DataSet.Data2>(Pandora.real())
+            private val dataSet = PandoraRealRvDataSet<DataSet.Data>(Pandora.real())
 
             init {
                 val adapter = RvAdapter(dataSet)

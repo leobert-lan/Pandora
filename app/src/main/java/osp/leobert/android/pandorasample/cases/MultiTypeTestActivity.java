@@ -58,7 +58,6 @@ import osp.leobert.android.pandorasample.TimeUtil;
 import osp.leobert.android.pandorasample.decor.BackgroundDecor;
 import osp.leobert.android.pandorasample.decor.IgnoreDelegate;
 import osp.leobert.android.pandorasample.decor.SimpleDividerItemDecoration;
-import osp.leobert.android.pandorasample.dvh.AbsViewHolder;
 import osp.leobert.android.pandorasample.dvh.Type1VH;
 import osp.leobert.android.pandorasample.dvh.Type1VO;
 import osp.leobert.android.pandorasample.dvh.Type1VOImpl;
@@ -115,7 +114,7 @@ public class MultiTypeTestActivity extends AppCompatActivity {
         }
 
         @Override
-        public void setToViewHolder(IViewHolder<DataSet.Data2> viewHolder) {
+        public void setToViewHolder(IViewHolder<DataSet.Data> viewHolder) {
             viewHolder.setData(this);
         }
     }
@@ -123,18 +122,18 @@ public class MultiTypeTestActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView recyclerView2;
 
-    PandoraWrapperRvDataSet<DataSet.Data2> aDataSet;
+    PandoraWrapperRvDataSet<DataSet.Data> aDataSet;
 
-    PandoraRealRvDataSet<DataSet.Data2> bDataSet;
+    PandoraRealRvDataSet<DataSet.Data> bDataSet;
 
-    RealDataSet<DataSet.Data2> section1;
-    PandoraRealRvDataSet<DataSet.Data2> dataSetSection2;
-    PandoraRealRvDataSet<DataSet.Data2> dataSetSection3;
+    RealDataSet<DataSet.Data> section1;
+    PandoraRealRvDataSet<DataSet.Data> dataSetSection2;
+    PandoraRealRvDataSet<DataSet.Data> dataSetSection3;
 
-    RvAdapter<PandoraWrapperRvDataSet<DataSet.Data2>> adapter;
+    RvAdapter<PandoraWrapperRvDataSet<DataSet.Data>> adapter;
 
 
-    RvAdapter<PandoraRealRvDataSet<DataSet.Data2>> adapter2;
+    RvAdapter<PandoraRealRvDataSet<DataSet.Data>> adapter2;
 
 
     @Override
@@ -205,20 +204,20 @@ public class MultiTypeTestActivity extends AppCompatActivity {
     }
 
     private void initDataSet() {
-        WrapperDataSet<DataSet.Data2> wrapperDataSet = Pandora.wrapper();
+        WrapperDataSet<DataSet.Data> wrapperDataSet = Pandora.wrapper();
         aDataSet = new PandoraWrapperRvDataSet<>(wrapperDataSet);
 
 //        dataSet.retrieveAdapterByDataIndex2(1)
 
-        bDataSet = new PandoraRealRvDataSet<>(Pandora.<DataSet.Data2>real());
+        bDataSet = new PandoraRealRvDataSet<>(Pandora.<DataSet.Data>real());
 
         section1 = Pandora.real();
 
         bDataSet.setAlias("sec1");
 
-        dataSetSection2 = new PandoraRealRvDataSet<>(Pandora.<DataSet.Data2>real());
+        dataSetSection2 = new PandoraRealRvDataSet<>(Pandora.<DataSet.Data>real());
         dataSetSection2.setAlias("sec2");
-        dataSetSection3 = new PandoraRealRvDataSet<>(Pandora.<DataSet.Data2>real());
+        dataSetSection3 = new PandoraRealRvDataSet<>(Pandora.<DataSet.Data>real());
         dataSetSection3.setAlias("sec3");
 
         aDataSet.addSub(section1);
@@ -374,7 +373,7 @@ public class MultiTypeTestActivity extends AppCompatActivity {
      * type3
      */
     private void addDataIntoSection1() {
-        Collection<DataSet.Data2> collection = new ArrayList<>();
+        Collection<DataSet.Data> collection = new ArrayList<>();
         collection.add(new SectionHeader(MenuVO2.Level.l2, "one group data in section1,依次为\r\n"
                 + "type5\r\ntype4\r\ntype2\r\ntype3\r\n"
                 + "add at" + TimeUtil.getCurrentTimeInString()));
@@ -387,7 +386,7 @@ public class MultiTypeTestActivity extends AppCompatActivity {
     }
 
     private void addDataIntoSection2() {
-        Collection<DataSet.Data2> collection = new ArrayList<>();
+        Collection<DataSet.Data> collection = new ArrayList<>();
         String time = TimeUtil.getCurrentTimeInString();
         collection.add(new SectionHeader(MenuVO2.Level.l2, "one group data in section2,依次为\r\n"
                 + "type1\r\ntype1\r\n"
@@ -399,7 +398,7 @@ public class MultiTypeTestActivity extends AppCompatActivity {
     }
 
     private void addDataIntoSection3() {
-        Collection<DataSet.Data2> collection = new ArrayList<>();
+        Collection<DataSet.Data> collection = new ArrayList<>();
         collection.add(new SectionHeader(MenuVO2.Level.l2, "one group data in section3,依次为\r\n"
                 + "type5\r\ntype3\r\ntype4\r\ntype2\r\ntype1\r\n"
                 + "add at" + TimeUtil.getCurrentTimeInString()));

@@ -15,7 +15,7 @@ import osp.leobert.android.pandorasample.widget.CollectionsVO2
 
 class SampleActivity : AppCompatActivity() {
 
-    private val dataSet by lazy { PandoraRealRvDataSet<DataSet.Data2>(Pandora.real()) }
+    private val dataSet by lazy { PandoraRealRvDataSet<DataSet.Data>(Pandora.real()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

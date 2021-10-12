@@ -36,7 +36,7 @@ import osp.leobert.android.pandora.rv.DataSet;
  * <p><b>Description:</b> TODO </p>
  * Created by leobert on 2018/10/11.
  */
-public interface Type3VO extends DataSet.Data2 {
+public interface Type3VO extends DataSet.Data {
 
     String getText();
 }

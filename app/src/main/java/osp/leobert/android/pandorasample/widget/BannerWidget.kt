@@ -10,8 +10,8 @@ import osp.leobert.android.pandorasample.R
 import osp.leobert.android.pandorasample.databinding.AppVhBannerBinding
 import osp.leobert.android.pandorasample.dvh.DataBindingViewHolder
 
-interface BannerVO2 : DataSet.Data2 {
-    override fun setToViewHolder(viewHolder: IViewHolder<DataSet.Data2>?) {
+interface BannerVO2 : DataSet.Data {
+    override fun setToViewHolder(viewHolder: IViewHolder<DataSet.Data>?) {
         viewHolder?.setData(this)
     }
 

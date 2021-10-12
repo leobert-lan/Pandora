@@ -77,23 +77,28 @@ public abstract class DataSet {
         void setToViewHolder(VH viewHolder);
     }
 
+//    /**
+//     * Because we don't supply a Super Class of data, and we used sth like ? extends D {@linkplain D}
+//     * in the library, thus we must have something used when de-generic in the "Multi-Type" case
+//     * use in the generic
+//     *
+//     * @param <DA> if this VO (View Object) is only use in 'single-type', you can declare the VO type. Otherwise,
+//     *             just declare as Data
+//     * @param <V>  the VH type, de-generic with the VO thus you can access the API in VO
+//     *
+//     * @deprecated use {@link Data2} instead
+//     */
+//    @Deprecated
+//    public interface Data<DA extends D, V extends IViewHolder<? super DA>> extends D<DA, V> {
+//
+//    }
+
     /**
      * Because we don't supply a Super Class of data, and we used sth like ? extends D {@linkplain D}
      * in the library, thus we must have something used when de-generic in the "Multi-Type" case
      * use in the generic
-     *
-     * @param <DA> if this VO (View Object) is only use in 'single-type', you can declare the VO type. Otherwise,
-     *             just declare as Data
-     * @param <V>  the VH type, de-generic with the VO thus you can access the API in VO
-     *
-     * @deprecated use {@link Data2} instead
      */
-    @Deprecated
-    public interface Data<DA extends D, V extends IViewHolder<? super DA>> extends D<DA, V> {
-
-    }
-
-    public interface Data2 extends D<Data2, IViewHolder<Data2>> {
+    public interface Data extends D<Data, IViewHolder<Data>> {
 
     }
 
