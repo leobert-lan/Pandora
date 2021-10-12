@@ -11,7 +11,7 @@ import osp.leobert.android.pandorasample.databinding.AppVhSingleItemBinding
 import osp.leobert.android.pandorasample.dvh.AbsViewHolder
 import osp.leobert.android.pandorasample.dvh.DataBindingViewHolder
 
-interface SingleItemVO2 : DataSet.Data, ReactiveData<SingleItemVO2, AbsViewHolder<SingleItemVO2>> {
+interface SingleItemVO2 : DataSet.Data, ReactiveData<SingleItemVO2> {
 
     override fun setToViewHolder(viewHolder: IViewHolder<DataSet.Data>?) {
         viewHolder?.setData(this)
@@ -62,14 +62,13 @@ class SingleItemVHCreator(private val itemInteract: SingleItemItemInteract?) : V
                 binding.executePendingBindings()
             }
 
-            override fun getReactiveDataIfExist(): ReactiveData<out SingleItemVO2, out IViewHolder<SingleItemVO2>>? = mData
+            override fun getReactiveDataIfExist(): ReactiveData<out SingleItemVO2>? = mData
 
             override fun accept(visitor: IViewHolder.Visitor) {
                 visitor.visit(this)
             }
 
             override fun onPropertyChanged(sender: Observable?, data: SingleItemVO2, propertyId: Int) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
         }
 

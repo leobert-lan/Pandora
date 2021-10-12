@@ -14,7 +14,7 @@ import osp.leobert.android.pandorasample.databinding.AppVhCollectionsBinding
 import osp.leobert.android.pandorasample.dvh.AbsViewHolder
 import osp.leobert.android.pandorasample.dvh.DataBindingViewHolder
 
-interface CollectionsVO2 : DataSet.Data, ReactiveData<CollectionsVO2, AbsViewHolder<CollectionsVO2>> {
+interface CollectionsVO2 : DataSet.Data, ReactiveData<CollectionsVO2> {
     override fun setToViewHolder(viewHolder: IViewHolder<DataSet.Data>?) {
         viewHolder?.setData(this)
     }
@@ -84,7 +84,7 @@ class CollectionsVHCreator(private val itemInteract: CollectionsItemInteract?) :
                 binding.executePendingBindings()
             }
 
-            override fun getReactiveDataIfExist(): ReactiveData<out CollectionsVO2, out IViewHolder<CollectionsVO2>>? = mData
+            override fun getReactiveDataIfExist(): ReactiveData<out CollectionsVO2>? = mData
 
             override fun accept(visitor: IViewHolder.Visitor) {
                 visitor.visit(this)

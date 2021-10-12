@@ -48,7 +48,7 @@ class TestVH(val binding: AppVhTestBinding) :
     }
 
     override fun onPropertyChanged(sender: Observable?, data: TestVO2, propertyId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override val observable: BaseObservable = BaseObservable().apply {
