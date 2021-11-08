@@ -34,23 +34,19 @@ Pandora is a library to build flexible dataset.
 
 ## 集成
 
-*如果jcenter访问受限，可以单独加上仓库地址*
 
-```
- maven {
-            url 'https://dl.bintray.com/leobert-lan-oss/maven/'
-}
-```
+*不再使用jcenter，迁移到MavenCentral*
+
 
 
 
 library|pandora|pandorarv
 ---|---|---
-最新版本|[![Download](https://api.bintray.com/packages/leobert-lan-oss/maven/pandora/images/download.svg)](https://api.bintray.com/packages/leobert-lan-oss/maven/pandora/_latestVersion)|[![Download](https://api.bintray.com/packages/leobert-lan-oss/maven/pandorarv/images/download.svg)](https://bintray.com/leobert-lan-oss/maven/pandorarv/_latestVersion)
+最新版本|[![Download](https://img.shields.io/maven-central/v/io.github.leobert-lan/pandora.svg?label=latest%20release)](https://search.maven.org/search?q=g:io.github.leobert-lan%20And%20a:pandora)|[![Download](https://img.shields.io/maven-central/v/io.github.leobert-lan/pandorarv.svg?label=latest%20release)](https://search.maven.org/search?q=g:io.github.leobert-lan%20And%20a:pandorarv)
 
 ``` gradle
-implementation或compile 'osp.leobert.android:pandora:{version}'
-implementation或compile 'osp.leobert.android:pandorarv:{version}'
+implementation或compile 'io.github.leobert-lan:pandora:{version}'
+implementation或compile 'io.github.leobert-lan:pandorarv:{version}'
 
 ```
 
