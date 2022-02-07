@@ -34,8 +34,8 @@ def RELEASE_NOTE =
 //def MAVEN_LOCAL_PATH = uri('../../local_repo')
 
 android {
-    compileSdkVersion versions.compileSdk
-    buildToolsVersion versions.androidTools
+    compileSdkVersion KDeps.INSTANCE.config.compileSdkVersion
+    buildToolsVersion "28.0.3"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -43,8 +43,8 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion versions.minSdk
-        targetSdkVersion versions.targetSdk
+        minSdkVersion KDeps.INSTANCE.config.minSdkVersion
+        targetSdkVersion KDeps.INSTANCE.config.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
@@ -59,9 +59,8 @@ android {
 }
 
 dependencies {
-//    implementation "androidx.appcompat:appcompat:1.3.0"
-    implementation "androidx.annotation:annotation:1.2.0"
-    implementation "androidx.recyclerview:recyclerview:1.2.0"
+    implementation KDeps.INSTANCE.androidX.annotation
+    implementation KDeps.INSTANCE.androidX.recyclerView
 }
 
 EasyPublish {

@@ -28,50 +28,11 @@ buildscript {
     Properties properties = new Properties()
     InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream()
     properties.load(inputStream)
-    def kt = '1.5.30'
+    def kt = '1.6.10'
     if (properties.containsKey('kotlin')) {
         kt = properties.getProperty('kotlin')
     }
     ext.kotlin_version = kt
-    ext.versions = [
-            'minSdk'    : 19,
-            'targetSdk' : 31,
-            'compileSdk': 31,
-            'androidTools':'28.0.3'
-    ]
-
-    ext.deps = [
-            auto     : [
-                    'service': 'com.google.auto.service:auto-service:1.0-rc3'
-            ],
-
-
-            //google support
-            'support': [
-                    'v7'         : [
-                            'appcompat'   : "androidx.appcompat:appcompat:1.4.0",
-                            'recyclerView': "androidx.recyclerview:recyclerview:1.2.0",
-                            'cardView'    : "androidx.cardview:cardview:1.0.0",
-
-                    ],
-                    'annotations': "androidx.annotation:annotation:1.0.0-alpha1",
-
-                    'multidex'   : "androidx.multidex:multidex:2.0.1",
-
-                    'test'       : [
-                            'runner': 'androidx.test:runner:1.1.0-alpha3',
-                            'rule'  : 'androidx.test:rules:1.1.0'
-                    ],
-            ],
-
-            'junit'  : 'junit:junit:4.12',
-
-            report   : [
-                    'anno'    : 'osp.leobert.android:ReportNotation:1.0.0',
-                    'compiler': 'osp.leobert.android:report-anno-compiler:1.0.0'
-            ]
-    ]
-
 
     repositories {
         jcenter()

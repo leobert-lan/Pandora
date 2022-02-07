@@ -29,7 +29,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion KDeps.INSTANCE.config.compileSdkVersion
     dataBinding {
         enabled = true
     }
@@ -41,8 +41,8 @@ android {
 
     defaultConfig {
         applicationId "osp.leobert.android.pandorasample"
-        minSdkVersion 19
-        targetSdkVersion 31
+        minSdkVersion KDeps.INSTANCE.config.minSdkVersion
+        targetSdkVersion KDeps.INSTANCE.config.targetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -65,17 +65,16 @@ dependencies {
 //    implementation 'io.github.leobert-lan:pandorarv_kt:0.0.4'
 
 
-    implementation "androidx.appcompat:appcompat:1.4.0"
-    implementation "androidx.recyclerview:recyclerview:1.2.0"
-    implementation "androidx.cardview:cardview:1.0.0"
+    implementation KDeps.INSTANCE.androidX.appcompat
+    implementation KDeps.INSTANCE.androidX.recyclerView
+    implementation KDeps.INSTANCE.androidX.cardView
     implementation ('io.github.leobert-lan:davinci:0.0.7') {
         exclude(group:'com.google.guava')
     }
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation KDeps.INSTANCE.kotlin.stdlib_jdk7
 
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test:runner:1.4.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    KDeps.INSTANCE.applyTest(project)
+
 
 }

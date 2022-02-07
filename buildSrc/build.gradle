@@ -1,0 +1,21 @@
+apply plugin: "kotlin"
+
+buildscript {
+    ext.kotlin_version = "1.6.10"
+    repositories {
+//        mavenCentral()
+//        google()
+        jcenter()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+//        implementation 'com.android.tools.build:gradle:4.1.1'
+        //gradle sdk
+        gradleApi()
+    }
+}
+repositories {
+//    mavenCentral()
+//    google()
+    jcenter()
+}

@@ -27,8 +27,8 @@ def RELEASE_NOTE =
 //}
 
 android {
-    compileSdkVersion versions.compileSdk
-    buildToolsVersion versions.androidTools
+    compileSdkVersion KDeps.INSTANCE.config.compileSdkVersion
+    buildToolsVersion KDeps.INSTANCE.config.androidTools
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -40,8 +40,8 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion versions.minSdk
-        targetSdkVersion versions.targetSdk
+        minSdkVersion KDeps.INSTANCE.config.minSdkVersion
+        targetSdkVersion KDeps.INSTANCE.config.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
@@ -56,12 +56,12 @@ android {
 }
 
 dependencies {
-    implementation deps.support.v7.appcompat
-    implementation deps.support.v7.recyclerView
+    implementation KDeps.INSTANCE.androidX.appcompat
+    implementation KDeps.INSTANCE.androidX.recyclerView
 
 //    compileOnly project(":pandora")
     compileOnly 'io.github.leobert-lan:pandora:0.0.8'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation KDeps.INSTANCE.kotlin.stdlib_jdk7
 
 }
 
