@@ -26,6 +26,7 @@
 package osp.leobert.android.pandorasample.cases;
 
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -176,15 +177,25 @@ public class DataPropertyChangeTestActivity extends AppCompatActivity {
 //            dataSet.endTransaction();
 //        }
 
-        dataSet.getDataSet().accept(target, new TypeVisitor<Type1VO>(Type1VO.class) {
+        //内置访问者
+//        dataSet.getDataSet().accept(target, new TypeVisitor<Type1VO>(Type1VO.class) {
+//
+//            @Override
+//            public void onHit(Type1VO element) {
+//                dataSet.startTransaction();
+//                Toast.makeText(DataPropertyChangeTestActivity.this, "修改position：" + target, Toast.LENGTH_SHORT).show();
+//                element.resetData("random change " + target + "  " + ts);
+//                dataSet.endTransaction();
+//            }
+//        });
 
-            @Override
-            public void onHit(Type1VO element) {
-                dataSet.startTransaction();
-                Toast.makeText(DataPropertyChangeTestActivity.this, "修改position：" + target, Toast.LENGTH_SHORT).show();
-                element.resetData("random change " + target + "  " + ts);
-                dataSet.endTransaction();
-            }
-        });
+//        or 连续的类型判断可以这样尝试
+        Type1VO element = dataSet.getDataSet().accept(target, new TypeVisitor<>(Type1VO.class));
+        if (element != null) {
+            dataSet.startTransaction();
+            Toast.makeText(DataPropertyChangeTestActivity.this, "修改position：" + target, Toast.LENGTH_SHORT).show();
+            element.resetData("random change " + target + "  " + ts);
+            dataSet.endTransaction();
+        }
     }
 }

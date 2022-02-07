@@ -1,6 +1,7 @@
 package osp.leobert.android.pandora.visitor;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * <p><b>Package:</b> osp.leobert.android.pandora.visitor </p>
@@ -9,7 +10,7 @@ import androidx.annotation.NonNull;
  * <p><b>Description:</b> TypeVisitor </p>
  * Created by leobert on 2018/12/6.
  */
-public abstract class TypeVisitor<T> {
+public class TypeVisitor<T> {
     public TypeVisitor(@NonNull Class<T> targetClz) {
         this.targetClz = targetClz;
     }
@@ -17,23 +18,31 @@ public abstract class TypeVisitor<T> {
     @NonNull
     private final Class<T> targetClz;
 
-    @SuppressWarnings("unchecked")
-    public final void visit(Object element) {
+//    @SuppressWarnings("unchecked")
+    @Nullable
+    public final T visit(Object element) {
         if (element == null) {
             onMissed();
-            return;
+            return null;
         }
 
         boolean hit = targetClz.isAssignableFrom(element.getClass());
 
         if (hit) {
             // TODO: 2022/2/7 change to :  onHit(targetClz.cast(element));
-            onHit((T) element);
+            //(T) element;
+            T ret = targetClz.cast(element);
+            onHit(ret);
+            return ret;
         } else {
             onMissed();
+            return null;
         }
     }
-    public abstract void onHit(T element);
+
+    public void onHit(T element) {
+
+    }
 
     public void onMissed() {
 

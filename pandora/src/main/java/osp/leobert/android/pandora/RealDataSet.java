@@ -365,11 +365,12 @@ public class RealDataSet<T> extends PandoraBoxAdapter<T> {
         return data.iterator();
     }
 
-    public void accept(int pos, @NonNull TypeVisitor typeVisitor) {
+    public <T> T accept(int pos, @NonNull TypeVisitor<T> typeVisitor) {
         if (pos < 0 || pos >= getDataCount()) {
             typeVisitor.onMissed();
+            return null;
         }
 
-        typeVisitor.visit(getDataByIndex(pos));
+        return typeVisitor.visit(getDataByIndex(pos));
     }
 }
