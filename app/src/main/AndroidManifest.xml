@@ -12,7 +12,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".cases.SampleActivity"></activity>
         <activity android:name=".cases.MultiTypeTestActivity" />
-        <activity android:name=".menu.MenuActivity">
+        <activity android:name=".menu.MenuActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

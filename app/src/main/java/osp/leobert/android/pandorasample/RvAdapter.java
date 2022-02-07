@@ -28,6 +28,7 @@ package osp.leobert.android.pandorasample;
 import android.util.Log;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import osp.leobert.android.pandora.Logger;
@@ -45,7 +46,7 @@ import osp.leobert.android.pandorasample.dvh.AbsViewHolder;
  * "load-more" provided by some libraries used in your app, it's much more enjoyable to use a Composition pattern</p>
  * Created by leobert on 2018/10/11.
  */
-public class RvAdapter<D extends DataSet> extends RecyclerView.Adapter<AbsViewHolder>
+public class RvAdapter<D extends DataSet<DataSet.Data>> extends RecyclerView.Adapter<AbsViewHolder<DataSet.Data>>
         implements DataObserver {
 
     private final D dataSet;
@@ -66,9 +67,9 @@ public class RvAdapter<D extends DataSet> extends RecyclerView.Adapter<AbsViewHo
     }
 
     @Override
-    public AbsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public AbsViewHolder<DataSet.Data> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         try {
-            return (AbsViewHolder) dataSet.createViewHolderV2(parent, viewType);
+            return (AbsViewHolder<DataSet.Data>) dataSet.createViewHolderV2(parent, viewType);
         } catch (PandoraException e) {
             e.printStackTrace();
             Logger.e(Logger.TAG, tag, e);
@@ -77,8 +78,7 @@ public class RvAdapter<D extends DataSet> extends RecyclerView.Adapter<AbsViewHo
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public void onBindViewHolder(AbsViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AbsViewHolder<DataSet.Data> holder, int position) {
         Log.i("Pandora", "onBindViewHolder: " + position);
         try {
             DataSet.helpSetToViewHolder(dataSet.getItem(position), holder);
@@ -106,14 +106,14 @@ public class RvAdapter<D extends DataSet> extends RecyclerView.Adapter<AbsViewHo
     }
 
     @Override
-    public void onViewAttachedToWindow(AbsViewHolder holder) {
+    public void onViewAttachedToWindow(@NonNull AbsViewHolder<DataSet.Data> holder) {
         super.onViewAttachedToWindow(holder);
         holder.onViewAttachedToWindow();
     }
 
 
     @Override
-    public void onViewDetachedFromWindow(AbsViewHolder holder) {
+    public void onViewDetachedFromWindow(@NonNull AbsViewHolder<DataSet.Data> holder) {
         super.onViewDetachedFromWindow(holder);
         holder.onViewDetachedFromWindow();
     }

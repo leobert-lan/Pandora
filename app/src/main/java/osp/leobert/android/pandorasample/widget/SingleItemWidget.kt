@@ -62,7 +62,7 @@ class SingleItemVHCreator(private val itemInteract: SingleItemItemInteract?) : V
                 binding.executePendingBindings()
             }
 
-            override fun getReactiveDataIfExist(): ReactiveData<out SingleItemVO2>? = mData
+            override fun getReactiveDataIfExist(): ReactiveData<SingleItemVO2>? = mData
 
             override fun accept(visitor: IViewHolder.Visitor) {
                 visitor.visit(this)

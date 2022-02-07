@@ -25,10 +25,13 @@ public abstract class TypeVisitor<T> {
         }
 
         boolean hit = targetClz.isAssignableFrom(element.getClass());
-        if (hit)
+
+        if (hit) {
+            // TODO: 2022/2/7 change to :  onHit(targetClz.cast(element));
             onHit((T) element);
-        else
+        } else {
             onMissed();
+        }
     }
     public abstract void onHit(T element);
 

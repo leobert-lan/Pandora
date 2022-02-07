@@ -29,7 +29,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 31
     dataBinding {
         enabled = true
     }
@@ -42,7 +42,7 @@ android {
     defaultConfig {
         applicationId "osp.leobert.android.pandorasample"
         minSdkVersion 19
-        targetSdkVersion 29
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -68,7 +68,9 @@ dependencies {
     implementation "androidx.appcompat:appcompat:1.4.0"
     implementation "androidx.recyclerview:recyclerview:1.2.0"
     implementation "androidx.cardview:cardview:1.0.0"
-    implementation 'osp.leobert.android:davinci:0.0.2-beta'
+    implementation ('io.github.leobert-lan:davinci:0.0.7') {
+        exclude(group:'com.google.guava')
+    }
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 

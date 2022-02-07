@@ -45,9 +45,10 @@ import osp.leobert.android.pandora.PandoraException;
  * supporting 'Multi-Type'</p>
  * Created by leobert on 2018/10/10.
  */
-public abstract class DataSet {
+@SuppressWarnings("unused")
+public abstract class DataSet<T extends DataSet.Data> {
 
-    public static <DATA, VH extends IViewHolder<? super DATA>> void helpSetToViewHolder(D<DATA, VH> data, VH viewHolder) {
+    public static <DATA, VH extends IViewHolder<DATA>> void helpSetToViewHolder(D<DATA, VH> data, VH viewHolder) {
         //make sure it will dispose the binding to old reactive data
         //even though someone will write the logic in osp.leobert.android.pandora.rv.DataSet.D.setToViewHolder
         viewHolder.accept(IReactiveViewHolder.MAKE_SURE_UNBIND_VISITOR);
@@ -65,7 +66,7 @@ public abstract class DataSet {
      *               just declare as Data
      * @param <VH>   the VH type, de-generic with the VO thus you can access the API in VO
      */
-    public interface D<DATA, VH extends IViewHolder<? super DATA>> {
+    public interface D<DATA, VH extends IViewHolder<DATA>> {
         /**
          * invoke this in adapter,  android.support.v7.widget.RecyclerView.Adapter#onBindViewHolder(RecyclerView.ViewHolder, int)
          * <em>it's important to do type check</em>
@@ -100,7 +101,7 @@ public abstract class DataSet {
      * @param position target position to fetch data
      * @return data
      */
-    public abstract DataSet.Data getItem(int position);
+    public abstract T getItem(int position);
 
     private final List<WeakReference<DataObserver>> observersRef = new ArrayList<>();
 

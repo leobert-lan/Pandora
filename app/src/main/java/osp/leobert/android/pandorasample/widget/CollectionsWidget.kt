@@ -84,7 +84,7 @@ class CollectionsVHCreator(private val itemInteract: CollectionsItemInteract?) :
                 binding.executePendingBindings()
             }
 
-            override fun getReactiveDataIfExist(): ReactiveData<out CollectionsVO2>? = mData
+            override fun getReactiveDataIfExist(): ReactiveData<CollectionsVO2>? = mData
 
             override fun accept(visitor: IViewHolder.Visitor) {
                 visitor.visit(this)

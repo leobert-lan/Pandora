@@ -43,7 +43,7 @@ import osp.leobert.android.pandora.RealDataSet;
  * Created by leobert on 2018/10/11.
  */
 @SuppressWarnings("unused")
-public class PandoraRealRvDataSet<T extends DataSet.Data> extends DataSet {
+public class PandoraRealRvDataSet<T extends DataSet.Data> extends DataSet<T> {
     @NonNull
     private final RealDataSet<T> realDataSet;
 
@@ -64,7 +64,7 @@ public class PandoraRealRvDataSet<T extends DataSet.Data> extends DataSet {
     }
 
     @Override
-    public DataSet.Data getItem(int position) {
+    public T getItem(int position) {
         return realDataSet.getDataByIndex(position);
     }
 

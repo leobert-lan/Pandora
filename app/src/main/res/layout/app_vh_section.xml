@@ -14,7 +14,7 @@
 
         <variable
             name="vh"
-            type="androidx.recyclerview.widget.RecyclerView.ViewHolder" />
+            type="osp.leobert.android.pandorasample.dvh.DataBindingViewHolder" />
 
         <import type="osp.leobert.android.davinci.DaVinCiExpression" />
     </data>

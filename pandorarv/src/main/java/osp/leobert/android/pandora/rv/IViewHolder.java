@@ -70,7 +70,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * Created by leobert on 2018/10/10.
  */
 
-public interface IViewHolder<T> {
+public interface IViewHolder<DATA> {
 
     RecyclerView.ViewHolder asViewHolder();
 
@@ -79,7 +79,7 @@ public interface IViewHolder<T> {
      *
      * @param data data set to this ViewHolder
      */
-    void setData(T data);
+    void setData(DATA data);
 
     void onViewAttachedToWindow();
 

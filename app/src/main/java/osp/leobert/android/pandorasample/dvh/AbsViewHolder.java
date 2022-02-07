@@ -17,7 +17,7 @@ import osp.leobert.android.pandora.rv.ReactiveData;
  * <p><b>Description:</b> TODO </p>
  * Created by leobert on 2018/10/16.
  */
-public abstract class AbsViewHolder<T> extends RecyclerView.ViewHolder implements IReactiveViewHolder<T> {
+public abstract class AbsViewHolder<DATA> extends RecyclerView.ViewHolder implements IReactiveViewHolder<DATA> {
     public AbsViewHolder(View itemView) {
         super(itemView);
     }
@@ -47,12 +47,12 @@ public abstract class AbsViewHolder<T> extends RecyclerView.ViewHolder implement
     }
 
     @Override
-    public void onPropertyChanged(Observable sender, T data, int propertyId) {
+    public void onPropertyChanged(Observable sender, DATA data, int propertyId) {
 
     }
 
     @Override
-    public ReactiveData getReactiveDataIfExist() {
+    public ReactiveData<DATA> getReactiveDataIfExist() {
         return null;
     }
 }

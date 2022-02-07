@@ -9,7 +9,7 @@ import osp.leobert.android.pandora.Logger;
  * <p><b>Classname:</b> IReactiveViewHolder </p>
  * Created by leobert on 2019-07-16.
  */
-public interface IReactiveViewHolder<T> extends IViewHolder<T> {
+public interface IReactiveViewHolder<DATA> extends IViewHolder<DATA> {
     Visitor MAKE_SURE_UNBIND_VISITOR = new Visitor() {
         @Override
         public void visit(IReactiveViewHolder holder) {
@@ -37,6 +37,6 @@ public interface IReactiveViewHolder<T> extends IViewHolder<T> {
 
     ReactiveData getReactiveDataIfExist();
 
-    void onPropertyChanged(Observable sender, T data, int propertyId);
+    void onPropertyChanged(Observable sender, DATA data, int propertyId);
 
 }

@@ -45,7 +45,7 @@ import osp.leobert.android.pandora.WrapperDataSet;
  * Created by leobert on 2018/10/11.
  */
 @SuppressWarnings("unused")
-public class PandoraWrapperRvDataSet<T extends DataSet.Data> extends DataSet {
+public class PandoraWrapperRvDataSet<T extends DataSet.Data> extends DataSet<T> {
     @NonNull
     private final WrapperDataSet<T> wrapperDataSet;
 
@@ -66,7 +66,7 @@ public class PandoraWrapperRvDataSet<T extends DataSet.Data> extends DataSet {
     }
 
     @Override
-    public Data getItem(int position) {
+    public T getItem(int position) {
         return wrapperDataSet.getDataByIndex(position);
     }
 
