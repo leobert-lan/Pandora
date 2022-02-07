@@ -44,7 +44,8 @@ import osp.leobert.android.pandora.WrapperDataSet;
  * <p><b>Description:</b> a data set can support 'Multi-Type' and 'Pandora Wrapper Box' </p>
  * Created by leobert on 2018/10/11.
  */
-public class PandoraWrapperRvDataSet<T extends DataSet.D> extends DataSet {
+@SuppressWarnings("unused")
+public class PandoraWrapperRvDataSet<T extends DataSet.Data> extends DataSet {
     @NonNull
     private final WrapperDataSet<T> wrapperDataSet;
 
@@ -65,7 +66,7 @@ public class PandoraWrapperRvDataSet<T extends DataSet.D> extends DataSet {
     }
 
     @Override
-    public D getItem(int position) {
+    public Data getItem(int position) {
         return wrapperDataSet.getDataByIndex(position);
     }
 

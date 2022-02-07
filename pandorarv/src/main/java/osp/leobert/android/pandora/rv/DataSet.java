@@ -47,8 +47,7 @@ import osp.leobert.android.pandora.PandoraException;
  */
 public abstract class DataSet {
 
-    public static <DATA, VH extends IViewHolder<? super DATA>>
-    void helpSetToViewHolder(D<DATA, VH> data, VH viewHolder) {
+    public static <DATA, VH extends IViewHolder<? super DATA>> void helpSetToViewHolder(D<DATA, VH> data, VH viewHolder) {
         //make sure it will dispose the binding to old reactive data
         //even though someone will write the logic in osp.leobert.android.pandora.rv.DataSet.D.setToViewHolder
         viewHolder.accept(IReactiveViewHolder.MAKE_SURE_UNBIND_VISITOR);
@@ -77,22 +76,6 @@ public abstract class DataSet {
         void setToViewHolder(VH viewHolder);
     }
 
-//    /**
-//     * Because we don't supply a Super Class of data, and we used sth like ? extends D {@linkplain D}
-//     * in the library, thus we must have something used when de-generic in the "Multi-Type" case
-//     * use in the generic
-//     *
-//     * @param <DA> if this VO (View Object) is only use in 'single-type', you can declare the VO type. Otherwise,
-//     *             just declare as Data
-//     * @param <V>  the VH type, de-generic with the VO thus you can access the API in VO
-//     *
-//     * @deprecated use {@link Data2} instead
-//     */
-//    @Deprecated
-//    public interface Data<DA extends D, V extends IViewHolder<? super DA>> extends D<DA, V> {
-//
-//    }
-
     /**
      * Because we don't supply a Super Class of data, and we used sth like ? extends D {@linkplain D}
      * in the library, thus we must have something used when de-generic in the "Multi-Type" case
@@ -117,7 +100,7 @@ public abstract class DataSet {
      * @param position target position to fetch data
      * @return data
      */
-    public abstract D getItem(int position);
+    public abstract DataSet.Data getItem(int position);
 
     private final List<WeakReference<DataObserver>> observersRef = new ArrayList<>();
 

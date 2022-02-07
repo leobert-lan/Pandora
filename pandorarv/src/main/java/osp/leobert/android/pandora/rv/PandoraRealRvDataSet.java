@@ -42,7 +42,8 @@ import osp.leobert.android.pandora.RealDataSet;
  * <p><b>Description:</b> a data set can support 'Multi-Type' and 'Pandora Real Box' </p>
  * Created by leobert on 2018/10/11.
  */
-public class PandoraRealRvDataSet<T extends DataSet.D> extends DataSet {
+@SuppressWarnings("unused")
+public class PandoraRealRvDataSet<T extends DataSet.Data> extends DataSet {
     @NonNull
     private final RealDataSet<T> realDataSet;
 
@@ -63,7 +64,7 @@ public class PandoraRealRvDataSet<T extends DataSet.D> extends DataSet {
     }
 
     @Override
-    public D getItem(int position) {
+    public DataSet.Data getItem(int position) {
         return realDataSet.getDataByIndex(position);
     }
 
