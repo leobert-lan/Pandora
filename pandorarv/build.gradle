@@ -24,6 +24,7 @@
  */
 
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 apply plugin: 'osp.leobert.maven.publish'
 
 def RELEASE_NOTE =
@@ -72,6 +73,12 @@ dependencies {
 //    compileOnly project(":pandora")
     compileOnly 'io.github.leobert-lan:pandora:0.0.8'
 
+    KDeps.INSTANCE.applyTest(project)
+    androidTestImplementation KDeps.INSTANCE.kotlin.stdlib_jdk7
+    androidTestImplementation "androidx.core:core-ktx:1.6.0"
+    androidTestImplementation project(":pandora")
+
+
 }
 
 tasks.withType(JavaCompile) {
@@ -104,5 +111,8 @@ EasyPublish {
     licenseUrl = 'https://github.com/leobert-lan/Pandora/blob/2b2f7dfe709f49ada3def69e2d68046eae65b7d5/LICENSE'
 
     mavenRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+}
+repositories {
+    mavenCentral()
 }
 

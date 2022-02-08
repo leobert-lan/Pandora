@@ -27,15 +27,16 @@ apply plugin: 'com.android.library'
 apply plugin: 'osp.leobert.maven.publish'
 
 def RELEASE_NOTE =
-        "v0.0.8:" +
-                "一些辅助方法"
+        "v0.0.9:" +
+                "依赖版本升级，访问者模式优化"
+//todo 发版
 
 
 //def MAVEN_LOCAL_PATH = uri('../../local_repo')
 
 android {
     compileSdkVersion KDeps.INSTANCE.config.compileSdkVersion
-    buildToolsVersion "28.0.3"
+    buildToolsVersion KDeps.INSTANCE.config.androidTools
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

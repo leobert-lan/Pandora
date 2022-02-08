@@ -24,3 +24,4 @@
  */
 
 include ':app', ':pandora', ':pandorarv', ':pandorarv_kt'
+include ':test:test008'

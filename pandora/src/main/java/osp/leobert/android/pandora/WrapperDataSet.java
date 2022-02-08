@@ -48,6 +48,7 @@ import osp.leobert.android.pandora.visitor.TypeVisitor;
  * <p><b>Description:</b> a wrapper contains any PandoraBoxAdapter </p>
  * Created by leobert on 2018/9/29.
  */
+@SuppressWarnings("unused")
 public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
     private void log(@Logger.Level int p, String msg) {
         Logger.println(p, "WrapperDataSet", msg);
@@ -622,14 +623,5 @@ public class WrapperDataSet<T> extends PandoraBoxAdapter<T> {
         List<T> dump = new ArrayList<>();
         dump(dump);
         return dump.iterator();
-    }
-
-    public <T> T accept(int pos, @NonNull TypeVisitor<T> typeVisitor) {
-        if (pos < 0 || pos >= getDataCount()) {
-            typeVisitor.onMissed();
-            return null;
-        }
-
-        return typeVisitor.visit(getDataByIndex(pos));
     }
 }

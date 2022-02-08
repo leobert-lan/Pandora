@@ -18,7 +18,6 @@ public class TypeVisitor<T> {
     @NonNull
     private final Class<T> targetClz;
 
-//    @SuppressWarnings("unchecked")
     @Nullable
     public final T visit(Object element) {
         if (element == null) {
@@ -29,8 +28,6 @@ public class TypeVisitor<T> {
         boolean hit = targetClz.isAssignableFrom(element.getClass());
 
         if (hit) {
-            // TODO: 2022/2/7 change to :  onHit(targetClz.cast(element));
-            //(T) element;
             T ret = targetClz.cast(element);
             onHit(ret);
             return ret;

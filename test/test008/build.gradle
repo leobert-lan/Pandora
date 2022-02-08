@@ -1,0 +1,56 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+
+android {
+    compileSdkVersion 31
+
+    defaultConfig {
+        applicationId "osp.leobert.android.test008"
+        minSdkVersion 24
+        targetSdkVersion 31
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+def testBug = false
+
+
+dependencies {
+
+    if(testBug){
+        implementation 'io.github.leobert-lan:pandora:0.0.8'
+        implementation 'io.github.leobert-lan:pandorarv:0.1.1'
+        implementation 'io.github.leobert-lan:pandorarv_kt:0.0.4'
+    } else {
+        implementation project(":pandora")
+        implementation project(":pandorarv")
+        implementation project(':pandorarv_kt')
+    }
+
+
+    implementation KDeps.INSTANCE.androidX.appcompat
+    implementation KDeps.INSTANCE.androidX.recyclerView
+    implementation KDeps.INSTANCE.androidX.cardView
+    implementation KDeps.INSTANCE.kotlin.stdlib_jdk7
+
+    KDeps.INSTANCE.applyTest(project)
+}

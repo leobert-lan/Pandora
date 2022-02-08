@@ -66,6 +66,7 @@ public class PandoraWrapperRvDataSet<T extends DataSet.Data> extends DataSet<T> 
     }
 
     @Override
+    @Nullable
     public T getItem(int position) {
         return wrapperDataSet.getDataByIndex(position);
     }
@@ -102,7 +103,11 @@ public class PandoraWrapperRvDataSet<T extends DataSet.Data> extends DataSet<T> 
         wrapperDataSet.removeChild(sub);
     }
 
+    /**
+     * @deprecated use {@link #getItem(int)} instead
+     */
     @Nullable
+    @Deprecated
     public T getDataByIndex(int index) {
         return wrapperDataSet.getDataByIndex(index);
     }

@@ -32,6 +32,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.ListUpdateCallback;
 
+import osp.leobert.android.pandora.visitor.TypeVisitor;
+
 /**
  * <p><b>Package:</b> osp.leobert.android.pandora </p>
  * <p><b>Project:</b> Pandora </p>
@@ -158,6 +160,15 @@ public abstract class PandoraBoxAdapter<T> implements Node<PandoraBoxAdapter<T>>
                 Logger.e(Logger.TAG, "exception when runForeach", e);
             }
         }
+    }
+
+    public <T2> T2 accept(int pos, @NonNull TypeVisitor<T2> typeVisitor) {
+        if (pos < 0 || pos >= getDataCount()) {
+            typeVisitor.onMissed();
+            return null;
+        }
+
+        return typeVisitor.visit(getDataByIndex(pos));
     }
 
     abstract protected void restore();

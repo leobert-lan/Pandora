@@ -364,13 +364,4 @@ public class RealDataSet<T> extends PandoraBoxAdapter<T> {
     public Iterator<T> iterator() {
         return data.iterator();
     }
-
-    public <T> T accept(int pos, @NonNull TypeVisitor<T> typeVisitor) {
-        if (pos < 0 || pos >= getDataCount()) {
-            typeVisitor.onMissed();
-            return null;
-        }
-
-        return typeVisitor.visit(getDataByIndex(pos));
-    }
 }

@@ -90,6 +90,10 @@ public class PandoraRealRvDataSet<T extends DataSet.Data> extends DataSet<T> {
         return realDataSet.retrieveAdapterByDataIndex2(index);
     }
 
+    /**
+     * @deprecated use {@link #getItem(int)} instead
+     */
+    @Deprecated
     public T getDataByIndex(int index) {
         return realDataSet.getDataByIndex(index);
     }

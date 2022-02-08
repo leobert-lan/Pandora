@@ -66,7 +66,7 @@ public abstract class DataSet<T extends DataSet.Data> {
      *               just declare as Data
      * @param <VH>   the VH type, de-generic with the VO thus you can access the API in VO
      */
-    public interface D<DATA, VH extends IViewHolder<DATA>> {
+    /*public*/ interface D<DATA, VH extends IViewHolder<DATA>> {
         /**
          * invoke this in adapter,  android.support.v7.widget.RecyclerView.Adapter#onBindViewHolder(RecyclerView.ViewHolder, int)
          * <em>it's important to do type check</em>

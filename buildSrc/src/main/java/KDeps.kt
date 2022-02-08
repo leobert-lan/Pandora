@@ -16,8 +16,8 @@ object KDeps {
 
     class Config {
         val minSdkVersion = 19
-        val targetSdkVersion = 31
-        val compileSdkVersion = 31
+        val targetSdkVersion = 30
+        val compileSdkVersion = 30
         val androidTools = "30.0.2"
     }
 
