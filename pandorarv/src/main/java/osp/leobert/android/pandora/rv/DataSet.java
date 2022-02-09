@@ -111,7 +111,7 @@ public abstract class DataSet<T extends DataSet.Data> {
 
     public int getItemViewTypeV2(int pos) throws PandoraException { //getItemViewType
         String key = getItem(pos).getClass().getName();
-        D data = getItem(pos);
+        T data = getItem(pos);
         try {
             return dataVhMappingPool.getItemViewTypeV2(key, data);
         } catch (Exception e) {
@@ -133,20 +133,24 @@ public abstract class DataSet<T extends DataSet.Data> {
         return dataVhMappingPool.getViewTypeCount();
     }
 
-    public synchronized void registerDVRelation(@NonNull Class<?> dataClz, @NonNull ViewHolderCreator viewHolderCreator) {
+    public synchronized DataSet<T> registerDVRelation(@NonNull Class<?> dataClz, @NonNull ViewHolderCreator viewHolderCreator) {
         dataVhMappingPool.registerDVRelation(dataClz, viewHolderCreator);
+        return this;
     }
 
+    @Deprecated
     public synchronized void registerDvRelation(DataVhMappingPool.DVRelation... dvRelations) {
         dataVhMappingPool.registerDvRelation(dvRelations);
     }
 
-    public synchronized void registerDVRelation(DataVhMappingPool.DVRelation<?> dvRelation) {
-        dataVhMappingPool.registerDvRelation(dvRelation);
+    public synchronized DataSet<T> registerDVRelation(DataVhMappingPool.DVRelation<?> dvRelation) {
+        dataVhMappingPool.registerDVRelation(dvRelation);
+        return this;
     }
 
-    public synchronized void removeDVRelation(@NonNull Class<?> dataClz) {
+    public synchronized DataSet<T> removeDVRelation(@NonNull Class<?> dataClz) {
         dataVhMappingPool.removeDVRelation(dataClz);
+        return this;
     }
 
     ///////////////////////////////////////////////////////////////////////////

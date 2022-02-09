@@ -41,7 +41,8 @@ import osp.leobert.android.pandora.Logger;
  * <p><b>Description:</b> a pool to restore and fetch the relationship between VO and VH </p>
  * Created by leobert on 2018/10/10.
  */
-@SuppressWarnings({"unchecked", "cast", "rawtype", "unused"})
+//@SuppressWarnings({"unchecked", "cast", "rawtype", "unused"})
+@SuppressWarnings("unused")
 public class DataVhMappingPool {
     private final SparseArray<TypeCell> viewTypeCache = new SparseArray<>();
     private int maxSize = 5;
@@ -76,6 +77,7 @@ public class DataVhMappingPool {
         this.registerDVRelation(new DataVhRelation<>(dataClz, viewHolderCreator));
     }
 
+    @Deprecated
     public synchronized void registerDvRelation(DVRelation... dvRelations) {
         for (DVRelation dvRelation : dvRelations)
             registerDVRelation(dvRelation);
@@ -195,6 +197,7 @@ public class DataVhMappingPool {
         }
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "DataVhMappingPool{" +
@@ -246,6 +249,7 @@ public class DataVhMappingPool {
             return vhCreator;
         }
 
+        @NonNull
         @Override
         public String toString() {
             return "DataVhRelation{" +
