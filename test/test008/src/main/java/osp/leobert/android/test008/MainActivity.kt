@@ -8,7 +8,7 @@ import osp.leobert.android.pandora.rv.PandoraRealRvDataSet
 
 class MainActivity : AppCompatActivity() {
 
-    val dataSet:DataSet<DataSet.Data> = PandoraRealRvDataSet<DataSet.Data>(Pandora.real())
+    val dataSet:DataSet<DataSet.Data> = PandoraRealRvDataSet(Pandora.real())
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataSet.getItem(0)
