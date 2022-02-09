@@ -60,7 +60,7 @@ dependencies {
     implementation KDeps.INSTANCE.androidX.recyclerView
 
 //    compileOnly project(":pandora")
-    compileOnly 'io.github.leobert-lan:pandora:0.0.8'
+    compileOnly KDeps.INSTANCE.pandora.core
     implementation KDeps.INSTANCE.kotlin.stdlib_jdk7
 
 }

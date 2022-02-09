@@ -28,8 +28,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'osp.leobert.maven.publish'
 
 def RELEASE_NOTE =
-        "v0.1.1:" +
-                "1. 移除不必要的泛型约束"
+        "v0.1.2-alpha:" +
+                "1. 增加必要泛型约束，增加易用API"
 
 
 //def MAVEN_LOCAL_PATH = uri('../../local_repo')
@@ -70,13 +70,14 @@ dependencies {
     implementation KDeps.INSTANCE.androidX.annotation
     implementation KDeps.INSTANCE.androidX.recyclerView
 
-    compileOnly project(":pandora")
-//    compileOnly 'io.github.leobert-lan:pandora:0.0.8'
+//    compileOnly project(":pandora")
+    compileOnly KDeps.INSTANCE.pandora.core
 
     KDeps.INSTANCE.applyTest(project)
     androidTestImplementation KDeps.INSTANCE.kotlin.stdlib_jdk7
     androidTestImplementation "androidx.core:core-ktx:1.6.0"
-    androidTestImplementation project(":pandora")
+//    androidTestImplementation project(":pandora")
+    androidTestImplementation KDeps.INSTANCE.pandora.core
 
 
 }
@@ -103,7 +104,7 @@ EasyPublish {
 
     groupId = "io.github.leobert-lan"
     artifactId = "pandorarv"
-    version = "0.1.1"
+    version = "0.1.2-alpha"
     packaging = "aar"
     siteUrl = "https://github.com/leobert-lan/Panora"
     gitUrl = "https://github.com/leobert-lan/Panora.git"

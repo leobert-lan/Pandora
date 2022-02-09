@@ -82,7 +82,7 @@ EasyPublish {
 
     groupId = "io.github.leobert-lan"
     artifactId = "pandora"
-    version = "0.0.8"
+    version = "0.0.9"
     packaging = "aar"
     siteUrl = "https://github.com/leobert-lan/Panora"
     gitUrl = "https://github.com/leobert-lan/Panora.git"

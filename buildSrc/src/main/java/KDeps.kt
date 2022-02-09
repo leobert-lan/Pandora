@@ -41,7 +41,9 @@ object KDeps {
 
         val CardView = "androidx.cardview:cardview:1.0.0"
         val RecyclerView = "androidx.recyclerview:recyclerview:1.2.0"
-        val Appcompat = "androidx.appcompat:appcompat:1.4.0"
+        val Appcompat = "androidx.appcompat:appcompat:1.3.1"
+
+        //                "androidx.appcompat:appcompat:1.4.0"
         val Annotation = "androidx.annotation:annotation:1.3.0"
 
         fun applyTest(project: Project) {
@@ -54,8 +56,13 @@ object KDeps {
         companion object {
             val junit = "junit:junit:4.13.2"
         }
-
     }
+
+    class Pandora {
+        val core = "io.github.leobert-lan:pandora:0.0.9"
+    }
+
+    val pandora :Pandora = Pandora()
 
     val androidX: AndroidX = AndroidX()
 
