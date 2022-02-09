@@ -36,6 +36,7 @@ import java.util.Collection;
 import osp.leobert.android.pandora.PandoraBoxAdapter;
 import osp.leobert.android.pandora.PandoraException;
 import osp.leobert.android.pandora.WrapperDataSet;
+import osp.leobert.android.pandora.visitor.TypeVisitor;
 
 /**
  * <p><b>Package:</b> osp.leobert.android.pandorarv </p>
@@ -69,6 +70,12 @@ public class PandoraWrapperRvDataSet<T extends DataSet.Data> extends DataSet<T> 
     @Nullable
     public T getItem(int position) {
         return wrapperDataSet.getDataByIndex(position);
+    }
+
+    @Nullable
+    @Override
+    public <T2> T2 accept(int pos, @NonNull TypeVisitor<T2> typeVisitor) {
+        return wrapperDataSet.accept(pos,typeVisitor);
     }
 
     public int getStartIndex() {

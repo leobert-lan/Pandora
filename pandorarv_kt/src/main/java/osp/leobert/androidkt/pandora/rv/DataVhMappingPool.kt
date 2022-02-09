@@ -14,7 +14,7 @@ import osp.leobert.android.pandora.PandoraException
  */
 
 class DataVhMappingPool {
-    internal val viewTypeCache = SparseArray<TypeCell<DataSet.Data>>()
+    private val viewTypeCache = SparseArray<TypeCell<DataSet.Data>>()
     private var maxSize = 5
 
     private var internalErrorTypeCell: TypeCell<*>? = null
@@ -177,7 +177,7 @@ class DataVhMappingPool {
         }
     }
 
-    private class DataVhRelation<T> internal constructor(override val dataClz: Class<T>, private val vhCreator: ViewHolderCreator) : DVRelation<T> {
+    private class DataVhRelation<T>(override val dataClz: Class<T>, private val vhCreator: ViewHolderCreator) : DVRelation<T> {
 
         override fun one2N(): Int {
             return 1

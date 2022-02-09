@@ -45,9 +45,10 @@ public abstract class ViewHolderCreator {
     public abstract IViewHolder createViewHolder(ViewGroup parent);
 
     /**
-     * just lazy. But in much real cases, we don't need it.
+     * just lazy. But in many real cases, we don't need it.
      * @param <T> ViewHolder Type to be created,the 'View' itemView should be the first params in the constructor
      */
+    @Deprecated
     public static class LazyCreator<T extends IViewHolder> extends ViewHolderCreator {
         @LayoutRes
         private final int layoutRes;

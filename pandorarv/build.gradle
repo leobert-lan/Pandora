@@ -70,8 +70,8 @@ dependencies {
     implementation KDeps.INSTANCE.androidX.annotation
     implementation KDeps.INSTANCE.androidX.recyclerView
 
-//    compileOnly project(":pandora")
-    compileOnly 'io.github.leobert-lan:pandora:0.0.8'
+    compileOnly project(":pandora")
+//    compileOnly 'io.github.leobert-lan:pandora:0.0.8'
 
     KDeps.INSTANCE.applyTest(project)
     androidTestImplementation KDeps.INSTANCE.kotlin.stdlib_jdk7

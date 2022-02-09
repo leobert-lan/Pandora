@@ -38,7 +38,7 @@ import java.util.List;
  * <p><b>Description:</b> model for a type of item used in RecyclerView </p>
  * Created by leobert on 2018/10/10.
  */
-/*public*/ final class TypeCell<T> {
+final class TypeCell<T> {
 
     static <T> TypeCell<T> of(int index, TypeCell<T> from) {
         return new TypeCell<>(index, from.dvRelation);

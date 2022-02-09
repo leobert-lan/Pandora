@@ -25,10 +25,11 @@
 
 package osp.leobert.android.pandora.rv;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ import java.util.List;
 
 import osp.leobert.android.pandora.Logger;
 import osp.leobert.android.pandora.PandoraException;
+import osp.leobert.android.pandora.visitor.TypeVisitor;
 
 /**
  * <p><b>Package:</b> osp.leobert.android.pandorarv </p>
@@ -336,4 +338,13 @@ public abstract class DataSet<T extends DataSet.Data> {
             }
         }
     }
+
+    /**
+     * @param pos         position of target
+     * @param typeVisitor see {@link TypeVisitor}
+     * @param <T2>        guess type
+     * @return null if miss type, type-casted item otherwise, you can use it or wrap logic in {@link TypeVisitor#onHit(Object)}
+     */
+    @Nullable
+    public abstract <T2> T2 accept(int pos, @NonNull TypeVisitor<T2> typeVisitor);
 }
