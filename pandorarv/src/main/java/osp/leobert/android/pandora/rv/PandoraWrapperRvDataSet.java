@@ -40,15 +40,9 @@ import osp.leobert.android.pandora.WrapperDataSet;
  */
 @SuppressWarnings("unused")
 public class PandoraWrapperRvDataSet<T extends DataSet.Data> extends PandoraDataSet<T,WrapperDataSet<T>> {
-//    @NonNull
-//    @Deprecated
-//    private final WrapperDataSet<T> wrapperDataSet;
 
     public PandoraWrapperRvDataSet(@NonNull WrapperDataSet<T> wrapperDataSet) {
         super(wrapperDataSet);
-//        if (wrapperDataSet == null)
-//            throw new IllegalArgumentException("wrapperDataSet cannot be null");
-//        this.wrapperDataSet = wrapperDataSet;
     }
 
     @NonNull
@@ -81,107 +75,4 @@ public class PandoraWrapperRvDataSet<T extends DataSet.Data> extends PandoraData
         dataSet.clearAllChildren();
     }
 
-    //    @Override
-//    public int getCount() {
-//        return dataSet.getDataCount();
-//    }
-//
-//    /**
-//     * @param position target position to fetch data
-//     * @return data，null if out of range
-//     */
-//    @Override
-//    @Nullable
-//    public T getItem(int position) {
-//        return dataSet.getDataByIndex(position);
-//    }
-//
-//    @Nullable
-//    @Override
-//    public <T2> T2 accept(int pos, @NonNull TypeVisitor<T2> typeVisitor) {
-//        return dataSet.accept(pos,typeVisitor);
-//    }
-//
-//    public int getStartIndex() {
-//        return dataSet.getStartIndex();
-//    }
-//
-//    public int getGroupIndex() {
-//        return dataSet.getGroupIndex();
-//    }
-//
-//    public boolean hasBind2Parent() {
-//        return dataSet.hasBind2Parent();
-//    }
-//
-//    public void removeFromOriginalParent() {
-//        dataSet.removeFromOriginalParent();
-//    }
-//
-//    /**
-//     * also see {@link #getItem(int)}
-//     */
-//    @Nullable
-//    public T getDataByIndex(int index) {
-//        return dataSet.getDataByIndex(index);
-//    }
-//
-//    public void clearAllData() {
-//        dataSet.clearAllData();
-//    }
-//
-//    public void add(T item) {
-//        dataSet.add(item);
-//    }
-//
-//    public void add(int pos, T item) {
-//        dataSet.add(pos, item);
-//    }
-//
-//    public void addAll(Collection<T> collection) {
-//        dataSet.addAll(collection);
-//    }
-//
-//    public void remove(Object item) {
-//        dataSet.remove(item);
-//    }
-//
-//    public void removeAtPos(int position) {
-//        dataSet.removeAtPos(position);
-//    }
-//
-//    public void startTransaction() {
-//        dataSet.startTransaction();
-//    }
-//
-//    public void endTransaction() {
-//        dataSet.endTransaction();
-//    }
-//
-//    public void endTransactionSilently() {
-//        dataSet.endTransactionSilently();
-//    }
-//
-//    @CheckResult
-//    @Nullable
-//    public PandoraBoxAdapter<T> retrieveAdapterByDataIndex(int index) {
-//        return dataSet.retrieveAdapterByDataIndex(index);
-//    }
-//
-//    @Nullable
-//    public Pair<PandoraBoxAdapter<T>, Integer> retrieveAdapterByDataIndex2(int index) {
-//        return dataSet.retrieveAdapterByDataIndex2(index);
-//    }
-//
-//    public String getAlias() {
-//        return dataSet.getAlias();
-//    }
-//
-//    public void setAlias(String alias) {
-//        try {
-//            dataSet.setAlias(alias);
-//        } catch (PandoraException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }

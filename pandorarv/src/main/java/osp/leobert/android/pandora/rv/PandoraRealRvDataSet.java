@@ -38,15 +38,9 @@ import osp.leobert.android.pandora.RealDataSet;
  */
 @SuppressWarnings("unused")
 public class PandoraRealRvDataSet<T extends DataSet.Data> extends PandoraDataSet<T,RealDataSet<T>> {
-//    @NonNull
-//    @Deprecated
-//    private final RealDataSet<T> realDataSet;
 
     public PandoraRealRvDataSet(@NonNull RealDataSet<T> realDataSet) {
         super(realDataSet);
-//        if (realDataSet == null)
-//            throw new IllegalArgumentException("realDataSet cannot be null");
-//        this.realDataSet = realDataSet;
     }
 
     /**
@@ -55,7 +49,6 @@ public class PandoraRealRvDataSet<T extends DataSet.Data> extends PandoraDataSet
     @NonNull
     @Deprecated
     public RealDataSet<T> getRealDataSet() {
-//        return realDataSet;
         return getDataSet();
     }
 
@@ -63,110 +56,4 @@ public class PandoraRealRvDataSet<T extends DataSet.Data> extends PandoraDataSet
         dataSet.setGroupIndex(groupIndex);
     }
 
-    //    @Override
-//    public int getCount() {
-//        return realDataSet.getDataCount();
-//    }
-//
-//
-//    /**
-//     * @param position target position to fetch data
-//     * @return data，null if out of range
-//     */
-//    @Override
-//    @Nullable
-//    public T getItem(int position) {
-//        return realDataSet.getDataByIndex(position);
-//    }
-//
-//    @Nullable
-//    @Override
-//    public <T2> T2 accept(int pos, @NonNull TypeVisitor<T2> typeVisitor) {
-//        return realDataSet.accept(pos, typeVisitor);
-//    }
-//
-//    public void startTransaction() {
-//        realDataSet.startTransaction();
-//    }
-//
-//    public void endTransaction() {
-//        realDataSet.endTransaction();
-//    }
-//
-//    public void endTransactionSilently() {
-//        realDataSet.endTransactionSilently();
-//    }
-//
-//    @Nullable
-//    public PandoraBoxAdapter<T> retrieveAdapterByDataIndex(int index) {
-//        return realDataSet.retrieveAdapterByDataIndex(index);
-//    }
-//
-//    @Nullable
-//    public Pair<PandoraBoxAdapter<T>, Integer> retrieveAdapterByDataIndex2(int index) {
-//        return realDataSet.retrieveAdapterByDataIndex2(index);
-//    }
-//
-//    /**
-//     * use {@link #getItem(int)} instead
-//     */
-//    public T getDataByIndex(int index) {
-//        return realDataSet.getDataByIndex(index);
-//    }
-//
-//    public void clearAllData() {
-//        realDataSet.clearAllData();
-//    }
-//
-//    public void add(T item) {
-//        realDataSet.add(item);
-//    }
-//
-//    public void add(int pos, T item) {
-//        realDataSet.add(pos, item);
-//    }
-//
-//    public void addAll(Collection<T> collection) {
-//        realDataSet.addAll(collection);
-//    }
-//
-//    public void remove(Object item) {
-//        realDataSet.remove(item);
-//    }
-//
-//    public void removeAtPos(int position) {
-//        realDataSet.removeAtPos(position);
-//    }
-//
-//    public void setData(Collection<T> collection) {
-//        realDataSet.setData(collection);
-//    }
-//
-//    public boolean hasBind2Parent() {
-//        return realDataSet.hasBind2Parent();
-//    }
-//
-//    public void removeFromOriginalParent() {
-//        realDataSet.removeFromOriginalParent();
-//    }
-//
-//    public void removeSub(PandoraBoxAdapter<T> sub) {
-//        realDataSet.removeChild(sub);
-//    }
-//
-//    public int getStartIndex() {
-//        return realDataSet.getStartIndex();
-//    }
-//
-//    public String getAlias() {
-//        return realDataSet.getAlias();
-//    }
-//
-//    public void setAlias(String alias) {
-//        try {
-//            realDataSet.setAlias(alias);
-//        } catch (PandoraException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }
