@@ -25,18 +25,11 @@
 
 package osp.leobert.android.pandora.rv;
 
-import androidx.annotation.CheckResult;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import android.util.Pair;
-
-import java.util.Collection;
-
 import osp.leobert.android.pandora.PandoraBoxAdapter;
-import osp.leobert.android.pandora.PandoraException;
 import osp.leobert.android.pandora.WrapperDataSet;
-import osp.leobert.android.pandora.visitor.TypeVisitor;
 
 /**
  * <p><b>Package:</b> osp.leobert.android.pandorarv </p>
@@ -46,144 +39,149 @@ import osp.leobert.android.pandora.visitor.TypeVisitor;
  * Created by leobert on 2018/10/11.
  */
 @SuppressWarnings("unused")
-public class PandoraWrapperRvDataSet<T extends DataSet.Data> extends DataSet<T> {
-    @NonNull
-    private final WrapperDataSet<T> wrapperDataSet;
+public class PandoraWrapperRvDataSet<T extends DataSet.Data> extends PandoraDataSet<T,WrapperDataSet<T>> {
+//    @NonNull
+//    @Deprecated
+//    private final WrapperDataSet<T> wrapperDataSet;
 
     public PandoraWrapperRvDataSet(@NonNull WrapperDataSet<T> wrapperDataSet) {
-        if (wrapperDataSet == null)
-            throw new IllegalArgumentException("wrapperDataSet cannot be null");
-        this.wrapperDataSet = wrapperDataSet;
+        super(wrapperDataSet);
+//        if (wrapperDataSet == null)
+//            throw new IllegalArgumentException("wrapperDataSet cannot be null");
+//        this.wrapperDataSet = wrapperDataSet;
     }
 
     @NonNull
     public WrapperDataSet<T> getDataSet() {
-        return wrapperDataSet;
-    }
-
-    @Override
-    public int getCount() {
-        return wrapperDataSet.getDataCount();
-    }
-
-    @Override
-    @Nullable
-    public T getItem(int position) {
-        return wrapperDataSet.getDataByIndex(position);
-    }
-
-    @Nullable
-    @Override
-    public <T2> T2 accept(int pos, @NonNull TypeVisitor<T2> typeVisitor) {
-        return wrapperDataSet.accept(pos,typeVisitor);
-    }
-
-    public int getStartIndex() {
-        return wrapperDataSet.getStartIndex();
-    }
-
-    public int getGroupIndex() {
-        return wrapperDataSet.getGroupIndex();
+        return dataSet;
     }
 
     public void setGroupIndex(int groupIndex) {
-        wrapperDataSet.setGroupIndex(groupIndex);
+        dataSet.setGroupIndex(groupIndex);
     }
 
     public void addSub(PandoraBoxAdapter<T> sub) {
-        wrapperDataSet.addChild(sub);
+        dataSet.addChild(sub);
     }
 
     public void merge(DataVhMappingPool pool) {
         dataVhMappingPool.merge(pool);
     }
 
-    public boolean hasBind2Parent() {
-        return wrapperDataSet.hasBind2Parent();
-    }
-
-    public void removeFromOriginalParent() {
-        wrapperDataSet.removeFromOriginalParent();
-    }
-
     public void removeSub(PandoraBoxAdapter<T> sub) {
-        wrapperDataSet.removeChild(sub);
-    }
-
-    /**
-     * @deprecated use {@link #getItem(int)} instead
-     */
-    @Nullable
-    @Deprecated
-    public T getDataByIndex(int index) {
-        return wrapperDataSet.getDataByIndex(index);
-    }
-
-    public void clearAllData() {
-        wrapperDataSet.clearAllData();
-    }
-
-    public void add(T item) {
-        wrapperDataSet.add(item);
-    }
-
-    public void add(int pos, T item) {
-        wrapperDataSet.add(pos, item);
-    }
-
-    public void addAll(Collection<T> collection) {
-        wrapperDataSet.addAll(collection);
-    }
-
-    public void remove(Object item) {
-        wrapperDataSet.remove(item);
-    }
-
-    public void removeAtPos(int position) {
-        wrapperDataSet.removeAtPos(position);
-    }
-
-    public void startTransaction() {
-        wrapperDataSet.startTransaction();
-    }
-
-    public void endTransaction() {
-        wrapperDataSet.endTransaction();
-    }
-
-    public void endTransactionSilently() {
-        wrapperDataSet.endTransactionSilently();
-    }
-
-    @CheckResult
-    @Nullable
-    public PandoraBoxAdapter<T> retrieveAdapterByDataIndex(int index) {
-        return wrapperDataSet.retrieveAdapterByDataIndex(index);
-    }
-
-    @Nullable
-    public Pair<PandoraBoxAdapter<T>, Integer> retrieveAdapterByDataIndex2(int index) {
-        return wrapperDataSet.retrieveAdapterByDataIndex2(index);
-    }
-
-    public String getAlias() {
-        return wrapperDataSet.getAlias();
-    }
-
-    public void setAlias(String alias) {
-        try {
-            wrapperDataSet.setAlias(alias);
-        } catch (PandoraException e) {
-            e.printStackTrace();
-        }
+        dataSet.removeChild(sub);
     }
 
     @Nullable
     public PandoraBoxAdapter<T> getChild(int index) {
-        return wrapperDataSet.getChild(index);
+        return dataSet.getChild(index);
     }
 
     public void clearAllChildren() {
-        wrapperDataSet.clearAllChildren();
+        dataSet.clearAllChildren();
     }
+
+    //    @Override
+//    public int getCount() {
+//        return dataSet.getDataCount();
+//    }
+//
+//    /**
+//     * @param position target position to fetch data
+//     * @return data，null if out of range
+//     */
+//    @Override
+//    @Nullable
+//    public T getItem(int position) {
+//        return dataSet.getDataByIndex(position);
+//    }
+//
+//    @Nullable
+//    @Override
+//    public <T2> T2 accept(int pos, @NonNull TypeVisitor<T2> typeVisitor) {
+//        return dataSet.accept(pos,typeVisitor);
+//    }
+//
+//    public int getStartIndex() {
+//        return dataSet.getStartIndex();
+//    }
+//
+//    public int getGroupIndex() {
+//        return dataSet.getGroupIndex();
+//    }
+//
+//    public boolean hasBind2Parent() {
+//        return dataSet.hasBind2Parent();
+//    }
+//
+//    public void removeFromOriginalParent() {
+//        dataSet.removeFromOriginalParent();
+//    }
+//
+//    /**
+//     * also see {@link #getItem(int)}
+//     */
+//    @Nullable
+//    public T getDataByIndex(int index) {
+//        return dataSet.getDataByIndex(index);
+//    }
+//
+//    public void clearAllData() {
+//        dataSet.clearAllData();
+//    }
+//
+//    public void add(T item) {
+//        dataSet.add(item);
+//    }
+//
+//    public void add(int pos, T item) {
+//        dataSet.add(pos, item);
+//    }
+//
+//    public void addAll(Collection<T> collection) {
+//        dataSet.addAll(collection);
+//    }
+//
+//    public void remove(Object item) {
+//        dataSet.remove(item);
+//    }
+//
+//    public void removeAtPos(int position) {
+//        dataSet.removeAtPos(position);
+//    }
+//
+//    public void startTransaction() {
+//        dataSet.startTransaction();
+//    }
+//
+//    public void endTransaction() {
+//        dataSet.endTransaction();
+//    }
+//
+//    public void endTransactionSilently() {
+//        dataSet.endTransactionSilently();
+//    }
+//
+//    @CheckResult
+//    @Nullable
+//    public PandoraBoxAdapter<T> retrieveAdapterByDataIndex(int index) {
+//        return dataSet.retrieveAdapterByDataIndex(index);
+//    }
+//
+//    @Nullable
+//    public Pair<PandoraBoxAdapter<T>, Integer> retrieveAdapterByDataIndex2(int index) {
+//        return dataSet.retrieveAdapterByDataIndex2(index);
+//    }
+//
+//    public String getAlias() {
+//        return dataSet.getAlias();
+//    }
+//
+//    public void setAlias(String alias) {
+//        try {
+//            dataSet.setAlias(alias);
+//        } catch (PandoraException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

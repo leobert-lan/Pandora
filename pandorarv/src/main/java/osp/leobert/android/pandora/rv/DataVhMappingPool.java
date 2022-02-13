@@ -77,12 +77,6 @@ public class DataVhMappingPool {
         this.registerDVRelation(new DataVhRelation<>(dataClz, viewHolderCreator));
     }
 
-    @Deprecated
-    public synchronized void registerDvRelation(DVRelation... dvRelations) {
-        for (DVRelation dvRelation : dvRelations)
-            registerDVRelation(dvRelation);
-    }
-
     public synchronized void registerDVRelation(DVRelation<?> dvRelation) {
         if (dvRelation == null)
             return;

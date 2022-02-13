@@ -101,8 +101,9 @@ public abstract class DataSet<T extends DataSet.Data> {
 
     /**
      * @param position target position to fetch data
-     * @return data
+     * @return data，null if out of range
      */
+    @Nullable
     public abstract T getItem(int position);
 
     private final List<WeakReference<DataObserver>> observersRef = new ArrayList<>();
@@ -142,7 +143,9 @@ public abstract class DataSet<T extends DataSet.Data> {
 
     @Deprecated
     public synchronized void registerDvRelation(DataVhMappingPool.DVRelation... dvRelations) {
-        dataVhMappingPool.registerDvRelation(dvRelations);
+        for (DataVhMappingPool.DVRelation dvRelation : dvRelations) {
+            dataVhMappingPool.registerDVRelation(dvRelation);
+        }
     }
 
     public synchronized DataSet<T> registerDVRelation(DataVhMappingPool.DVRelation<?> dvRelation) {
