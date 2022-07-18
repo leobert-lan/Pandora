@@ -3,11 +3,10 @@ package osp.leobert.androidkt.pandora.rv
 import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import osp.leobert.android.pandora.DataAdapter
 import osp.leobert.android.pandora.Logger
-import osp.leobert.android.pandora.Pandora
 import osp.leobert.android.pandora.PandoraException
 import java.lang.ref.WeakReference
-import java.util.*
 
 /*
  * <p><b>Package:</b> osp.leobert.androidkt.pandora.rv </p>
@@ -17,7 +16,7 @@ import java.util.*
  */
 @SuppressWarnings("unused")
 @SuppressLint("unused")
-abstract class DataSet<T : DataSet.Data> {
+abstract class DataSet<T : DataSet.Data> : DataAdapter<T> {
 
     companion object {
         private inline fun <reified R> Any?.takeIfInstance(): R? {

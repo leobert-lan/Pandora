@@ -35,6 +35,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+import osp.leobert.android.pandora.DataAdapter;
 import osp.leobert.android.pandora.Logger;
 import osp.leobert.android.pandora.PandoraException;
 import osp.leobert.android.pandora.visitor.TypeVisitor;
@@ -48,7 +49,7 @@ import osp.leobert.android.pandora.visitor.TypeVisitor;
  * Created by leobert on 2018/10/10.
  */
 @SuppressWarnings("unused")
-public abstract class DataSet<T extends DataSet.Data> {
+public abstract class DataSet<T extends DataSet.Data> implements DataAdapter<T> {
 
     public static <DATA, VH extends IViewHolder<DATA>> void helpSetToViewHolder(D<DATA, VH> data, VH viewHolder) {
         //make sure it will dispose the binding to old reactive data

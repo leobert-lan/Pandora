@@ -22,7 +22,7 @@ import osp.leobert.android.pandora.visitor.TypeVisitor;
  * Created by leobert on 2022/2/13.
  */
 @SuppressWarnings("unused")
-public abstract class PandoraDataSet<T extends DataSet.Data,D extends PandoraBoxAdapter<T>> extends DataSet<T> {
+public abstract class PandoraDataSet<T extends DataSet.Data, D extends PandoraBoxAdapter<T>> extends DataSet<T> {
 
     @NonNull
     protected final D dataSet;
@@ -129,47 +129,58 @@ public abstract class PandoraDataSet<T extends DataSet.Data,D extends PandoraBox
         dataSet.removeChild(sub);
     }
 
+    @Override
     public int getDataCount() {
         return dataSet.getDataCount();
     }
 
+    @Override
     public T getDataByIndex(int index) {
         return dataSet.getDataByIndex(index);
     }
 
+    @Override
     public void clearAllData() {
         dataSet.clearAllData();
     }
 
+    @Override
     public void add(T item) {
         dataSet.add(item);
     }
 
+    @Override
     public void add(int pos, T item) {
         dataSet.add(pos, item);
     }
 
+    @Override
     public void addAll(Collection<T> collection) {
         dataSet.addAll(collection);
     }
 
+    @Override
     public void remove(Object item) {
         dataSet.remove(item);
     }
 
+    @Override
     public void removeAtPos(int position) {
         dataSet.removeAtPos(position);
     }
 
+    @Override
     public boolean replaceAtPosIfExist(int position, T item) throws PandoraException {
         return dataSet.replaceAtPosIfExist(position, item);
     }
 
+    @Override
     public void setData(Collection<T> collection) {
         dataSet.setData(collection);
     }
 
     @IntRange(from = -1L)
+    @Override
     public int indexOf(T item) {
         return dataSet.indexOf(item);
     }

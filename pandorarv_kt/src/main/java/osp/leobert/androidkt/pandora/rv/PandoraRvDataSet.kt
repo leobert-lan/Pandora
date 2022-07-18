@@ -1,9 +1,9 @@
 package osp.leobert.androidkt.pandora.rv
 
 import android.util.Pair
+import osp.leobert.android.pandora.DataAdapter
 import osp.leobert.android.pandora.PandoraBoxAdapter
 import osp.leobert.android.pandora.PandoraException
-import osp.leobert.android.pandora.RealDataSet
 
 /*
  * <p><b>Package:</b> osp.leobert.androidkt.pandora.rv </p>
@@ -11,8 +11,8 @@ import osp.leobert.android.pandora.RealDataSet
  * <p><b>Classname:</b> PandoraRvDataSet </p>
  * Created by leobert on 2019/2/19.
  */
-class PandoraRvDataSet<T : DataSet.Data>(private val realDataSet: PandoraBoxAdapter<T>)
-    : DataSet<DataSet.Data>() {
+@Suppress("unused")
+class PandoraRvDataSet<T : DataSet.Data>(private val realDataSet: PandoraBoxAdapter<T>) : DataSet<T>(), DataAdapter<T> by realDataSet {
 
     fun boxAdapter(): PandoraBoxAdapter<T> {
         return realDataSet
@@ -46,37 +46,37 @@ class PandoraRvDataSet<T : DataSet.Data>(private val realDataSet: PandoraBoxAdap
         return realDataSet.retrieveAdapterByDataIndex2(index)
     }
 
-    fun getDataByIndex(index: Int): T {
+    override fun getDataByIndex(index: Int): T {
         return realDataSet.getDataByIndex(index)
     }
 
-    fun clearAllData() {
-        realDataSet.clearAllData()
-    }
-
-    fun add(item: T) {
-        realDataSet.add(item)
-    }
-
-    fun add(pos: Int, item: T) {
-        realDataSet.add(pos, item)
-    }
-
-    fun addAll(collection: Collection<T>) {
-        realDataSet.addAll(collection)
-    }
-
-    fun remove(item: Any) {
-        realDataSet.remove(item)
-    }
-
-    fun removeAtPos(position: Int) {
-        realDataSet.removeAtPos(position)
-    }
-
-    fun setData(collection: Collection<T>) {
-        realDataSet.setData(collection)
-    }
+//    fun clearAllData() {
+//        realDataSet.clearAllData()
+//    }
+//
+//    fun add(item: T) {
+//        realDataSet.add(item)
+//    }
+//
+//    fun add(pos: Int, item: T) {
+//        realDataSet.add(pos, item)
+//    }
+//
+//    fun addAll(collection: Collection<T>) {
+//        realDataSet.addAll(collection)
+//    }
+//
+//    fun remove(item: Any) {
+//        realDataSet.remove(item)
+//    }
+//
+//    fun removeAtPos(position: Int) {
+//        realDataSet.removeAtPos(position)
+//    }
+//
+//    fun setData(collection: Collection<T>) {
+//        realDataSet.setData(collection)
+//    }
 
     fun hasBind2Parent(): Boolean {
         return realDataSet.hasBind2Parent()
