@@ -4,10 +4,8 @@ apply plugin: 'kotlin-kapt'
 
 apply plugin: 'osp.leobert.maven.publish'
 def RELEASE_NOTE =
-        "v0.0.3:" +
-                "1. 修复样式注册方式存在的隐性bug，在移除样式后继续执行注册样式会出现错误覆盖" +
-                "2. 新增简单的样式合并功能，但对于同一数据类的不同样式需要业务处理，并不会智能合并" +
-                "3. 修改类名错误，DateVhMappingPool已修正"
+        "v0.0.5:" +
+                "1. feat:let DataSet implement DataAdapter, thus can depends on abstract when use."
 
 
 //def MAVEN_LOCAL_PATH = uri('../../local_repo')
@@ -90,7 +88,7 @@ EasyPublish {
 
     groupId = "io.github.leobert-lan"
     artifactId = "pandorarv_kt"
-    version = "0.0.4"
+    version = "0.0.5"
     packaging = "aar"
     siteUrl = "https://github.com/leobert-lan/Panora"
     gitUrl = "https://github.com/leobert-lan/Panora.git"

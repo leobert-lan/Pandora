@@ -28,8 +28,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'osp.leobert.maven.publish'
 
 def RELEASE_NOTE =
-        "v0.1.2-alpha:" +
-                "1. 增加必要泛型约束，增加易用API"
+        "v0.1.3:" +
+                "1. feat:let DataSet implement DataAdapter, thus can depends on abstract when use."
 
 
 //def MAVEN_LOCAL_PATH = uri('../../local_repo')
@@ -104,7 +104,7 @@ EasyPublish {
 
     groupId = "io.github.leobert-lan"
     artifactId = "pandorarv"
-    version = "0.1.2"
+    version = "0.1.3"
     packaging = "aar"
     siteUrl = "https://github.com/leobert-lan/Panora"
     gitUrl = "https://github.com/leobert-lan/Panora.git"
